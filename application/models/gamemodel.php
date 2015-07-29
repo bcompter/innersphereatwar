@@ -12,4 +12,12 @@ Class Gamemodel extends MY_Model {
         $this->table = 'games';
     }
     
+    /**
+     * Get a list of all games on the server
+     */
+    function get_all()
+    {
+        return $this->db->query('SELECT * FROM games')->result();
+    }
+    
 }

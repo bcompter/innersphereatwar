@@ -20,4 +20,14 @@ class Home extends MY_Controller {
         $this->load->view('template', $page);
     }
     
+    /**
+     * Show the dashboard
+     */
+    function dashboard()
+    {
+        $page = $this->page;
+        $page['content'] = 'dashboard';
+        $this->load->view('template', $page);
+    }
+    
 }

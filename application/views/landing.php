@@ -12,7 +12,7 @@
                     <h3 class="panel-title">Dashboard</h3>
                 </div>
                 <div class="panel-body">
-                    Panel content
+                    <?php echo anchor('home/dashboard', 'Dashboard'); ?>
                 </div>
             </div>
         </div><!-- /.col-md-4 -->
@@ -22,7 +22,7 @@
                     <h3 class="panel-title">Register</h3>
                 </div>
                 <div class="panel-body">
-                    Panel content
+                    <?php echo anchor('auth/register', 'Register'); ?>
                 </div>
             </div>
         </div><!-- /.col-md-4 -->
@@ -32,7 +32,7 @@
                     <h3 class="panel-title">Sign In</h3>
                 </div>
                 <div class="panel-body">
-                    Panel content
+                    <?php echo anchor('auth/signin', 'Sign In'); ?>
                 </div>
             </div>
         </div><!-- /.col-md-4 -->
