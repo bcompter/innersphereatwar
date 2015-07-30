@@ -70,6 +70,17 @@ class Game extends MY_Controller {
         $page['games'] = $this->gamemodel->get_all();
         $page['content'] = 'game_view_list';
         $this->load->view('template', $page);
-    }    
+    }
+    
+    /**
+     * Pick a faction and play a game
+     */
+    function play($game_id=0, $faction_id=0)
+    {
+        $page = $this->page;
+        
+        $this->load->model('gamemodel');
+        $game = $this->gamemodel->get_by_id($game_id);
+    }
     
 }

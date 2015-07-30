@@ -3,7 +3,7 @@
         <div class="form-group">
             <label class="col-md-2 control-label">Name</label>
             <div class="col-md-10">
-                <input type="text" class="form-control" id="name" placeholder="Name">
+                <input type="text" class="form-control" name="name" placeholder="Name">
             </div>
         </div>
         <div class="form-group">
