@@ -73,6 +73,14 @@ class Game extends MY_Controller {
     }
     
     /**
+     * Pick a faction and play a game
+     */
+    function play($game_id=0, $faction_id=0)
+    {
+        $page = $this->page;
+        
+        $this->load->model('gamemodel');
+        $game = $this->gamemodel->get_by_id($game_id);
      * Update the game turn
      */
     function update_turn($game_id=0, $value=0)
