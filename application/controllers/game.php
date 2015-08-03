@@ -81,6 +81,9 @@ class Game extends MY_Controller {
         
         $this->load->model('gamemodel');
         $game = $this->gamemodel->get_by_id($game_id);
+    }
+    
+    /**
      * Update the game turn
      */
     function update_turn($game_id=0, $value=0)
