@@ -28,7 +28,7 @@ class Game extends MY_Controller {
         
         // Validate form input
         $this->form_validation->set_rules('name', 'Name', 'required|max_length[200]');
-        if ($this->form_validation->run() == false)
+        if ($this->form_validation->run() == FALSE)
         { 
             // Show the form
             $page['content'] = 'game_form';
@@ -70,6 +70,22 @@ class Game extends MY_Controller {
         $page['games'] = $this->gamemodel->get_all();
         $page['content'] = 'game_view_list';
         $this->load->view('template', $page);
-    }    
+    }
+    
+    /**
+     * Update the game turn
+     */
+    function update_turn($game_id=0, $value=0)
+    {
+        $page = $this->page;
+        
+        $this->load->model('gamemodel');
+        $page['game'] = $this->gamemodel->get_by_id($game_id);
+        $page['game']->turn += $value;
+        $this->gamemodel->update($game_id, $page['game']);
+        
+        $this->session->set_flashdata('notice', 'Game updated.');
+        redirect('game/view/'.$game_id, 'refresh');
+    }
     
 }
