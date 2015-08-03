@@ -1,6 +1,7 @@
 <div class="container">
     <h1>Create a new RAT Table</h1>
-    <form class="form-horizontal">
+    <?php echo validation_errors(); ?>
+    <form class="form-horizontal" action="<?php echo base_url('index.php/rat/create'); ?>" method="post">
         <div class="form-group">
             <label class="col-md-2 control-label">Name</label>
             <div class="col-md-10">

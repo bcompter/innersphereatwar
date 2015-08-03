@@ -14,10 +14,7 @@
                 <li><?php echo anchor('rat/view_all', 'View RATs'); ?></li>
                 <li><?php echo anchor('unit/view_all', 'View Units'); ?></li>
             </ul>
-            
+         
         </div>
-        
     </div>
-    
-    
 </div>

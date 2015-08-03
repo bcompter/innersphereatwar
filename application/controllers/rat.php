@@ -57,9 +57,9 @@ class Rat extends MY_Controller {
     }
     
     /**
-     * Delete a unit from this RAT
+     * Remove a unit from this RAT
      */
-    function delete_unit()
+    function remove_unit()
     {
         
     }
