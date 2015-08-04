@@ -33,6 +33,18 @@ class Unit extends MY_Controller {
             // Create the new unit
             $unit = new stdClass();
             $unit->name = $this->input->post('name');
+            
+            $unit->type = $this->input->post('type');
+            $unit->move = $this->input->post('move');
+            $unit->jump = $this->input->post('jump');
+            $unit->armor = $this->input->post('armor');
+            $unit->structure = $this->input->post('structure');
+            $unit->short_dmg = $this->input->post('short');
+            $unit->med_dmg = $this->input->post('medium');
+            $unit->long_dmg = $this->input->post('long');
+            $unit->overheat = $this->input->post('overheat');
+            $unit->special = $this->input->post('special');
+            
             $this->unitmodel->create($unit);
             
             $this->session->set_flashdata('notice', 'Unit created.');

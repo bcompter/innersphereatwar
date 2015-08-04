@@ -12,4 +12,12 @@ Class Playermodel extends MY_Model {
         $this->table = 'players';
     }
     
+    /**
+     * Get all players associated with a faction
+     */
+    function get_by_faction($faction_id)
+    {
+        return $this->db->query('SELECT * FROM players WHERE faction_id='.$faction_id)->result();
+    }
+    
 }

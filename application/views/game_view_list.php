@@ -6,7 +6,7 @@
             <th>Name</th>
             <th>&nbsp;</th>
         </tr>
-    <?php foreach($game as $g): ?>
+    <?php foreach($games as $g): ?>
         <tr>
             <td><?php echo $g->name; ?></td>
             <td><?php echo anchor('game/view/'.$g->game_id, 'VIEW'); ?></td>

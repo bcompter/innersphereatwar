@@ -12,4 +12,12 @@ Class Unitmodel extends MY_Model {
         $this->table = 'units';
     }
     
+    /**
+     * Get all units on the server
+     */
+    function get_all()
+    {
+        return $this->db->query('SELECT * FROM units')->result();
+    }
+    
 }

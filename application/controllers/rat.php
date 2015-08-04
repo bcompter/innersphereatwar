@@ -19,7 +19,7 @@ class Rat extends MY_Controller {
     /**
      * View a RAT
      */
-    function view()
+    function view($rat_id=0)
     {
         
     }
@@ -29,7 +29,12 @@ class Rat extends MY_Controller {
      */
     function view_all()
     {
+        $page = $this->page;
         
+        $this->load->model('ratmodel');
+        $page['rats'] = $this->ratmodel->get_all();
+        $page['content'] = 'rat_view_list';
+        $this->load->view('template', $page);
     }
     
     /**
@@ -43,7 +48,7 @@ class Rat extends MY_Controller {
     /**
      * Edit an existing RAT table
      */
-    function edit()
+    function edit($rat_id=0)
     {
         
     }
@@ -51,7 +56,7 @@ class Rat extends MY_Controller {
     /**
      * Add a unit to this RAT
      */
-    function add_unit()
+    function add_unit($rat_id=0, $element_id=0)
     {
         
     }
@@ -59,7 +64,7 @@ class Rat extends MY_Controller {
     /**
      * Remove a unit from this RAT
      */
-    function remove_unit()
+    function remove_unit($rat_id=0, $data_id)
     {
         
     }

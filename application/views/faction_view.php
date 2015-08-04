@@ -7,7 +7,7 @@
         <li>...</li>
     </ul>
     
-    <h2>Player List</h2>
+    <h2>Player List <small>(<?php echo anchor('game/join/'.$game->game_id, 'join'); ?>)</small></h2>
     <?php foreach($players as $p): ?>
     
     <?php endforeach; ?>

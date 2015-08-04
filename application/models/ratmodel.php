@@ -9,7 +9,15 @@ Class Ratmodel extends MY_Model {
     {
         parent::__construct();
         $this->table_id = 'rat_id';
-        $this->table = 'rats';
+        $this->table = 'rat';
+    }
+    
+    /**
+     * Get all RATs on the server
+     */
+    function get_all()
+    {
+        return $this->db->query('SELECT * FROM rat')->result();
     }
     
 }

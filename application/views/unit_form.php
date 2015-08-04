@@ -28,6 +28,13 @@
         </div>
         
         <div class="form-group">
+            <label class="col-md-2 control-label">Jump</label>
+            <div class="col-md-10">
+                <input type="text" class="form-control" name="jump" placeholder="Jump">
+            </div>
+        </div>
+        
+        <div class="form-group">
             <label class="col-md-2 control-label">Armor</label>
             <div class="col-md-10">
                 <input type="text" class="form-control" name="armor" placeholder="Armor Value">
@@ -63,6 +70,13 @@
             <label class="col-md-2 control-label">Overheat</label>
             <div class="col-md-10">
                 <input type="text" class="form-control" name="overheat" placeholder="Overheat">
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label class="col-md-2 control-label">Special</label>
+            <div class="col-md-10">
+                <input type="text" class="form-control" name="special" placeholder="Special">
             </div>
         </div>
         
