@@ -12,4 +12,16 @@ Class Tokenmodel extends MY_Model {
         $this->table = 'tokens';
     }
     
+    /**
+     * Get all tokens located on a planet
+     * on either the ground or aero maps
+     */
+    function get_by_planet($planet_id=0, $location=0)
+    {
+        return $this->db->query('SELECT * FROM tokens '
+                . 'JOIN planets ON planets.planet_id=tokens.planet_id '
+                . 'WHERE tokens.planet_id='.$planet_id.' '
+                . 'AND tokens.location='.$location)->result();
+    }
+    
 }

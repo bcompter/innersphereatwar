@@ -1,7 +1,7 @@
 <div class="container">
     <h1>Create a New Planet</h1>
     <?php echo validation_errors(); ?>
-    <form class="form-horizontal" action="<?php echo base_url('index.php/planet/create'); ?>" method="post">
+    <form class="form-horizontal" action="<?php echo base_url('index.php/planet/create/'.$game->game_id); ?>" method="post">
         <div class="form-group">
             <label class="col-md-2 control-label">Name</label>
             <div class="col-md-10">
@@ -11,7 +11,14 @@
         <div class="form-group">
             <label class="col-md-2 control-label">Type</label>
             <div class="col-md-10">
-                <input type="text" class="form-control" name="type" placeholder="Planet Type">
+                <select class="form-control" name="type">
+                    <option>Capital</option>
+                    <option>Regional</option>
+                    <option>Hyper</option>
+                    <option>Major</option>
+                    <option>Minor</option>
+                    <option>Other</option>
+                </select>
             </div>
         </div>
         <div class="form-group">

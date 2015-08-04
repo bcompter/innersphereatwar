@@ -11,7 +11,7 @@
         <tr>    <td>Long</td><td><?php echo $unit->long_dmg; ?></td></tr>
         <tr>    <td>Overheat</td><td><?php echo $unit->overheat; ?></td></tr>
         <tr>    <td>Armor</td><td><?php echo $unit->armor; ?></td></tr>
-         <tr>   <td>Structure</td><td><?php echo $unit->structure; ?></td></tr>
-         <tr>   <td>Special</td><td><?php echo $unit->special; ?></td></tr>
+        <tr>    <td>Structure</td><td><?php echo $unit->structure; ?></td></tr>
+        <tr>    <td>Special</td><td><?php echo $unit->special; ?></td></tr>
     </table>
 </div>
