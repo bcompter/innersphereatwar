@@ -1,5 +1,5 @@
 <div class="container">
-    <h1>Unit List (<small><?php echo anchor('unit/create/', 'add'); ?></small>)</h1>
+    <h1>Unit List <small>(<?php echo anchor('unit/create/', 'add'); ?>)</small></h1>
     
     <table class="table table-striped">
         <tr>

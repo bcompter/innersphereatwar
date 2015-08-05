@@ -10,10 +10,13 @@
         <tr>
             <th>Loyalty</th><td><?php echo $command->loyalty; ?></td>
         </tr>
+        <tr>
+            <th>Location</th><td><?php echo anchor('planet/view/'.$planet->planet_id, $planet->name); ?></td>
+        </tr>
 
     </table>
     
-    <h2>Formations</h2>
+    <h2>Formations <small>(<?php echo anchor('command/add_formation/'.$command->command_id, 'add'); ?>)</small></h2>
     ...
     
 </div>

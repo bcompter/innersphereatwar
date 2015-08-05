@@ -90,15 +90,72 @@ class Rat extends MY_Controller {
      */
     function add_unit($rat_id=0, $element_id=0)
     {
+        $page = $this->page;
+        
+        $this->load->model('ratmodel');
+        $this->load->model('ratdatamodel');
+        $this->load->model('unitmodel');
+        $page['rat'] = $this->ratmodel->get_by_id($rat_id);
+        $page['ratdata'] = $this->ratdatamodel->get_by_rat($rat_id);
+        
+        if ($element_id == 0)
+        {
+            // Show the select form
+            $page['units'] = $this->unitmodel->get_all();
+            $page['content'] = 'rat_add';
+            $this->load->view('template', $page);
+            return;
+        }
+        else
+        {
+            // Add the requested unit
+            $unit = $this->unitmodel->get_by_id($element_id);
+            $page['ratdata'] = $this->ratdatamodel->get_by_rat($rat_id);
+            
+            $rat_data = new stdClass();
+            $rat_data->rat_id = $rat_id;
+            $rat_data->unit_id = $element_id;
+            $rat_data->unit_name = $unit->name;
+            $rat_data->roll = count($page['ratdata'])+2;
+            $this->ratdatamodel->create($rat_data);
+            
+            $this->session->set_flashdata('notice', 'Unit added.');
+            redirect('rat/view/'.$rat_id, 'refresh');
+        }
         
     }
     
     /**
      * Remove a unit from this RAT
      */
-    function remove_unit($rat_id=0, $data_id)
+    function remove_unit($rat_id=0, $data_id=0)
     {
+        $page = $this->page;
         
+        $this->load->model('ratdatamodel');
+        $this->ratdatamodel->delete($data_id);
+        
+        $this->session->set_flashdata('notice', 'Unit removed.');
+        redirect('rat/view/'.$rat_id, 'refresh');
+    }
+    
+    /**
+     * Update a roll value
+     */
+    function update_data($rat_id=0, $data_id=0, $mod=0)
+    {
+        $page = $this->page;
+        
+        $this->load->model('ratmodel');
+        $this->load->model('ratdatamodel');
+        
+        $rat = $this->ratmodel->get_by_id($rat_id);
+        $data = $this->ratdatamodel->get_by_id($data_id);
+        $data->roll += $mod;
+        $this->ratdatamodel->update($data_id, $data);
+        
+        $this->session->set_flashdata('notice', 'Unit updated.');
+        redirect('rat/view/'.$rat_id, 'refresh');
     }
 
 }

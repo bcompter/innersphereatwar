@@ -70,7 +70,9 @@ class Planet extends MY_Controller {
         $page = $this->page;
         
         $this->load->model('planetmodel');
+        $this->load->model('commandmodel');
         $page['planet'] = $this->planetmodel->get_by_id($planet_id);
+        $page['commands'] = $this->commandmodel->get_by_planet($planet_id);
         $page['content'] = 'planet_view';
         $this->load->view('template', $page);
     }

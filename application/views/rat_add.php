@@ -20,12 +20,12 @@
         <?php foreach ($units as $u): ?>
         <tr>
             <td><?php echo $u->name; ?></td>
-            <td><?php echo $u->movement; ?></td>
+            <td><?php echo $u->move; ?></td>
             <td><?php echo $u->armor; ?></td>
             <td><?php echo $u->structure; ?></td>
-            <td><?php echo $u->dmg_short; ?></td>
-            <td><?php echo $u->dmg_med; ?></td>
-            <td><?php echo $u->dmg_long; ?></td>
+            <td><?php echo $u->short_dmg; ?></td>
+            <td><?php echo $u->med_dmg; ?></td>
+            <td><?php echo $u->long_dmg; ?></td>
             <td><?php echo $u->overheat; ?></td>
             <td><?php echo anchor('rat/add_unit/'.$rat->rat_id.'/'.$u->unit_id, 'ADD'); ?></td>
         </tr>

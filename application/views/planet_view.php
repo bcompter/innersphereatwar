@@ -18,10 +18,15 @@
                 <th>&nbsp;</th>
             </tr>
             
+            <?php foreach($commands as $c): ?>
             <tr>
-                <td>...</td>
-                <td>VIEW</td>
+                <td><?php echo $c->name; ?></td>
+                <td>
+                    <?php echo anchor('command/view/'.$c->command_id, 'VIEW'); ?>
+                </td>
             </tr>
+            <?php endforeach; ?>
+            
         </table>
     </div>
     
