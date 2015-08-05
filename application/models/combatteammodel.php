@@ -1,6 +1,6 @@
 <?php
 
-Class Regimentmodel extends MY_Model {
+Class Combatteammodel extends MY_Model {
 
     /**
      * Default constructor
@@ -8,8 +8,8 @@ Class Regimentmodel extends MY_Model {
     function __construct()
     {
         parent::__construct();
-        $this->table_id = 'regiment_id';
-        $this->table = 'regiments';
+        $this->table_id = 'team_id';
+        $this->table = 'combatteams';
     }
     
 }

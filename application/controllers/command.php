@@ -39,7 +39,7 @@ class Command extends MY_Controller {
         }
         else
         {            
-            // Create the new faction
+            // Create the new command
             $page['faction'] = $this->factionmodel->get_by_id($faction_id);
             $game = $this->gamemodel->get_by_id($page['faction']->game_id);
             $command = new stdClass();
@@ -60,7 +60,16 @@ class Command extends MY_Controller {
      */
     function delete($command_id=0)
     {
+        $page = $this->page;
+        $this->load->model('commandmodel');
+        $this->load->model('factionmodel');
+        $page['command'] = $this->commandmodel->get_by_id($command_id);
+        $page['faction'] = $this->factionmodel->get_by_id($page['command']->faction_id);
         
+        $this->commandmodel->delete($command_id);
+        
+        $this->session->set_flashdata('notice', 'Command deleted.');
+        redirect('faction/view/'.$page['faction']->faction_id, 'refresh');
     }
     
     /**
@@ -83,4 +92,39 @@ class Command extends MY_Controller {
         $this->load->view('template', $page);
     }
     
+    /**
+     * Add a formation to this combat command
+     */
+    function add_formation($command_id=0)
+    {
+        $page = $this->page;
+        
+        $this->load->library('form_validation');
+        $this->load->model('gamemodel');
+        $this->load->model('factionmodel');
+        $this->load->model('commandmodel');
+        
+        $page['command'] = $this->commandmodel->get_by_id($command_id);
+        
+        // Validate form input
+        $this->form_validation->set_rules('name', 'Name', 'required|max_length[200]');
+        if ($this->form_validation->run() == FALSE)
+        { 
+            // Show the form
+            $page['content'] = 'formation_form';
+            $this->load->view('template', $page);
+        }
+        else
+        {            
+            // Create the new formation
+            $formation = new stdClass();
+            $formation->name = $this->input->post('name');
+            $formation->command_id = $command_id;
+            $formation->experience = $page['command']->experiece;
+            $this->formationmodel->create($formation);
+            
+            $this->session->set_flashdata('notice', 'Formation created.');
+            redirect('command/view/'.$command_id, 'refresh');
+        }
+    }
 }
