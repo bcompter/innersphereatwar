@@ -33,7 +33,7 @@ class Unit extends MY_Controller {
             // Create the new unit
             $unit = new stdClass();
             $unit->name = $this->input->post('name');
-            
+            $unit->size = $this->input->post('size');
             $unit->type = $this->input->post('type');
             $unit->move = $this->input->post('move');
             $unit->jump = $this->input->post('jump');

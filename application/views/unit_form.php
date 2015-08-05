@@ -21,6 +21,18 @@
         </div>
         
         <div class="form-group">
+            <label class="col-md-2 control-label">Size</label>
+            <div class="col-md-10">
+                <select class="form-control" name="size">
+                    <option>Light</option>
+                    <option>Medium</option>
+                    <option>Heavy</option>
+                    <option>Assault</option>
+                </select>
+            </div>
+        </div>
+        
+        <div class="form-group">
             <label class="col-md-2 control-label">Move</label>
             <div class="col-md-10">
                 <input type="text" class="form-control" name="move" placeholder="Move">

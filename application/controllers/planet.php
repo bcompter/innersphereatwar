@@ -117,7 +117,9 @@ class Planet extends MY_Controller {
         $page = $this->page;
         
         $this->load->model('planetmodel');
-        $page['planets'] = $this->planetmodel->get_game($game_id);
+        $page['planets'] = $this->planetmodel->get_by_game($game_id);
+        $this->load->model('gamemodel');
+        $page['game'] = $this->gamemodel->get_by_id($game_id);
         $page['content'] = 'planet_view_list';
         $this->load->view('template', $page);
     }

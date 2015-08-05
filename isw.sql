@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost:8889
--- Generation Time: Aug 04, 2015 at 11:55 AM
+-- Generation Time: Aug 05, 2015 at 05:07 AM
 -- Server version: 5.5.38
 -- PHP Version: 5.5.18
 
@@ -53,12 +53,9 @@ CREATE TABLE `combat_commands` (
   `game_id` int(11) NOT NULL,
   `faction_id` int(11) NOT NULL,
   `planet_id` int(11) NOT NULL,
-  `mechs` int(11) NOT NULL,
-  `vehicles` int(11) NOT NULL,
-  `infantry` int(11) NOT NULL,
-  `aero` int(11) NOT NULL,
-  `artillery` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `experience` enum('Green','Regular') NOT NULL,
+  `loyalty` enum('Questionable','Reliable','Fanatical') NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -97,7 +94,7 @@ CREATE TABLE `factions` (
   `game_id` int(11) NOT NULL,
   `name` varchar(200) NOT NULL,
   `color` varchar(12) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -145,7 +142,7 @@ CREATE TABLE `lances` (
 CREATE TABLE `meta` (
 `id` mediumint(8) unsigned NOT NULL,
   `user_id` mediumint(8) unsigned DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
 
 -- --------------------------------------------------------
 
@@ -157,9 +154,10 @@ CREATE TABLE `planets` (
 `planet_id` int(11) NOT NULL,
   `game_id` int(11) NOT NULL,
   `name` varchar(200) NOT NULL,
+  `type` enum('Capital','Regional','Hyper','Major','Minor','Other') NOT NULL,
   `x` int(11) NOT NULL,
   `y` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -172,7 +170,7 @@ CREATE TABLE `players` (
   `game_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `faction_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -184,9 +182,9 @@ CREATE TABLE `rat` (
 `rat_id` int(11) NOT NULL,
   `name` varchar(200) NOT NULL,
   `faction` varchar(200) NOT NULL,
-  `type` enum('Mech','Vehicle','Aero','') NOT NULL,
-  `class` enum('Light','Medium','Heavy','Assault') NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `type` enum('Mech','Vehicle','Aero','Infantry') NOT NULL,
+  `size` enum('Light','Medium','Heavy','Assault') NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -198,7 +196,7 @@ CREATE TABLE `rat_data` (
 `data_id` int(11) NOT NULL,
   `rat_id` int(11) NOT NULL,
   `roll` int(11) NOT NULL,
-  `value` varchar(200) NOT NULL
+  `unit_name` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -217,6 +215,21 @@ CREATE TABLE `regiments` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `tokens`
+--
+
+CREATE TABLE `tokens` (
+`token_id` int(11) NOT NULL,
+  `formation_id` int(11) NOT NULL,
+  `planet_id` int(11) NOT NULL,
+  `location` enum('Ground','Aero') NOT NULL DEFAULT 'Ground',
+  `x` int(11) NOT NULL DEFAULT '0',
+  `y` int(11) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `units`
 --
 
@@ -224,9 +237,9 @@ CREATE TABLE `units` (
 `unit_id` int(11) NOT NULL,
   `name` varchar(200) NOT NULL,
   `type` enum('Mech','Vehicle','Infantry','Aero') NOT NULL,
-  `size` int(11) NOT NULL,
+  `size` enum('Light','Medium','Heavy','Assault') NOT NULL,
   `move` int(11) NOT NULL,
-  `has_jump` int(11) NOT NULL,
+  `jump` int(11) NOT NULL,
   `short_dmg` int(11) NOT NULL,
   `med_dmg` int(11) NOT NULL,
   `long_dmg` int(11) NOT NULL,
@@ -234,7 +247,7 @@ CREATE TABLE `units` (
   `armor` int(11) NOT NULL,
   `structure` int(11) NOT NULL,
   `special` longtext NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -353,6 +366,12 @@ ALTER TABLE `regiments`
  ADD PRIMARY KEY (`regiment_id`), ADD KEY `command_id` (`command_id`);
 
 --
+-- Indexes for table `tokens`
+--
+ALTER TABLE `tokens`
+ ADD PRIMARY KEY (`token_id`), ADD KEY `formation_id` (`formation_id`,`planet_id`);
+
+--
 -- Indexes for table `units`
 --
 ALTER TABLE `units`
@@ -377,7 +396,7 @@ MODIFY `battalion_id` int(11) NOT NULL AUTO_INCREMENT;
 -- AUTO_INCREMENT for table `combat_commands`
 --
 ALTER TABLE `combat_commands`
-MODIFY `command_id` int(11) NOT NULL AUTO_INCREMENT;
+MODIFY `command_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `companies`
 --
@@ -392,7 +411,7 @@ MODIFY `element_id` int(11) NOT NULL AUTO_INCREMENT;
 -- AUTO_INCREMENT for table `factions`
 --
 ALTER TABLE `factions`
-MODIFY `faction_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+MODIFY `faction_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `games`
 --
@@ -412,22 +431,22 @@ MODIFY `lance_id` int(11) NOT NULL AUTO_INCREMENT;
 -- AUTO_INCREMENT for table `meta`
 --
 ALTER TABLE `meta`
-MODIFY `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=11;
+MODIFY `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `planets`
 --
 ALTER TABLE `planets`
-MODIFY `planet_id` int(11) NOT NULL AUTO_INCREMENT;
+MODIFY `planet_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `players`
 --
 ALTER TABLE `players`
-MODIFY `player_id` int(11) NOT NULL AUTO_INCREMENT;
+MODIFY `player_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `rat`
 --
 ALTER TABLE `rat`
-MODIFY `rat_id` int(11) NOT NULL AUTO_INCREMENT;
+MODIFY `rat_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `rat_data`
 --
@@ -439,10 +458,15 @@ MODIFY `data_id` int(11) NOT NULL AUTO_INCREMENT;
 ALTER TABLE `regiments`
 MODIFY `regiment_id` int(11) NOT NULL AUTO_INCREMENT;
 --
+-- AUTO_INCREMENT for table `tokens`
+--
+ALTER TABLE `tokens`
+MODIFY `token_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+--
 -- AUTO_INCREMENT for table `units`
 --
 ALTER TABLE `units`
-MODIFY `unit_id` int(11) NOT NULL AUTO_INCREMENT;
+MODIFY `unit_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `users`
 --

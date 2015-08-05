@@ -54,7 +54,9 @@ class Game extends MY_Controller {
         $page = $this->page;
         
         $this->load->model('gamemodel');
+        $this->load->model('factionmodel');
         $page['game'] = $this->gamemodel->get_by_id($game_id);
+        $page['factions'] = $this->factionmodel->get_by_game($game_id);
         $page['content'] = 'game_view';
         $this->load->view('template', $page);
     }

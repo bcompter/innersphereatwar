@@ -4,5 +4,18 @@
         <li>Turn: <?php echo $game->turn; ?></li>
     </ul>
     <h2>List of Factions <small>(<?php echo anchor('faction/create/'.$game->game_id, 'add'); ?>)</small></h2>
-    <p>...</p>
+    <table class="table table-striped">
+        <tr>
+            <th>Name</th>
+            <th>&nbsp;</th>
+        </tr>
+        <?php foreach ($factions as $f): ?>
+        <tr>
+            <td><?php echo $f->name; ?></td>
+            <td><?php echo anchor('faction/view/'.$f->faction_id, 'VIEW'); ?></td>
+        </tr>
+        <?php endforeach;; ?>
+    </table>
+    
+    <h2><?php echo anchor('planet/view_game/'.$game->game_id, 'View Planets'); ?></h2>
 </div>

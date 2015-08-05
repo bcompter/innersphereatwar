@@ -21,7 +21,7 @@ Class Tokenmodel extends MY_Model {
         return $this->db->query('SELECT * FROM tokens '
                 . 'JOIN planets ON planets.planet_id=tokens.planet_id '
                 . 'WHERE tokens.planet_id='.$planet_id.' '
-                . 'AND tokens.location='.$location)->result();
+                . 'AND tokens.location="'.$location.'"')->result();
     }
     
 }

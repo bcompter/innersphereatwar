@@ -9,6 +9,36 @@
             </div>
         </div>
         <div class="form-group">
+            <label class="col-md-2 control-label">Faction</label>
+            <div class="col-md-10">
+                <input type="text" class="form-control" name="faction" placeholder="Faction">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label">Type</label>
+            <div class="col-md-10">
+                <select class="form-control" name="type">
+                    <option>Mech</option>
+                    <option>Vehicle</option>
+                    <option>Aero</option>
+                    <option>Infantry</option>
+                </select>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label class="col-md-2 control-label">Size</label>
+            <div class="col-md-10">
+                <select class="form-control" name="size">
+                    <option>Light</option>
+                    <option>Medium</option>
+                    <option>Heavy</option>
+                    <option>Assault</option>
+                </select>
+            </div>
+        </div>
+        
+        <div class="form-group">
             <div class="col-md-offset-2 col-sm-10">
                 <button type="submit" class="btn btn-default">Submit</button>
             </div>

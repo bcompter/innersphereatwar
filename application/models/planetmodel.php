@@ -12,4 +12,12 @@ Class Planetmodel extends MY_Model {
         $this->table = 'planets';
     }
     
+    /**
+     * Get all planets in a game
+     */
+    function get_by_game($game_id)
+    {
+        return $this->db->query('SELECT * FROM planets WHERE game_id='.$game_id)->result();
+    }
+    
 }

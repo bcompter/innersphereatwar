@@ -17,7 +17,9 @@ Class Playermodel extends MY_Model {
      */
     function get_by_faction($faction_id)
     {
-        return $this->db->query('SELECT * FROM players WHERE faction_id='.$faction_id)->result();
+        return $this->db->query('SELECT players.*, users.username AS username FROM players '
+                . 'JOIN users ON users.id=players.user_id '
+                . 'WHERE faction_id='.$faction_id)->result();
     }
     
 }

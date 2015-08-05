@@ -1,8 +1,9 @@
 <div class="container">
     <h1>Viewing RAT, <?php echo $rat->name; ?></h1>
     <ul>
+        <li>Faction: <?php echo $rat->faction; ?></li>
         <li>Type: <?php echo $rat->type; ?></li>
-        <li>Weight: <?php echo $rat->weight; ?></li>
+        <li>Size: <?php echo $rat->size; ?></li>
     </ul>
     <table class="table table-striped">
         <tr>

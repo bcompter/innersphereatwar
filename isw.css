@@ -16,3 +16,11 @@ body {
 .theme-showcase .navbar .container {
   width: auto;
 }
+
+.token{
+    position: relative;
+    display: inline;
+    height: 50px;
+    width: 100px;
+    border: solid 1px;
+}

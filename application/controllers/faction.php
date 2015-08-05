@@ -68,12 +68,38 @@ class Faction extends MY_Controller {
         $this->load->model('factionmodel');
         $this->load->model('playermodel');
         $this->load->model('gamemodel');
+        $this->load->model('commandmodel');
         
         $page['faction'] = $this->factionmodel->get_by_id($faction_id);
         $page['game'] = $this->gamemodel->get_by_id($page['faction']->game_id);
         $page['players'] = $this->playermodel->get_by_faction($faction_id);
+        $page['commands'] = $this->commandmodel->get_by_faction($faction_id);
         $page['content'] = 'faction_view';
         $this->load->view('template', $page);
+    }
+    
+    /**
+     * Join a faction
+     */
+    function join($faction_id=0)
+    {
+        $page = $this->page;
+        
+        $this->load->model('factionmodel');
+        $this->load->model('playermodel');
+        $this->load->model('gamemodel');
+        
+        $page['faction'] = $this->factionmodel->get_by_id($faction_id);
+        $page['game'] = $this->gamemodel->get_by_id($page['faction']->game_id);
+        
+        $player = new stdClass();
+        $player->user_id = $page['user']->id;
+        $player->faction_id = $faction_id;
+        $player->game_id = $page['game']->game_id;
+        $this->playermodel->create($player);
+        
+        $this->session->set_flashdata('notice', 'Faction Joined.');
+        redirect('faction/view/'.$faction_id, 'refresh');
     }
     
 }
