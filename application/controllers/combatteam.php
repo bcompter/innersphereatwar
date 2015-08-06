@@ -83,5 +83,13 @@ class Combatteam extends MY_Controller {
     function view($combatteam_id=0)
     {
         $page = $this->page;
+        
+        $this->load->model('combatteammodel');
+        $this->load->model('combatunitmodel');
+        $page['combatteam'] = $this->combatteammodel->get_by_id($combatteam_id);
+        $page['combatunit'] = $this->combatunitmodel->get_by_id($page['combatteam']->combatunit_id);
+        $page['content'] = 'combatteam_view';
+        
+        $this->load->view('template', $page);
     }
 }

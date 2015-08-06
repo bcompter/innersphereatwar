@@ -2,7 +2,7 @@
     <h1><?php echo $command->name ?></h1>
     <table class="table">
         <tr>
-            <th>Name</th><td><?php echo $command->name; ?></td>
+            <th>Faction</th><td><?php echo anchor('faction/view/'.$faction->faction_id, $faction->name); ?></td>
         </tr>
         <tr>
             <th>Experience</th><td><?php echo $command->experience; ?></td>
@@ -17,7 +17,7 @@
     </table>
     
     <h2>Formations <small>(<?php echo anchor('command/add_formation/'.$command->command_id, 'add'); ?>)</small></h2>
-    <table>
+    <table class="table table-striped">
         <tr>
             <th>Name</th>
             <th>Type</th>

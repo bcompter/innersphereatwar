@@ -83,11 +83,13 @@ class Command extends MY_Controller {
         $this->load->model('factionmodel');
         $this->load->model('gamemodel');
         $this->load->model('planetmodel');
+        $this->load->model('formationmodel');
         
         $page['command'] = $this->commandmodel->get_by_id($command_id);
         $page['faction'] = $this->factionmodel->get_by_id($page['command']->faction_id);
         $page['game'] = $this->gamemodel->get_by_id($page['faction']->game_id);
         $page['planet'] = $this->planetmodel->get_by_id($page['command']->planet_id);
+        $page['formations'] = $this->formationmodel->get_by_command($command_id);
         $page['content'] = 'command_view';
         $this->load->view('template', $page);
     }
@@ -103,6 +105,7 @@ class Command extends MY_Controller {
         $this->load->model('gamemodel');
         $this->load->model('factionmodel');
         $this->load->model('commandmodel');
+        $this->load->model('formationmodel');
         
         $page['command'] = $this->commandmodel->get_by_id($command_id);
         
@@ -120,7 +123,7 @@ class Command extends MY_Controller {
             $formation = new stdClass();
             $formation->name = $this->input->post('name');
             $formation->command_id = $command_id;
-            $formation->experience = $page['command']->experiece;
+            $formation->experience = $page['command']->experience;
             $this->formationmodel->create($formation);
             
             $this->session->set_flashdata('notice', 'Formation created.');

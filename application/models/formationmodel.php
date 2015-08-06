@@ -12,4 +12,12 @@ Class Formationmodel extends MY_Model {
         $this->table = 'formations';
     }
     
+    /**
+     * Get all formations attached to a command
+     */
+    function get_by_command($command_id)
+    {
+        return $this->db->query('SELECT * FROM formations WHERE command_id='.$command_id)->result();
+    }
+    
 }

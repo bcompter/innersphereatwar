@@ -42,9 +42,11 @@ class Formation extends MY_Controller {
         $page = $this->page;
         $this->load->model('formationmodel');
         $this->load->model('commandmodel');
+        $this->load->model('combatunitmodel');
         
         $page['formation'] = $this->formationmodel->get_by_id($formation_id);
         $page['command'] = $this->commandmodel->get_by_id($page['formation']->command_id);
+        $page['combatunits'] = $this->combatunitmodel->get_by_formation($formation_id);
         $page['content'] = 'formation_view';
         $this->load->view('template', $page);
     }
@@ -68,7 +70,7 @@ class Formation extends MY_Controller {
         { 
             // Show the form
             $page['formation'] = $formation;
-            $page['content'] = 'formation_form';
+            $page['content'] = 'combatunit_form';
             $this->load->view('template', $page);
         }
         else
@@ -76,7 +78,7 @@ class Formation extends MY_Controller {
             // Create the new formation
             $combatunit = new stdClass();
             $combatunit->name = $this->input->post('name');
-            $combatunit->combatunit_id = $ormation_id;
+            $combatunit->formation_id = $formation_id;
             $this->combatunitmodel->create($combatunit);
             
             $this->session->set_flashdata('notice', 'Combat Unit created.');
