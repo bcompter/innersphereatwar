@@ -189,7 +189,7 @@ class Combatteam extends MY_Controller {
         $this->combatteammodel->update($combatteam_id, $combatteam);
         
         $this->session->set_flashdata('notice', 'Combat team generated.');
-        redirect('combatunit/view/'.$combatunit_id, 'refresh');
+        redirect('combatteam/view/'.$combatteam_id, 'refresh');
     }
     
     /**

@@ -1,7 +1,35 @@
 <div class="container">
     <div class="row">
-        <div class="col-md-10">
+        <div class="col-md-6">
             <h1><?php echo $planet->name; ?><small> Star System Radar Map</small></h1>
+            <table class="table">
+                <tr>
+                    <th>ISW Turn: </th>
+                    <td><?php echo $game->turn; ?></td>
+                    <td>&nbsp;</td>
+                    
+                    <th>ACS Turn: </th>
+                    <td><?php echo $planet->turn; ?></td>
+                    <td><?php echo anchor('planet/update_turn/'.$planet->planet_id.'/-1', '-'); ?> / <?php echo anchor('planet/update_turn/'.$planet->planet_id.'1', '+'); ?></td>
+                    
+                    <th>ACS Phase: </th>
+                    <td><?php echo $planet->phase; ?></td>
+                    <td><?php echo anchor('planet/update_phase/'.$planet->planet_id.'-1', '-'); ?> / <?php echo anchor('planet/update_phase/'.$planet->planet_id.'1', '+'); ?></td>
+                    
+                </tr>
+            </table>
+        </div>
+        <div class="col-md-3">
+            <h2>Token Info</h2>
+            <div id="token_info">
+                ...
+            </div>
+        </div>
+        <div class="col-md-3">
+            <h2>Chat</h2>
+            <div id="chat">
+                ...
+            </div>
         </div>
     </div>
     <div class="row">
@@ -15,7 +43,6 @@
                 {
                     unset($data);
                     $data['token'] = $t;
-                    log_message('error', $t->x.' '.$t->y);
                     $this->load->view('token_view', $data);
                 }
             ?>

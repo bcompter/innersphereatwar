@@ -87,9 +87,11 @@ class Planet extends MY_Controller {
         $this->load->model('planetmodel');
         $this->load->model('tokenmodel');
         $this->load->model('factionmodel');
+        $this->load->model('gamemodel');
         $page['planet'] = $this->planetmodel->get_by_id($planet_id);
         $page['tokens'] = $this->tokenmodel->get_by_planet($planet_id, 'Aero');
         $page['faction'] = $this->factionmodel->get_by_game_user($page['planet']->game_id, $this->page['user']->id);
+        $page['game'] = $this->gamemodel->get_by_id($page['planet']->game_id);
         $page['content'] = 'planet_view_aero';
         $this->load->view('template', $page);
     }
@@ -104,9 +106,11 @@ class Planet extends MY_Controller {
         $this->load->model('planetmodel');
         $this->load->model('tokenmodel');
         $this->load->model('factionmodel');
+        $this->load->model('gamemodel');
         $page['planet'] = $this->planetmodel->get_by_id($planet_id);
         $page['tokens'] = $this->tokenmodel->get_by_planet($planet_id, 'Ground');
         $page['faction'] = $this->factionmodel->get_by_game_user($page['planet']->game_id, $this->page['user']->id);
+        $page['game'] = $this->gamemodel->get_by_id($page['planet']->game_id);
         $page['content'] = 'planet_view_ground';
         $this->load->view('template', $page);
     }
@@ -126,4 +130,49 @@ class Planet extends MY_Controller {
         $this->load->view('template', $page);
     }
     
+    /**
+     * Update the planetary ACS turn
+     */
+    function update_turn($planet_id=0, $adjustment=0)
+    {
+        $page = $this->page;
+        $this->load->model('planetmodel');
+        $planet = $this->planetmodel->get_by_id($planet_id);
+        $planet->turn += $adjustment;
+        if ($planet->turn < 1)
+            $planet->turn = 8;
+        else if ($planet->turn > 8)
+            $planet->turn = 1;
+        $this->planetmodel->update($planet_id, $planet);        
+        
+        redirect('planet/status/'.$planet_id, 'refresh');
+    }
+    
+    /**
+     * Update the planetary ACS phase
+     */
+    function update_phase($adjustment=0)
+    {
+        $page = $this->page;
+        $this->load->model('planetmodel');
+        $planet = $this->planetmodel->get_by_id($planet_id);
+        $planet->phase += $adjustment;
+        if ($planet->phase < 1)
+            $planet->phase = 8;
+        else if ($planet->phase > 8)
+            $planet->phase = 1;
+        $this->planetmodel->update($planet_id, $planet);        
+        
+        redirect('planet/status/'.$planet_id, 'refresh');
+    }
+
+    /**
+     * Grab this planets status
+     */
+    function status($planet_id=0)
+    {
+        
+    }
+    
 }
+
