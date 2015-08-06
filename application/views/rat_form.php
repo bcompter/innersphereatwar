@@ -15,6 +15,17 @@
             </div>
         </div>
         <div class="form-group">
+            <label class="col-md-2 control-label">Tech</label>
+            <div class="col-md-10">
+                <select class="form-control" name="type">
+                    <option>A</option>
+                    <option>B</option>
+                    <option>C</option>
+                    <option>Special</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
             <label class="col-md-2 control-label">Type</label>
             <div class="col-md-10">
                 <select class="form-control" name="type">

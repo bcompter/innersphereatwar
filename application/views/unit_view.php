@@ -1,7 +1,7 @@
 <div class="container">
     <h1><?php echo $unit->name; ?></h1>
     <table class="table table-striped">
-        <tr><td>Name</td><td><?php echo $unit->name; ?></td></tr>
+        <tr>    <td>Name</td><td><?php echo $unit->name; ?></td></tr>
         <tr>    <td>Type</td><td><?php echo $unit->type; ?></td></tr>
         <tr>    <td>Size</td><td><?php echo $unit->size; ?></td></tr>
         <tr>    <td>Move</td><td><?php echo $unit->move; ?></td></tr>

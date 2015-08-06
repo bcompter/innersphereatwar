@@ -14,7 +14,69 @@
     
     <h2>Lances<small> (<?php echo anchor('combatteam/generate/'.$combatteam->combatteam_id, 'generate'); ?>)</small></h2>
     <table class="table table-striped">
-
+        <tr>
+            <th>Lance</th>
+            <th>Size</th>
+            <th>Move</th>
+            <th>TMM</th>
+            <th>Arm</th>
+            <th>S</th>
+            <th>M</th>
+            <th>L</th>
+        </tr>
+        <?php $lanceNum = 1; foreach($lances as $l): ?>
+        <tr>
+            <td><?php echo 'Lance '.$lanceNum++; ?></td>
+            <td><?php echo $l->weight; ?></td>
+            <td><?php echo $l->move; ?></td>
+            <td><?php echo $l->tmm; ?></td>
+            <td><?php echo $l->armor; ?></td>
+            <td><?php echo $l->short_dmg; ?></td>
+            <td><?php echo $l->med_dmg; ?></td>
+            <td><?php echo $l->long_dmg; ?></td>
+        </tr>
+        <?php endforeach; $lanceNum = 1; ?>
+    </table>
+    
+    <h2>Elements</h2>
+    <table class="table table-striped">
+        <tr>
+            <th>Unit</th>
+            <th>Size</th>
+            <th>Move</th>
+            <th>Jump</th>
+            <th>TMM</th>
+            <th>Arm</th>
+            <th>Str</th>
+            <th>S</th>
+            <th>M</th>
+            <th>L</th>
+            <th>OV</th>
+            <th>Special</th>
+        </tr>
+        <?php $lanceNum = 1; foreach($lances as $l): ?>
+        <tr>
+            <th colspan="12">Lance <?php echo $lanceNum++; ?></th>
+        </tr>
+        <?php foreach($elements as $e): ?>
+        <?php if ($e->lance_id == $l->lance_id): ?>
+        <tr>
+            <td><?php echo $e->name ?></td>
+            <td><?php echo $e->weight; ?></td>
+            <td><?php echo $e->move; ?></td>
+            <td><?php echo $e->jump; ?></td>
+            <td><?php echo $e->tmm; ?></td>
+            <td><?php echo $e->armor; ?></td>
+            <td><?php echo $e->structure; ?></td>
+            <td><?php echo $e->short_dmg; ?></td>
+            <td><?php echo $e->med_dmg; ?></td>
+            <td><?php echo $e->long_dmg; ?></td>
+            <td><?php echo $e->overheat; ?></td>
+            <td><?php echo $e->special; ?></td>
+        </tr>
+        <?php endif; ?>
+        <?php endforeach; ?>
+        <?php endforeach; ?>
     </table>
     
 </div>

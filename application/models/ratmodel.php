@@ -20,4 +20,36 @@ Class Ratmodel extends MY_Model {
         return $this->db->query('SELECT * FROM rat')->result();
     }
     
+    /**
+     * Get a unit from a rat table
+     */
+    function get_by_roll($faction, $tech, $type, $weight, $roll)
+    {
+        // First find the correct RAT table
+        $rat = $this->ratmodel->get_by_data($faction, $tech, $type, $weight);
+        
+        // Next return the correct unit
+        $this->load->model('ratdatamodel');
+        $data = $this->ratdatamodel->get_by_rat($rat->rat_id);
+        foreach($data as $d)
+        {
+            if ($d->roll == $roll)
+            {
+                $this->load->model('unitmodel');
+                return $this->unitmodel->get_by_id($d->unit_id);
+            }
+        }
+    }
+    
+    /**
+     * Find a RAT table given specific data
+     */
+    function get_by_data($faction, $tech, $type, $weight)
+    {
+        return $this->db->query('SELECT * FROM rats WHERE faction="'.$faction.'" '
+                . 'tech="'.$tech.'" '
+                . 'type="'.$type.'" '
+                . 'weight="'.$weight.'" LIMIT 1')->row();
+    }
+    
 }
