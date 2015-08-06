@@ -11,6 +11,8 @@
     <link href="<?php echo base_url('bootstrap/css/bootstrap.min.css'); ?>" rel="stylesheet">
     <!-- Bootstrap theme -->
     <link href="<?php echo base_url('bootstrap/css/bootstrap-theme.min.css'); ?>" rel="stylesheet">
+    <!-- ISW theme -->
+    <link href="<?php echo base_url('isw.css'); ?>" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -30,7 +32,9 @@
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="<?php echo base_url('jquery-ui/jquery-ui.js'); ?>"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="<?php echo base_url('bootstrap/js/bootstrap.min.js'); ?>"></script>
+    <script src="<?php echo base_url('isw.js'); ?>"></script>
   </body>
 </html>

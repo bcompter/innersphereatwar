@@ -33,11 +33,18 @@ class Token extends MY_Controller {
     }
     
     /**
-     * Update a tokens position and status
+     * Update a tokens position
      */
-    function update($token_id=0, $x=0, $y=0, $state=0)
+    function update_position($token_id=0)
     {
+        $page = $this->page;
         
+        $this->load->model('tokenmodel');
+        $token = $this->tokenmodel->get_by_id($token_id);
+        $token->x = $this->input->post('x');
+        $token->y = $this->input->post('y');
+        $this->tokenmodel->update($token_id, $token);
+
     }
     
 }
