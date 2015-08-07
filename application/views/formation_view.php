@@ -8,7 +8,13 @@
         <tr><th>Morale</th><td><?php echo $formation->morale; ?></td></tr>
     </table>
     
-    <h2>Combat Units <small>(<?php echo anchor('formation/add_combatunit/'.$formation->formation_id, 'add'); ?>)</small></h2>
+    <h2>Combat Units 
+        <small>
+            (<?php echo anchor('formation/calculate/'.$formation->formation_id, 'calculate'); ?>) 
+            (<?php echo anchor('formation/add_combatunit/'.$formation->formation_id, 'add'); ?>) 
+            (<?php echo anchor('formation/generate/'.$formation->formation_id, 'generate'); ?>)
+        </small>
+    </h2>
     <table class="table table-striped">
         <tr>
             <th>Name</th>

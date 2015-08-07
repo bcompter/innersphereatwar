@@ -118,4 +118,24 @@ class Formation extends MY_Controller {
         $this->session->set_flashdata('notice', 'Token placed.');
         redirect('formation/view/'.$formation_id, 'refresh');
     }
+    
+    /**
+     * Generate this formation using RAT tables
+     */
+    function generate($formation_id=0)
+    {
+        generate_formation($formation_id);
+        $this->session->set_flashdata('notice', 'Formation generated.');
+        redirect('formation/view/'.$formation_id, 'refresh');
+    }
+    
+    /**
+     * Recalculate this formations stats
+     */
+    function calculate($formation_id=0)
+    {
+        calculate_formation($formation_id);
+        $this->session->set_flashdata('notice', 'Formation stats calculated.');
+        redirect('formation/view/'.$formation_id, 'refresh');
+    }
 }
