@@ -239,7 +239,12 @@ if ( ! function_exists('generate_combatteam'))
             $lanceweight = 0;
             $roll = roll_dice(1, 6) - 1;
             $weightTable = $elementWeights[$l->weight][$roll];
-            for ($e = 0; $e < 4; $e++)
+            $numElements = 4;
+            if ($l->type == 'Aero')
+            {
+                $numElements = 2;
+            }
+            for ($e = 0; $e < $numElements; $e++)
             {
                 $unit = new stdClass();
                 $unit->lance_id = $l->lance_id;
