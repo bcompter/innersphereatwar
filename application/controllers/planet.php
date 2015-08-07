@@ -88,10 +88,12 @@ class Planet extends MY_Controller {
         $this->load->model('tokenmodel');
         $this->load->model('factionmodel');
         $this->load->model('gamemodel');
+        $this->load->model('playermodel');
         $page['planet'] = $this->planetmodel->get_by_id($planet_id);
         $page['tokens'] = $this->tokenmodel->get_by_planet($planet_id, 'Aero');
         $page['faction'] = $this->factionmodel->get_by_game_user($page['planet']->game_id, $this->page['user']->id);
         $page['game'] = $this->gamemodel->get_by_id($page['planet']->game_id);
+        $page['player'] = $this->playermodel->get_by_user_game($page['user']->id, $page['game']->game_id);
         $page['content'] = 'planet_view_aero';
         $this->load->view('template', $page);
     }
@@ -164,14 +166,6 @@ class Planet extends MY_Controller {
         $this->planetmodel->update($planet_id, $planet);        
         
         redirect('planet/status/'.$planet_id, 'refresh');
-    }
-
-    /**
-     * Grab this planets status
-     */
-    function status($planet_id=0)
-    {
-        
     }
     
 }

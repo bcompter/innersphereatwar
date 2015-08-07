@@ -17,7 +17,6 @@
                     <th>ACS Phase: </th>
                     <td><?php echo $planet->phase; ?></td>
                     <td><?php echo anchor('planet/update_phase/'.$planet->planet_id.'-1', '-'); ?> / <?php echo anchor('planet/update_phase/'.$planet->planet_id.'1', '+'); ?></td>
-                    
                 </tr>
             </table>
         </div>
@@ -28,7 +27,7 @@
             </div>
         </div>
         <div class="col-md-2">
-            <h2>Chat</h2>
+            <h2>Chat?</h2>
             <div id="chat">
                 ...
             </div>

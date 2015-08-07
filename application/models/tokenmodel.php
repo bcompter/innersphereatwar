@@ -18,7 +18,7 @@ Class Tokenmodel extends MY_Model {
      */
     function get_by_planet($planet_id=0, $location=0)
     {
-        return $this->db->query('SELECT tokens.*, factions.color, formations.type, formations.name AS formation_name'
+        return $this->db->query('SELECT tokens.*, factions.color, formations.type, formations.name AS formation_name, factions.faction_id'
                 . ' FROM tokens '
                 . 'JOIN planets ON planets.planet_id=tokens.planet_id '
                 . 'JOIN formations ON formations.formation_id=tokens.formation_id '
@@ -26,6 +26,14 @@ Class Tokenmodel extends MY_Model {
                 . 'JOIN factions ON factions.faction_id=combat_commands.faction_id '
                 . 'WHERE tokens.planet_id='.$planet_id.' '
                 . 'AND tokens.location="'.$location.'"')->result();
+    }
+    
+    /**
+     * Delete a formations token
+     */
+    function delete_by_formation($formation_id)
+    {
+        $this->db->query('DELETE FROM tokens WHERE formation_id='.$formation_id);
     }
     
 }

@@ -87,18 +87,55 @@ class Formation extends MY_Controller {
     }
     
     /**
-     * Place tokens for this formation on its current planet map
+     * Place a token for this unit in that units current planet
      */
-    function deploy_tokens($formation_id=0)
+    function place_token($formation_id=0)
     {
+        $page = $this->page;
         
+        $this->load->model('tokenmodel');
+        $this->load->model('formationmodel');
+        $formation = $this->formationmodel->get_by_id($formation_id);
+        $token = new stdClass();
+        $token->formation_id = $formation_id;
+        $token->planet_id = $formation->planet_id;
+        $this->tokenmodel->create($token);
+      
+        $this->session->set_flashdata('notice', 'Token placed.');
+        redirect('formation/view/'.$formation_id, 'refresh');
     }
     
     /**
-     * Remove this formations tokens from its current planet
+     * Remove this formations tokens
      */
-    function remove_tokens($formation_id=0)
+    function remove_token($formation_id=0)
     {
+        $page = $this->page;
         
+        $this->load->model('tokenmodel');
+        $this->tokenmodel->delete_by_formation($formation_id);
+      
+        $this->session->set_flashdata('notice', 'Token placed.');
+        redirect('formation/view/'.$formation_id, 'refresh');
+    }
+    
+    /**
+     * Generate this formation using RAT tables
+     */
+    function generate($formation_id=0)
+    {
+        generate_formation($formation_id);
+        $this->session->set_flashdata('notice', 'Formation generated.');
+        redirect('formation/view/'.$formation_id, 'refresh');
+    }
+    
+    /**
+     * Recalculate this formations stats
+     */
+    function calculate($formation_id=0)
+    {
+        calculate_formation($formation_id);
+        $this->session->set_flashdata('notice', 'Formation stats calculated.');
+        redirect('formation/view/'.$formation_id, 'refresh');
     }
 }
