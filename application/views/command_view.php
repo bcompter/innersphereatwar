@@ -33,7 +33,11 @@
             <td><?php echo $f->move; ?></td>
             <td><?php echo $f->tactics; ?></td>
             <td><?php echo $f->morale; ?></td>
-            <td><?php echo anchor('formation/view/'.$f->formation_id, 'VIEW'); ?></td>
+            <td>
+                <?php echo anchor('formation/view/'.$f->formation_id, 'VIEW'); ?> |
+                <?php echo anchor('formation/place_token/'.$f->formation_id, 'PLACE'); ?> |
+                <?php echo anchor('formation/remove_token/'.$f->formation_id, 'REMOVE'); ?>
+            </td>
         </tr>
         <?php endforeach; ?>
     </table>

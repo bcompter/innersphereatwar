@@ -85,4 +85,37 @@ class Formation extends MY_Controller {
             redirect('combatunit/view/'.$this->db->insert_id(), 'refresh');
         }
     }
+    
+    /**
+     * Place a token for this unit in that units current planet
+     */
+    function place_token($formation_id=0)
+    {
+        $page = $this->page;
+        
+        $this->load->model('tokenmodel');
+        $this->load->model('formationmodel');
+        $formation = $this->formationmodel->get_by_id($formation_id);
+        $token = new stdClass();
+        $token->formation_id = $formation_id;
+        $token->planet_id = $formation->planet_id;
+        $this->tokenmodel->create($token);
+      
+        $this->session->set_flashdata('notice', 'Token placed.');
+        redirect('formation/view/'.$formation_id, 'refresh');
+    }
+    
+    /**
+     * Remove this formations tokens
+     */
+    function remove_token($formation_id=0)
+    {
+        $page = $this->page;
+        
+        $this->load->model('tokenmodel');
+        $this->tokenmodel->delete_by_formation($formation_id);
+      
+        $this->session->set_flashdata('notice', 'Token placed.');
+        redirect('formation/view/'.$formation_id, 'refresh');
+    }
 }

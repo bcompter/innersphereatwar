@@ -17,22 +17,6 @@ class Token extends MY_Controller {
     }
     
     /**
-     * Create a new token
-     */
-    function create($planet_id=0)
-    {
-        
-    }
-    
-    /**
-     * Remove a token
-     */
-    function remove($token_id=0)
-    {
-        
-    }
-    
-    /**
      * Update a tokens position
      */
     function update_position($token_id=0)
@@ -44,7 +28,6 @@ class Token extends MY_Controller {
         $token->x = $this->input->post('x');
         $token->y = $this->input->post('y');
         $this->tokenmodel->update($token_id, $token);
-
     }
     
     /**

@@ -28,4 +28,12 @@ Class Tokenmodel extends MY_Model {
                 . 'AND tokens.location="'.$location.'"')->result();
     }
     
+    /**
+     * Delete a formations token
+     */
+    function delete_by_formation($formation_id)
+    {
+        $this->db->query('DELETE FROM tokens WHERE formation_id='.$formation_id);
+    }
+    
 }
