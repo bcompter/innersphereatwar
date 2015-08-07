@@ -7,11 +7,13 @@
                     <th>ISW Turn: </th>
                     <td><?php echo $game->turn; ?></td>
                     <td>&nbsp;</td>
-                    
+                </tr>
+                <tr>
                     <th>ACS Turn: </th>
                     <td><?php echo $planet->turn; ?></td>
                     <td><?php echo anchor('planet/update_turn/'.$planet->planet_id.'/-1', '-'); ?> / <?php echo anchor('planet/update_turn/'.$planet->planet_id.'1', '+'); ?></td>
-                    
+                </tr>
+                <tr>    
                     <th>ACS Phase: </th>
                     <td><?php echo $planet->phase; ?></td>
                     <td><?php echo anchor('planet/update_phase/'.$planet->planet_id.'-1', '-'); ?> / <?php echo anchor('planet/update_phase/'.$planet->planet_id.'1', '+'); ?></td>

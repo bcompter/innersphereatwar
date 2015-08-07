@@ -1,14 +1,14 @@
 <div class="container">
-    <h1><?php echo $combatteam->name ?></h1>
+    <h1>Combat Team, <?php echo $combatteam->name ?> <small>(<?php echo anchor('combatteam/clear/'.$combatteam->combatteam_id, 'clear'); ?>)</small></h1>
     <table class="table">
         <tr><th>Formation</th><td><?php echo anchor('combatunit/view/'.$combatunit->combatunit_id, $combatunit->name); ?></td></tr>
         <tr><th>Size</th><td><?php echo $combatteam->size; ?></td></tr>
         <tr><th>Move</th><td><?php echo $combatteam->move; ?></td></tr>
         <tr><th>TMM</th><td><?php echo $combatteam->tmm; ?></td></tr>
-        <tr><th>ARM</th><td><?php echo $combatteam->arm; ?></td></tr>
-        <tr><th>Short</th><td><?php echo $combatteam->s; ?></td></tr>
-        <tr><th>Medium</th><td><?php echo $combatteam->m; ?></td></tr>
-        <tr><th>Long</th><td><?php echo $combatteam->l; ?></td></tr>
+        <tr><th>ARM</th><td><?php echo $combatteam->armor; ?></td></tr>
+        <tr><th>Short</th><td><?php echo $combatteam->short_dmg; ?></td></tr>
+        <tr><th>Medium</th><td><?php echo $combatteam->med_dmg; ?></td></tr>
+        <tr><th>Long</th><td><?php echo $combatteam->long_dmg; ?></td></tr>
         
     </table>
     
@@ -45,7 +45,6 @@
             <th>Size</th>
             <th>Move</th>
             <th>Jump</th>
-            <th>TMM</th>
             <th>Arm</th>
             <th>Str</th>
             <th>S</th>
@@ -58,14 +57,14 @@
         <tr>
             <th colspan="12">Lance <?php echo $lanceNum++; ?></th>
         </tr>
-        <?php foreach($elements as $e): ?>
+        
+        <?php foreach($elements as $e1): foreach($e1 as $e): ?>
         <?php if ($e->lance_id == $l->lance_id): ?>
         <tr>
             <td><?php echo $e->name ?></td>
             <td><?php echo $e->weight; ?></td>
             <td><?php echo $e->move; ?></td>
             <td><?php echo $e->jump; ?></td>
-            <td><?php echo $e->tmm; ?></td>
             <td><?php echo $e->armor; ?></td>
             <td><?php echo $e->structure; ?></td>
             <td><?php echo $e->short_dmg; ?></td>
@@ -75,6 +74,7 @@
             <td><?php echo $e->special; ?></td>
         </tr>
         <?php endif; ?>
+        <?php endforeach; ?>
         <?php endforeach; ?>
         <?php endforeach; ?>
     </table>

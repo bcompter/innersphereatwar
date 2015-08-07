@@ -42,21 +42,34 @@ class Combatteam extends MY_Controller {
         $this->load->model('commandmodel');
         $this->load->model('elementmodel');
         $this->load->model('unitmodel');
+        $this->load->model('factionmodel');
         
         // Gather up basic data from the command heirarchy
         $combatteam = $this->combatteammodel->get_by_id($combatteam_id);
         $combatunit = $this->combatunitmodel->get_by_id($combatteam->combatunit_id);
         $formation = $this->formationmodel->get_by_id($combatunit->formation_id);
         $command = $this->commandmodel->get_by_id($formation->command_id);
+        $faction = $this->factionmodel->get_by_id($command->faction_id);
         
+        // Skill lookup table
         $skillTable['Green'] = 5;
         $skillTable['Regular'] = 4;
         $skillTable['Veteran'] = 3;
         $skillTable['Elite'] = 2;
         $skill = $skillTable[$command->experience];
         
+        // Size lookup table
+        $sizeTable['Light'] = 1;
+        $sizeTable['Medium'] = 2;
+        $sizeTable['Heavy'] = 3;
+        $sizeTable['Assault'] = 4;
+        $altSizeTable[1] = 'Light';
+        $altSizeTable[2] = 'Medium';
+        $altSizeTable[3] = 'Heavy';
+        $altSizeTable[4] = 'Assault';
+        
         // Determine Company composition
-        $roll = roll_dice(1, 6);
+        $roll = roll_dice(1, 6) - 1;
         $lanceWeights = array(
             array('Light', 'Medium', 'Medium'),
             array('Light', 'Medium', 'Heavy'),
@@ -119,7 +132,7 @@ class Combatteam extends MY_Controller {
         foreach ($lances as $l)
         {
             $lanceweight = 0;
-            $roll = roll_dice(1, 6);
+            $roll = roll_dice(1, 6) - 1;
             $weightTable = $elementWeights[$l->weight][$roll];
             for ($e = 0; $e < 4; $e++)
             {
@@ -135,7 +148,7 @@ class Combatteam extends MY_Controller {
             foreach($elements as $e)
             {
                 $roll = roll_dice(2, 6);
-                $ratresult = $this->ratmodel->get_by_roll($command->faction, $command->tech, $e->type, $e->weight, $roll);
+                $ratresult = $this->ratmodel->get_by_roll($faction->name, $command->tech, $e->type, $e->weight, $roll);
                 $e->name = $ratresult->name;
                 $e->move = $ratresult->move;            $l->move += $e->move;
                 $e->jump = $ratresult->jump;            $l->jump += $e->jump;
@@ -156,9 +169,9 @@ class Combatteam extends MY_Controller {
             }
             
             // Aggregate lance data
-            $l->move = round($l->move / count($l));
+            $l->move = round($l->move / count($elements));
             $l->tmm = $tmm[$l->move];
-            $l->jump = round(($l->jump / count($l)) / 2);
+            $l->jump = round(($l->jump / count($elements)) / 2);
             $l->armor = round($l->armor / 3);
             $l->short_dmg = round($l->short_dmg / 3);
             $l->med_dmg = round($l->med_dmg / 3);
@@ -170,13 +183,20 @@ class Combatteam extends MY_Controller {
         // Refetch modified lance data
         $lances = $this->lancemodel->get_by_combatteam($combatteam_id);
         $jump = 0;
+        $size = 0;
         foreach($lances as $l)
         {
             $combatteam->move += $l->move;
             $jump += $l->jump;
             $combatteam->tmm += $l->tmm;
             $combatteam->armor += $l->armor;
+            $combatteam->short_dmg += $l->short_dmg;
+            $combatteam->med_dmg += $l->med_dmg;
+            $combatteam->long_dmg += $l->long_dmg;
+            $size += $sizeTable[$l->weight];
         }
+        $size = round($size / count($lances));
+        $combatteam->size = $altSizeTable[$size];
         $combatteam->move = round($combatteam->move / count($lances));
         $jump = round($jump / 3);
         $combatteam->tmm = round($combatteam->tmm / count($lances)) + $jump;
@@ -184,8 +204,6 @@ class Combatteam extends MY_Controller {
         $combatteam->short_dmg = round($combatteam->short_dmg / 3);
         $combatteam->med_dmg = round($combatteam->med_dmg / 3);
         $combatteam->long_dmg = round($combatteam->long_dmg / 3);
-        $combatteam->tactics = 10 - $combatteam->move + (skill - 4);
-        $combatteam->morale = $skill + 3;
         $this->combatteammodel->update($combatteam_id, $combatteam);
         
         $this->session->set_flashdata('notice', 'Combat team generated.');
@@ -231,5 +249,25 @@ class Combatteam extends MY_Controller {
         $page['content'] = 'combatteam_view';
         
         $this->load->view('template', $page);
+    }
+    
+    /**
+     * Zero out all data for this combat team
+     */
+    function clear($combatteam_id)
+    {
+        $page = $this->page;
+        
+        $this->load->model('combatteammodel');
+        $combatteam = $this->combatteammodel->get_by_id($combatteam_id);
+        $combatteam->move = 0;
+        $combatteam->tmm = 0;
+        $combatteam->armor = 0;
+        $combatteam->short_dmg = 0;
+        $combatteam->med_dmg = 0;
+        $combatteam->long_dmg = 0;
+        $this->combatteammodel->update($combatteam_id, $combatteam);
+        $this->session->set_flashdata('notice', 'Combat team cleared.');
+        redirect('combatteam/view/'.$combatteam_id, 'refresh');
     }
 }

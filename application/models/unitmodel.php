@@ -20,4 +20,12 @@ Class Unitmodel extends MY_Model {
         return $this->db->query('SELECT * FROM units')->result();
     }
     
+    /**
+     * Get all units of a particular size
+     */
+    function get_by_size($size)
+    {
+        return $this->db->query('SELECT * FROM units WHERE size="'.$size.'"')->result();
+    }
+    
 }

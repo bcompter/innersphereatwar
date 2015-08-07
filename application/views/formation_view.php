@@ -1,5 +1,5 @@
 <div class="container">
-    <h1><?php echo $formation->name ?></h1>
+    <h1>Formation, <?php echo $formation->name ?></h1>
     <table class="table">
         <tr><th>Combat Command</th><td><?php echo anchor('command/view/'.$command->command_id, $command->name); ?></td></tr>
         <tr><th>Type</th><td><?php echo $formation->type; ?></td></tr>
@@ -31,10 +31,10 @@
             <td><?php echo $c->size; ?></td>
             <td><?php echo $c->move; ?></td>
             <td><?php echo $c->tmm; ?></td>
-            <td><?php echo $c->arm; ?></td>
-            <td><?php echo $c->s; ?></td>
-            <td><?php echo $c->m; ?></td>
-            <td><?php echo $c->l; ?></td>
+            <td><?php echo $c->armor; ?></td>
+            <td><?php echo $c->short_dmg; ?></td>
+            <td><?php echo $c->med_dmg; ?></td>
+            <td><?php echo $c->long_dmg; ?></td>
             <td><?php echo $c->tactics; ?></td>
             <td><?php echo $c->morale; ?></td>
             

@@ -46,10 +46,10 @@ Class Ratmodel extends MY_Model {
      */
     function get_by_data($faction, $tech, $type, $weight)
     {
-        return $this->db->query('SELECT * FROM rats WHERE faction="'.$faction.'" '
-                . 'tech="'.$tech.'" '
-                . 'type="'.$type.'" '
-                . 'weight="'.$weight.'" LIMIT 1')->row();
+        return $this->db->query('SELECT * FROM rat WHERE faction="'.$faction.'" '
+                . 'AND tech="'.$tech.'" '
+                . 'AND type="'.$type.'" '
+                . 'AND size="'.$weight.'" LIMIT 1')->row();
     }
     
 }

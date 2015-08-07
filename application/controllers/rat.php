@@ -101,7 +101,7 @@ class Rat extends MY_Controller {
         if ($element_id == 0)
         {
             // Show the select form
-            $page['units'] = $this->unitmodel->get_all();
+            $page['units'] = $this->unitmodel->get_by_size($page['rat']->size);
             $page['content'] = 'rat_add';
             $this->load->view('template', $page);
             return;
