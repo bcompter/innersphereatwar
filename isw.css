@@ -19,7 +19,18 @@ body {
 
 .token{
     position: absolute;
-    height: 50px;
-    width: 100px;
+    height: 40px;
+    width: 60px;
     border: solid 1px;
+    border-radius: 5px;
+}
+
+.token h1 {
+    font-size: 19px;
+    display: inline;
+    margin-left: -3px;
+}
+
+.token img {
+    margin-top: 1px;
 }
