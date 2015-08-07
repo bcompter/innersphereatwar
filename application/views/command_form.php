@@ -31,6 +31,18 @@
         </div>
         
         <div class="form-group">
+            <label class="col-md-2 control-label">Equipment Rating</label>
+            <div class="col-md-10">
+                <select class="form-control" name="tech">
+                    <option>A</option>
+                    <option>B</option>
+                    <option>C</option>
+                    <option>Special</option>
+                </select>
+            </div>
+        </div>
+        
+        <div class="form-group">
             <div class="col-md-offset-2 col-sm-10">
                 <button type="submit" class="btn btn-default">Submit</button>
             </div>

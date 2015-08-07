@@ -48,6 +48,7 @@ class Command extends MY_Controller {
             $command->faction_id = $faction_id;
             $command->experience = $this->input->post('experience');
             $command->loyalty = $this->input->post('loyalty');
+            $command->tech = $this->input->post('tech');
             $this->commandmodel->create($command);
             
             $this->session->set_flashdata('notice', 'Command created.');
