@@ -22,4 +22,12 @@ Class Playermodel extends MY_Model {
                 . 'WHERE faction_id='.$faction_id)->result();
     }
     
+    /**
+     * Get a player belonging to a particular user in a game
+     */
+    function get_by_user_game($user_id, $game_id)
+    {
+        return $this->db->query('SELECT * FROM players WHERE user_id='.$user_id.' AND game_id='.$game_id)->result();
+    }
+    
 }

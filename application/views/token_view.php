@@ -6,7 +6,7 @@
     style="top:<?php echo $token->y; ?>px; left:<?php echo $token->x; ?>px; background-color:<?php echo $token->color; ?>;">
     <table>
         <tr>
-            <?php if($token->detected): ?>
+            <?php if($token->detected || ( isset($player->faction_id) && $token->faction_id == $player->faction_id)): ?>
             <td><div class="inline"><img src="<?php echo base_url('images/mech.png'); ?>"></div></td>
             <td><div><h1><?php echo substr($token->formation_name, 0, 2); ?></h1></div></td>
             <?php else: ?>
