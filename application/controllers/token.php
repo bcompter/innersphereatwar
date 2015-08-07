@@ -47,4 +47,23 @@ class Token extends MY_Controller {
 
     }
     
+    /**
+     * View a token
+     */
+    function view($token_id)
+    {
+        $page = $this->page;
+        
+        $this->load->model('tokenmodel');
+        $this->load->model('formationmodel');
+        $this->load->model('commandmodel');
+        $this->load->model('combatunitmodel');
+        $page['token'] = $this->tokenmodel->get_by_id($token_id);
+        $page['formation'] = $this->formationmodel->get_by_id($page['token']->formation_id);
+        $page['command'] = $this->commandmodel->get_by_id($page['formation']->command_id);
+        $page['combatunits'] = $this->combatunitmodel->get_by_formation($page['formation']->formation_id);
+        $page['content'] = 'token_view_detail';
+        $this->load->view('templatexml', $page);
+    }
+    
 }

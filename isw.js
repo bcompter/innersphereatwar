@@ -15,5 +15,17 @@ $(document).ready(function()
         }
                 
     });});
+
+    // Handle token clicks
+    $("body").delegate(".token", "click", function(event)
+    {
+        $url = $(this).attr('view');
+        $.post( $url, function(xml)
+        {               
+            var msgs = $("info",xml).html();
+            $("#token_info").html( msgs );
+        }
+        );   
+    });
     
 });

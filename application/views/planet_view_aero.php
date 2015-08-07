@@ -1,6 +1,6 @@
 <div class="container">
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-4">
             <h1><?php echo $planet->name; ?><small> Star System Radar Map</small></h1>
             <table class="table">
                 <tr>
@@ -21,13 +21,13 @@
                 </tr>
             </table>
         </div>
-        <div class="col-md-3">
-            <h2>Token Info</h2>
+        <div class="col-md-6">
+            <h2>Token <small>Info</small></h2>
             <div id="token_info">
                 ...
             </div>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-2">
             <h2>Chat</h2>
             <div id="chat">
                 ...
