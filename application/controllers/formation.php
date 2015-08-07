@@ -85,4 +85,20 @@ class Formation extends MY_Controller {
             redirect('combatunit/view/'.$this->db->insert_id(), 'refresh');
         }
     }
+    
+    /**
+     * Place tokens for this formation on its current planet map
+     */
+    function deploy_tokens($formation_id=0)
+    {
+        
+    }
+    
+    /**
+     * Remove this formations tokens from its current planet
+     */
+    function remove_tokens($formation_id=0)
+    {
+        
+    }
 }
