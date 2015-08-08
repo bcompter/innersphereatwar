@@ -36,7 +36,7 @@ class Token extends MY_Controller {
     function view($token_id)
     {
         $page = $this->page;
-        
+
         $this->load->model('tokenmodel');
         $this->load->model('formationmodel');
         $this->load->model('commandmodel');
@@ -72,7 +72,7 @@ class Token extends MY_Controller {
         $token = $this->tokenmodel->get_by_id($token_id);
         $token->detected = $is_detected;
         $this->tokenmodel->update($token_id, $token);
-        redirect('token/view/'.$token_id, 'refresh');
+        $this->view($token_id);
     }
     
     /**
@@ -86,13 +86,13 @@ class Token extends MY_Controller {
         $token = $this->tokenmodel->get_by_id($token_id);
         $token->moved = $has_moved;
         $this->tokenmodel->update($token_id, $token);
-        redirect('token/view/'.$token_id, 'refresh');
+        $this->view($token_id);
     }
     
     /**
      * Set the move state of this token
      */
-    function set_role($token_id=0, $role=0)
+    function switch_role($token_id=0)
     {
         $page = $this->page;
         
@@ -100,15 +100,22 @@ class Token extends MY_Controller {
         $this->load->model('formationmodel');
         $token = $this->tokenmodel->get_by_id($token_id);
         $formation = $this->formationmodel->get_by_id($token->formation_id);
-        $formation->role = $role;
+        if ($formation->role == 'Combat')
+        {
+            $formation->role = 'Recon';
+        }
+        else
+        {
+            $formation->role = 'Combat';
+        }
         $this->formationmodel->update($token->formation_id, $formation);
-        redirect('token/view/'.$token_id, 'refresh');
+        $this->view($token_id);
     }
     
     /**
      * Set the tactics state of this token
      */
-    function set_tactics($token_id=0, $tactics=0)
+    function switch_tactics($token_id=0)
     {
         $page = $this->page;
         
@@ -116,13 +123,23 @@ class Token extends MY_Controller {
         $this->load->model('formationmodel');
         $token = $this->tokenmodel->get_by_id($token_id);
         $formation = $this->formationmodel->get_by_id($token->formation_id);
-        $formation->stance = $tactics;
-        if($tactics == 'Standard')
+        
+        if ($formation->stance == 'Standard')
         {
-            $formation->stace_mod = 0;
+            $formation->stance = 'Offensive';
         }
+        else if ($formation->stance == 'Offensive')
+        {
+            $formation->stance = 'Defensive';
+        }
+        else
+        {
+            $formation->stance = 'Standard';
+            $formation->stance_mod = 0;
+        }
+
         $this->formationmodel->update($token->formation_id, $formation);
-        redirect('token/view/'.$token_id, 'refresh');
+        $this->view($token_id);
     }
     
     /**
@@ -136,9 +153,9 @@ class Token extends MY_Controller {
         $this->load->model('formationmodel');
         $token = $this->tokenmodel->get_by_id($token_id);
         $formation = $this->formationmodel->get_by_id($token->formation_id);
-        $formation->stace_mod = $mod;
+        $formation->stance_mod = $mod;
         $this->formationmodel->update($token->formation_id, $formation);
-        redirect('token/view/'.$token_id, 'refresh');
+        $this->view($token_id);
     }
     
     /**
@@ -161,6 +178,6 @@ class Token extends MY_Controller {
         $roll = roll_dice(1, $numUnits);
         $combatunits[$roll]->damage += $damage;
         $this->combatunitmodel->update($combatunits[$roll]->combatunit_id, $combatunits[$roll]);
-        redirect('token/view/'.$token_id, 'refresh');
+        $this->view($token_id);
     }
 }

@@ -89,7 +89,7 @@ class Formation extends MY_Controller {
     /**
      * Place a token for this unit in that units current planet
      */
-    function place_token($formation_id=0)
+    function place_token($formation_id=0, $location=0)
     {
         $page = $this->page;
         
@@ -101,6 +101,7 @@ class Formation extends MY_Controller {
         $token = new stdClass();
         $token->formation_id = $formation_id;
         $token->planet_id = $command->planet_id;
+        $token->location = $location;
         $this->tokenmodel->create($token);
       
         $this->session->set_flashdata('notice', 'Token placed.');
@@ -121,7 +122,7 @@ class Formation extends MY_Controller {
         $command = $this->commandmodel->get_by_id($formation->command_id);
         $this->tokenmodel->delete_by_formation($formation_id);
       
-        $this->session->set_flashdata('notice', 'Token placed.');
+        $this->session->set_flashdata('notice', 'Token removed.');
         redirect('command/view/'.$command->command_id, 'refresh');
     }
     

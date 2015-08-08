@@ -15,6 +15,8 @@
                 <select class="form-control" name="experience">
                     <option>Green</option>
                     <option>Regular</option>
+                    <option>Veteran</option>
+                    <option>Elite</option>
                 </select>
             </div>
         </div>

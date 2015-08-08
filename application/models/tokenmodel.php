@@ -18,7 +18,7 @@ Class Tokenmodel extends MY_Model {
      */
     function get_by_planet($planet_id=0, $location=0)
     {
-        return $this->db->query('SELECT tokens.*, factions.color, formations.type, formations.name AS formation_name, factions.faction_id'
+        return $this->db->query('SELECT tokens.*, factions.color, formations.type, formations.name AS formation_name, factions.faction_id, formations.role, formations.stance, formations.stance_mod'
                 . ' FROM tokens '
                 . 'JOIN planets ON planets.planet_id=tokens.planet_id '
                 . 'JOIN formations ON formations.formation_id=tokens.formation_id '

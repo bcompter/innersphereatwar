@@ -27,7 +27,7 @@ Class Playermodel extends MY_Model {
      */
     function get_by_user_game($user_id, $game_id)
     {
-        return $this->db->query('SELECT * FROM players WHERE user_id='.$user_id.' AND game_id='.$game_id)->result();
+        return $this->db->query('SELECT * FROM players WHERE user_id='.$user_id.' AND game_id='.$game_id.' limit 1')->row();
     }
     
 }

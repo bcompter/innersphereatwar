@@ -17,9 +17,10 @@ $(document).ready(function()
     });});
 
     // Handle token clicks
-    $("body").delegate(".token", "click", function(event)
+    $("body").delegate(".tokenlink", "click", function(event)
     {
-        $url = $(this).attr('view');
+        event.preventDefault();
+        $url = $(this).attr('href');
         $.post( $url, function(xml)
         {               
             var msgs = $("info",xml).html();

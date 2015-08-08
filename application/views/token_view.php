@@ -1,7 +1,7 @@
 <div 
-    class="token" 
+    class="token tokenlink" 
     action="<?php echo base_url('index.php/token/update_position/'.$token->token_id);  ?>"
-    view="<?php echo base_url('index.php/token/view/'.$token->token_id);  ?>"
+    href="<?php echo base_url('index.php/token/view/'.$token->token_id);  ?>"
     id="<?php echo $token->token_id ?>"
     style="top:<?php echo $token->y; ?>px; left:<?php echo $token->x; ?>px; background-color:<?php echo $token->color; ?>;">
     <table>

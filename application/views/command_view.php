@@ -25,6 +25,7 @@
             <th>Tactics</th>
             <th>Morale</th>
             <th>&nbsp;</th>
+            <th>Token Links</th>
         </tr>
         <?php foreach($formations as $f): ?>
         <tr>
@@ -34,8 +35,11 @@
             <td><?php echo $f->tactics; ?></td>
             <td><?php echo $f->morale; ?></td>
             <td>
-                <?php echo anchor('formation/view/'.$f->formation_id, 'VIEW'); ?> |
-                <?php echo anchor('formation/place_token/'.$f->formation_id, 'PLACE'); ?> |
+                <?php echo anchor('formation/view/'.$f->formation_id, 'VIEW'); ?>
+            </td>
+            <td>
+                <?php echo anchor('formation/place_token/'.$f->formation_id.'/Aero', 'PLACE Aero'); ?> |
+                <?php echo anchor('formation/place_token/'.$f->formation_id.'/Ground', 'PLACE Ground'); ?> |
                 <?php echo anchor('formation/remove_token/'.$f->formation_id, 'REMOVE'); ?>
             </td>
         </tr>
