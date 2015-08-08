@@ -95,14 +95,16 @@ class Formation extends MY_Controller {
         
         $this->load->model('tokenmodel');
         $this->load->model('formationmodel');
+        $this->load->model('commandmodel');
         $formation = $this->formationmodel->get_by_id($formation_id);
+        $command = $this->commandmodel->get_by_id($formation->command_id);
         $token = new stdClass();
         $token->formation_id = $formation_id;
-        $token->planet_id = $formation->planet_id;
+        $token->planet_id = $command->planet_id;
         $this->tokenmodel->create($token);
       
         $this->session->set_flashdata('notice', 'Token placed.');
-        redirect('formation/view/'.$formation_id, 'refresh');
+        redirect('command/view/'.$command->command_id, 'refresh');
     }
     
     /**
@@ -113,10 +115,14 @@ class Formation extends MY_Controller {
         $page = $this->page;
         
         $this->load->model('tokenmodel');
+        $this->load->model('formationmodel');
+        $this->load->model('commandmodel');
+        $formation = $this->formationmodel->get_by_id($formation_id);
+        $command = $this->commandmodel->get_by_id($formation->command_id);
         $this->tokenmodel->delete_by_formation($formation_id);
       
         $this->session->set_flashdata('notice', 'Token placed.');
-        redirect('formation/view/'.$formation_id, 'refresh');
+        redirect('command/view/'.$command->command_id, 'refresh');
     }
     
     /**

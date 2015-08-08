@@ -72,7 +72,7 @@ class Token extends MY_Controller {
         $token = $this->tokenmodel->get_by_id($token_id);
         $token->detected = $is_detected;
         $this->tokenmodel->update($token_id, $token);
-        redirect('token/view'.$token_id, 'refresh');
+        redirect('token/view/'.$token_id, 'refresh');
     }
     
     /**
@@ -86,7 +86,7 @@ class Token extends MY_Controller {
         $token = $this->tokenmodel->get_by_id($token_id);
         $token->moved = $has_moved;
         $this->tokenmodel->update($token_id, $token);
-        redirect('token/view'.$token_id, 'refresh');
+        redirect('token/view/'.$token_id, 'refresh');
     }
     
     /**
@@ -102,7 +102,7 @@ class Token extends MY_Controller {
         $formation = $this->formationmodel->get_by_id($token->formation_id);
         $formation->role = $role;
         $this->formationmodel->update($token->formation_id, $formation);
-        redirect('token/view'.$token_id, 'refresh');
+        redirect('token/view/'.$token_id, 'refresh');
     }
     
     /**
@@ -122,7 +122,7 @@ class Token extends MY_Controller {
             $formation->stace_mod = 0;
         }
         $this->formationmodel->update($token->formation_id, $formation);
-        redirect('token/view'.$token_id, 'refresh');
+        redirect('token/view/'.$token_id, 'refresh');
     }
     
     /**
@@ -138,7 +138,7 @@ class Token extends MY_Controller {
         $formation = $this->formationmodel->get_by_id($token->formation_id);
         $formation->stace_mod = $mod;
         $this->formationmodel->update($token->formation_id, $formation);
-        redirect('token/view'.$token_id, 'refresh');
+        redirect('token/view/'.$token_id, 'refresh');
     }
     
     /**
@@ -161,6 +161,6 @@ class Token extends MY_Controller {
         $roll = roll_dice(1, $numUnits);
         $combatunits[$roll]->damage += $damage;
         $this->combatunitmodel->update($combatunits[$roll]->combatunit_id, $combatunits[$roll]);
-        redirect('token/view'.$token_id, 'refresh');
+        redirect('token/view/'.$token_id, 'refresh');
     }
 }

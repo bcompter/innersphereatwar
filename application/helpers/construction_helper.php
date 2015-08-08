@@ -54,9 +54,9 @@ if ( ! function_exists('generate_combatunit'))
         
         // Generate each combat team
         $combatteams = $CI->combatteammodel->get_by_combatunit($combatunit_id);
-        foreach ($combatunits as $c)
+        foreach ($combatteams as $c)
         {
-            generate_combatunit($c->combatunit_id);
+            generate_combatteam($c->combatteam_id);
         }
         
         // Calculate this combatunit
@@ -71,10 +71,22 @@ if ( ! function_exists('calculate_combatunit'))
         $CI =& get_instance();
         $CI->load->model('combatteammodel');
         $CI->load->model('combatunitmodel');
+        $CI->load->model('formationmodel');
+        $CI->load->model('commandmodel');
 
         // Calculate combat unit stats from the aggregate combat teams
         $combatunit = $CI->combatunitmodel->get_by_id($combatunit_id);
         $combatteams = $CI->combatteammodel->get_by_combatunit($combatunit_id);
+        $formation = $CI->formationmodel->get_by_id($combatunit->formation_id);
+        $command = $CI->commandmodel->get_by_id($formation->command_id);
+        
+        // Skill lookup table
+        $skillTable['Green'] = 5;
+        $skillTable['Regular'] = 4;
+        $skillTable['Veteran'] = 3;
+        $skillTable['Elite'] = 2;
+        $skill = $skillTable[$command->experience];
+        
         foreach($combatteams as $c)
         {
             $combatunit->move += $c->move;
@@ -86,7 +98,8 @@ if ( ! function_exists('calculate_combatunit'))
         }
         $combatunit->move = round($combatunit->move / count($combatteams));
         $combatunit->tmm = round($combatunit->tmm / count($combatteams));
-        $combatunit->tactics = 10 - $combatteam->move + ($skill - 4);
+        $combatunit->tactics = 10 - $combatunit->move + ($skill - 4);
+        $combatunit->morale = $skill + 3;
         $CI->combatunitmodel->update($combatunit_id, $combatunit);
     }
 }
@@ -104,7 +117,7 @@ if ( ! function_exists('calculate_formation'))
         // Calculate formation stats from the aggregate combat units
         $formation = $CI->formationmodel->get_by_id($formation_id);
         $combatunits = $CI->combatunitmodel->get_by_formation($formation_id);
-        $command = $CI->commandmodel->get_by_formation($formation_id);
+        $command = $CI->commandmodel->get_by_id($formation->command_id);
 
         // Skill lookup table
         $skillTable['Green'] = 5;
@@ -127,6 +140,7 @@ if ( ! function_exists('calculate_formation'))
             }
         }
         $formation->tactics = 10 - $formation->move + ($skill - 4);
+        $formation->morale = $skill + 3;
         $CI->formationmodel->update($formation_id, $formation);
     }
 }

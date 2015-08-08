@@ -146,14 +146,13 @@ class Planet extends MY_Controller {
         else if ($planet->turn > 8)
             $planet->turn = 1;
         $this->planetmodel->update($planet_id, $planet);        
-        
-        redirect('planet/status/'.$planet_id, 'refresh');
+       
     }
     
     /**
      * Update the planetary ACS phase
      */
-    function update_phase($adjustment=0)
+    function update_phase($planet_id=0, $adjustment=0)
     {
         $page = $this->page;
         $this->load->model('planetmodel');
@@ -164,8 +163,7 @@ class Planet extends MY_Controller {
         else if ($planet->phase > 8)
             $planet->phase = 1;
         $this->planetmodel->update($planet_id, $planet);        
-        
-        redirect('planet/status/'.$planet_id, 'refresh');
+
     }
     
 }
