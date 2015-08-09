@@ -32,7 +32,7 @@
                     <h3 class="panel-title">Sign In</h3>
                 </div>
                 <div class="panel-body">
-                    <?php echo anchor('auth/signin', 'Sign In'); ?>
+                    <?php echo anchor('auth/login', 'Sign In'); ?>
                 </div>
             </div>
         </div><!-- /.col-md-4 -->

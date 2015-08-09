@@ -32,7 +32,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="home">Inner Sphere at War</a>
+            <?php echo anchor('home', 'Inner Sphere at War', 'class="navbar-brand"'); ?>
         </div>
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
