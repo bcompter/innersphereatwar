@@ -148,7 +148,6 @@ class Planet extends MY_Controller {
         else if ($planet->turn > 8)
             $planet->turn = 1;
         $this->planetmodel->update($planet_id, $planet);        
-       
     }
     
     /**
@@ -165,7 +164,14 @@ class Planet extends MY_Controller {
         else if ($planet->phase > 8)
             $planet->phase = 1;
         $this->planetmodel->update($planet_id, $planet);        
-
+    }
+    
+    /**
+     * Update this planet
+     */
+    function update($planet_id=0)
+    {
+        
     }
     
 }
