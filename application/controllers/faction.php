@@ -102,4 +102,35 @@ class Faction extends MY_Controller {
         redirect('faction/view/'.$faction_id, 'refresh');
     }
     
+    /**
+     * Spend or gain RP
+     */
+    function modify_rp($faction_id=0)
+    {
+        $page = $this->page;
+        
+        $this->load->model('factionmodel');        
+        $faction = $this->factionmodel->get_by_id($faction_id);
+        
+        // Validate form input
+        $this->load->library('form_validation');
+        $this->form_validation->set_rules('amount', 'Amount', 'required|integer');
+        if ($this->form_validation->run() == FALSE)
+        { 
+            // Show the form
+            $page['faction'] = $faction;
+            $page['content'] = 'faction_modify_rp';
+            $this->load->view('template', $page);
+        }
+        else
+        {
+            // Adjust RP
+            $amount = $this->input->post('amount');
+            $faction->rp += $amount;
+            $this->factionmodel->update($faction_id, $faction);
+            $this->session->set_flashdata('notice', 'RP Adjusted.');
+            redirect('faction/view/'.$faction_id, 'refresh');
+        }
+    }
+    
 }

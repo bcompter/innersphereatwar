@@ -2,7 +2,7 @@
     <h1><?php echo $faction->name; ?></h1>
     <h2>Data</h2>
     <ul>
-        <li>...</li>
+        <li>Resource Points: <?php echo $faction->rp.' ('.anchor('faction/modify_rp/'.$faction->faction_id, 'Modify').')'; ?></li>
         <li>...</li>
         <li>...</li>
     </ul>
