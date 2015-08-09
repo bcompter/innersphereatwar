@@ -84,4 +84,37 @@ class Combatunit extends MY_Controller {
         }
     }
     
+    /**
+     * Damage this combatunit
+     */
+    function damage($combatunit_id=0)
+    {
+        $page = $this->page;
+        $this->load->model('combatunitmodel');
+        $this->load->model('formationmodel');
+        $combatunit = $this->combatunitmodel->get_by_id($combatunit_id);
+        $formation = $this->formationmodel->get_by_id($combatunit->formation_id);
+        $this->load->library('form_validation');
+        
+        // Validate form input
+        $this->form_validation->set_rules('damage', 'Damage', 'required|integer');
+        if ($this->form_validation->run() == FALSE)
+        {
+            // Show the form
+            $page['combatunit'] = $combatunit;
+            $page['formation'] = $formation;
+            $page['content'] = 'combatunit_damage';
+            $this->load->view('template', $page);
+        }
+        else
+        {
+            // Damage the unit and return to the view
+            $damage = $this->input->post('damage');
+            $combatunit->damage += $damage;
+            $this->combatunitmodel->update($combatunit_id, $combatunit);
+            $this->session->set_flashdata('notice', 'Damage applied!');
+            redirect('formation/view/'.$formation->formation_id, 'refresh');
+        }
+    }
+    
 }

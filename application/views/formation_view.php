@@ -37,14 +37,18 @@
             <td><?php echo $c->size; ?></td>
             <td><?php echo $c->move; ?></td>
             <td><?php echo $c->tmm; ?></td>
-            <td><?php echo $c->armor; ?></td>
+            <td><?php echo $c->armor-$c->damage; ?> / <?php echo $c->armor; ?></td>
             <td><?php echo $c->short_dmg; ?></td>
             <td><?php echo $c->med_dmg; ?></td>
             <td><?php echo $c->long_dmg; ?></td>
             <td><?php echo $c->tactics; ?></td>
             <td><?php echo $c->morale; ?></td>
             
-            <td><?php echo anchor('combatunit/view/'.$c->combatunit_id, 'VIEW'); ?></td>
+            <td>
+                <?php echo anchor('combatunit/view/'.$c->combatunit_id, 'VIEW'); ?> |
+                <?php echo anchor('combatunit/move/'.$c->combatunit_id, 'MOVE'); ?> |
+                <?php echo anchor('combatunit/damage/'.$c->combatunit_id, 'DAMAGE'); ?>
+            </td>
         </tr>
         <?php endforeach; ?>
     </table>

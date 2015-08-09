@@ -18,7 +18,7 @@
                 .anchor('token/set_tactics_mod/'.$token->token_id.'/'.($formation->stance_mod-1), '-', 'class="tokenlink"').'/'
                 .anchor('token/set_tactics_mod/'.$token->token_id.'/'.($formation->stance_mod+1), '+', 'class="tokenlink"'); ?>
         </td>
-        <td>Damage?</td>
+        <td>&nbsp;</td>
     </tr>
     <tr>
         <th>Combat Units</th><th>TMM</th><th>ARM</th><th>S</th><th>M</th><th>L</th><th>Morale</th>
@@ -27,7 +27,7 @@
     <tr>
         <td><?php echo $c->name; ?></td>
         <td><?php echo $c->tmm; ?></td>
-        <td><?php echo $c->armor; ?></td>
+        <td><?php echo $c->armor-$c->damage.'/'.$c->armor; ?></td>
         <td><?php echo $c->short_dmg; ?></td>
         <td><?php echo $c->med_dmg; ?></td>
         <td><?php echo $c->long_dmg; ?></td>

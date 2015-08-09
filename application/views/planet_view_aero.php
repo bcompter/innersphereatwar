@@ -1,4 +1,3 @@
-
 <script type="text/javascript">                                         
     // Set variables
     <?php echo 'var $updateurl = \''.base_url('planet/update/'.$game->game_id).';'; ?>
