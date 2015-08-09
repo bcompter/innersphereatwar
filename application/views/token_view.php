@@ -7,7 +7,19 @@
     <table>
         <tr>
             <?php if($token->detected || ( isset($player->faction_id) && $token->faction_id == $player->faction_id)): ?>
-            <td><div class="inline"><img src="<?php echo base_url('images/mech.png'); ?>"></div></td>
+            <td>
+                <div class="inline">
+                    <?php if ($token->type == 'Mech'): ?>
+                    <img src="<?php echo base_url('images/mech.png'); ?>">
+                    <?php elseif ($token->type == 'Vehicle'): ?>
+                    <img src="<?php echo base_url('images/vehicle.png'); ?>">
+                    <?php elseif ($token->type == 'Aero'): ?>
+                    <img src="<?php echo base_url('images/aero.png'); ?>">
+                    <?php elseif ($token->type == 'Infantry'): ?>
+                    <img src="<?php echo base_url('images/infantry.png'); ?>">
+                    <?php endif; ?>
+                </div>
+            </td>
             <td><div><h1><?php echo substr($token->formation_name, 0, 2); ?></h1></div></td>
             <?php else: ?>
             <td><div class="inline"><img src="<?php echo base_url('images/radar.png'); ?>"></div></td>

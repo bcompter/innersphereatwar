@@ -1,3 +1,10 @@
+
+<script type="text/javascript">                                         
+    // Set variables
+    <?php echo 'var $updateurl = \''.base_url('planet/update/'.$game->game_id).';'; ?>
+     
+</script>
+
 <div class="container">
     <div class="row">
         <div class="col-md-4">

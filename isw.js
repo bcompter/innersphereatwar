@@ -29,4 +29,15 @@ $(document).ready(function()
         );   
     });
     
+    // Start the update timer
+    setTimeout("update()", 5000);
+    
 });
+
+// Check back with the server for updates
+function update()
+{
+    
+    
+    setTimeout("update()", 5000);
+}
