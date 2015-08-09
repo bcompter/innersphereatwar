@@ -1,5 +1,6 @@
 <div class="container">
-    <h1><?php echo $unit->name; ?></h1>
+    <h1><?php echo $unit->name; ?> <small>(<?php echo anchor('unit/view_all', 'back to Unit List'); ?>)</small></h1>
+    <h3></h3>
     <table class="table table-striped">
         <tr>    <td>Name</td><td><?php echo $unit->name; ?></td></tr>
         <tr>    <td>Type</td><td><?php echo $unit->type; ?></td></tr>
