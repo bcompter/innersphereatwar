@@ -11,7 +11,11 @@
             <th>Loyalty</th><td><?php echo $command->loyalty; ?></td>
         </tr>
         <tr>
-            <th>Location</th><td><?php echo anchor('planet/view/'.$planet->planet_id, $planet->name); ?></td>
+            <th>Location</th>
+            <td>
+                <?php echo anchor('planet/view/'.$planet->planet_id, $planet->name); ?>
+                (<?php echo anchor('command/move/'.$command->command_id, 'MOVE'); ?>)
+            </td>
         </tr>
 
     </table>

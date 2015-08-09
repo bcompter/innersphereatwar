@@ -46,7 +46,6 @@
             
             <td>
                 <?php echo anchor('combatunit/view/'.$c->combatunit_id, 'VIEW'); ?> |
-                <?php echo anchor('combatunit/move/'.$c->combatunit_id, 'MOVE'); ?> |
                 <?php echo anchor('combatunit/damage/'.$c->combatunit_id, 'DAMAGE'); ?>
             </td>
         </tr>

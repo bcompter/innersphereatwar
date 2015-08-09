@@ -131,4 +131,35 @@ class Command extends MY_Controller {
             redirect('command/view/'.$command_id, 'refresh');
         }
     }
+    
+    /**
+     * Move this command to a new planet
+     */
+    function move($command_id=0, $planet_id=0)
+    {
+        $page = $this->page;
+
+        $this->load->model('commandmodel');        
+        if ($planet_id != 0)
+        {
+            $command = $this->commandmodel->get_by_id($command_id);
+            $command->planet_id = $planet_id;
+            $this->commandmodel->update($command_id, $command);
+            $this->session->set_flashdata('notice', 'Command Moved!');
+            redirect('command/view/'.$command_id, 'refresh');
+        }
+        else
+        {
+            $this->load->model('factionmodel');
+            $this->load->model('gamemodel');
+            $this->load->model('planetmodel');
+
+            $page['command'] = $this->commandmodel->get_by_id($command_id);
+            $page['faction'] = $this->factionmodel->get_by_id($page['command']->faction_id);
+            $page['game'] = $this->gamemodel->get_by_id($page['faction']->game_id);
+            $page['planets'] = $this->planetmodel->get_by_game($page['game']->game_id);
+            $page['content'] = 'command_move';
+            $this->load->view('template', $page);
+        } 
+    }
 }
