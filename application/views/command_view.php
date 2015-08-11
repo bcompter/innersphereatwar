@@ -50,4 +50,23 @@
         <?php endforeach; ?>
     </table>
     
+    <h2>Orders <small>(<?php echo anchor('orders/create/'.$command->command_id, 'add'); ?>)</small></h2>
+    <table class="table table-striped">
+        <tr>
+            <th>Type</th>
+            <th>Order Points</th>
+            <th>&nbsp;</th>
+
+        </tr>
+        <?php foreach($orders as $o): ?>
+        <tr>
+            <td><?php echo $o->type; ?></td>
+            <td><?php echo $o->points; ?></td>
+            <td>
+                <?php echo anchor('orders/delete/'.$command->command_id.'/'.$o->order_id, 'delete'); ?>
+            </td>
+        </tr>
+        <?php endforeach; ?>
+    </table>
+    
 </div>

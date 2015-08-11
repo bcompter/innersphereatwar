@@ -1,5 +1,5 @@
 <div class="container">
-    <h1>Game List</h1>
+    <h1>Game List <small>(<?php echo anchor('game/create', 'new'); ?>)</small></h1>
     
     <table class="table table-striped">
         <tr>

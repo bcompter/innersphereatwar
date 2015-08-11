@@ -85,12 +85,14 @@ class Command extends MY_Controller {
         $this->load->model('gamemodel');
         $this->load->model('planetmodel');
         $this->load->model('formationmodel');
+        $this->load->model('ordermodel');
         
         $page['command'] = $this->commandmodel->get_by_id($command_id);
         $page['faction'] = $this->factionmodel->get_by_id($page['command']->faction_id);
         $page['game'] = $this->gamemodel->get_by_id($page['faction']->game_id);
         $page['planet'] = $this->planetmodel->get_by_id($page['command']->planet_id);
         $page['formations'] = $this->formationmodel->get_by_command($command_id);
+        $page['orders'] = $this->ordermodel->get_by_command($command_id);
         $page['content'] = 'command_view';
         $this->load->view('template', $page);
     }
