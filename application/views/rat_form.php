@@ -17,7 +17,7 @@
         <div class="form-group">
             <label class="col-md-2 control-label">Tech</label>
             <div class="col-md-10">
-                <select class="form-control" name="type">
+                <select class="form-control" name="tech">
                     <option>A</option>
                     <option>B</option>
                     <option>C</option>

@@ -70,6 +70,7 @@ class Rat extends MY_Controller {
             $rat->faction = $this->input->post('faction');
             $rat->type = $this->input->post('type');
             $rat->size   = $this->input->post('size');
+            $rat->tech = $this->input('tech');
             $this->ratmodel->create($rat);
             
             $this->session->set_flashdata('notice', 'RAT created.');
