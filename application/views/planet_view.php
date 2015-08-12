@@ -1,6 +1,7 @@
 <div class="container">
     <h1><?php echo $planet->name; ?></h1>
     <table class="table table-striped">
+        <tr><td>Owner</td><td><?php $planet->faction_name; ?></td></tr>
         <tr>    <td>Type</td><td><?php echo $planet->type; ?></td></tr>
         <tr>    <td>X</td><td><?php echo $planet->x; ?></td></tr>
         <tr>    <td>Y</td><td><?php echo $planet->y; ?></td></tr>
@@ -15,12 +16,14 @@
         <table class="table table-striped">
             <tr>
                 <th>Combat Commands</th>
+                <th>Faction</th>
                 <th>&nbsp;</th>
             </tr>
             
             <?php foreach($commands as $c): ?>
             <tr>
                 <td><?php echo $c->name; ?></td>
+                <td><?php echo $c->faction_name; ?></td>
                 <td>
                     <?php echo anchor('command/view/'.$c->command_id, 'VIEW'); ?>
                 </td>

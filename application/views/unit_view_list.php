@@ -32,7 +32,10 @@
             <td><?php echo $u->structure; ?></td>
             <td><?php echo $u->special; ?></td>
 
-            <td><?php echo anchor('unit/view/'.$u->unit_id, 'VIEW'); ?></td>
+            <td>
+                <?php echo anchor('unit/view/'.$u->unit_id, 'VIEW'); ?> | 
+                <?php echo anchor('unit/edit/'.$u->unit_id, 'EDIT'); ?>
+            </td>
         </tr>    
     <?php endforeach; ?>
     </table>

@@ -55,9 +55,44 @@ class Unit extends MY_Controller {
     /**
      * Edit a unit
      */
-    function edit($unit_id)
+    function edit($unit_id=0)
     {
+        $page = $this->page;
         
+        $this->load->library('form_validation');
+        $this->load->model('unitmodel');
+        $page['unit'] = $this->unitmodel->get_by_id($unit_id);
+        
+        // Validate form input
+        $this->form_validation->set_rules('name', 'Name', 'required|max_length[200]');
+        if ($this->form_validation->run() == FALSE)
+        { 
+            // Show the form
+            $page['content'] = 'unit_form_edit';
+            $this->load->view('template', $page);
+        }
+        else
+        {
+            // Create the new unit
+            $unit = new stdClass();
+            $unit->name = $this->input->post('name');
+            $unit->size = $this->input->post('size');
+            $unit->type = $this->input->post('type');
+            $unit->move = $this->input->post('move');
+            $unit->jump = $this->input->post('jump');
+            $unit->armor = $this->input->post('armor');
+            $unit->structure = $this->input->post('structure');
+            $unit->short_dmg = $this->input->post('short');
+            $unit->med_dmg = $this->input->post('medium');
+            $unit->long_dmg = $this->input->post('long');
+            $unit->overheat = $this->input->post('overheat');
+            $unit->special = $this->input->post('special');
+            
+            $this->unitmodel->update($unit_id, $unit);
+            
+            $this->session->set_flashdata('notice', 'Unit updated.');
+            redirect('unit/view/'.$unit_id, 'refresh');
+        }
     }
     
     /**
@@ -65,7 +100,10 @@ class Unit extends MY_Controller {
      */
     function delete($unit_id=0)
     {
-        
+        $this->load->model('unitmodel');
+        $this->unitmodel->delete($unit_id);
+        $this->session->set_flashdata('notice', 'Unit deleted.');
+        redirect('unit/view_all', 'refresh');
     }
     
     /**
