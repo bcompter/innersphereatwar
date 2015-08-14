@@ -1,11 +1,16 @@
 <div class="container">
     <h1><?php echo $faction->name; ?></h1>
-    <h2>Data</h2>
-    <ul>
-        <li>Resource Points: <?php echo $faction->rp.' ('.anchor('faction/modify_rp/'.$faction->faction_id, 'Modify').')'; ?></li>
-        <li>...</li>
-        <li>...</li>
-    </ul>
+    <h2>Faction Data</h2>
+    <table class="table">
+        <tr>
+            <td>Resource Points: </td>
+            <td><?php echo $faction->rp.' ('.anchor('faction/modify_rp/'.$faction->faction_id, 'Modify').')'; ?></td>
+        </tr>
+        <tr>
+            <td>Combat Commands: </td>
+            <td><?php echo count($commands); ?></td>
+        </tr>
+    </table>
     
     <h2>Player List <small>(<?php echo anchor('faction/join/'.$faction->faction_id, 'join'); ?>)</small></h2>
     <table class="table table-striped">

@@ -125,6 +125,7 @@ class Command extends MY_Controller {
             // Create the new formation
             $formation = new stdClass();
             $formation->name = $this->input->post('name');
+            $formation->type = $this->input->post('type');
             $formation->command_id = $command_id;
             $formation->experience = $page['command']->experience;
             $this->formationmodel->create($formation);

@@ -70,7 +70,7 @@ class Rat extends MY_Controller {
             $rat->faction = $this->input->post('faction');
             $rat->type = $this->input->post('type');
             $rat->size   = $this->input->post('size');
-            $rat->tech = $this->input('tech');
+            $rat->tech = $this->input->post('tech');
             $this->ratmodel->create($rat);
             
             $this->session->set_flashdata('notice', 'RAT created.');
@@ -102,7 +102,7 @@ class Rat extends MY_Controller {
         if ($element_id == 0)
         {
             // Show the select form
-            $page['units'] = $this->unitmodel->get_by_size($page['rat']->size);
+            $page['units'] = $this->unitmodel->get_by_size_type($page['rat']->size, $page['rat']->type);
             $page['content'] = 'rat_add';
             $this->load->view('template', $page);
             return;
