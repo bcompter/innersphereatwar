@@ -3,6 +3,7 @@
     <table class="table">
         <tr><td>Faction: </td><td><?php echo $rat->faction; ?></td></tr>
         <tr><td>Type: </td><td><?php echo $rat->type; ?></td></tr>
+        <tr><td>Tech: </td><td><?php echo $rat->tech; ?></td></tr>
         <tr><td>Size: </td><td><?php echo $rat->size; ?></td></tr>
     </table>
     <table class="table table-striped">

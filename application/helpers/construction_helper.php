@@ -87,6 +87,25 @@ if ( ! function_exists('calculate_combatunit'))
         $skillTable['Elite'] = 2;
         $skill = $skillTable[$command->experience];
         
+        // Size lookup tables
+        $sizeTable['Light'] = 1;
+        $sizeTable['Medium'] = 2;
+        $sizeTable['Heavy'] = 3;
+        $sizeTable['Assault'] = 4;
+        $altSizeTable[1] = 'Light';
+        $altSizeTable[2] = 'Medium';
+        $altSizeTable[3] = 'Heavy';
+        $altSizeTable[4] = 'Assault';
+        $size = 0;
+        
+        // Zero out everything to catch double calculates
+        $combatunit->move = 0;
+        $combatunit->tmm = 0;
+        $combatunit->armor = 0;
+        $combatunit->short_dmg = 0;
+        $combatunit->med_dmg = 0;
+        $combatunit->long_dmg = 0;
+        
         foreach($combatteams as $c)
         {
             $combatunit->move += $c->move;
@@ -95,11 +114,13 @@ if ( ! function_exists('calculate_combatunit'))
             $combatunit->short_dmg += $c->short_dmg;
             $combatunit->med_dmg += $c->med_dmg;
             $combatunit->long_dmg += $c->long_dmg;
+            $size += $sizeTable[$c->size];
         }
         $combatunit->move = round($combatunit->move / count($combatteams));
         $combatunit->tmm = round($combatunit->tmm / count($combatteams));
         $combatunit->tactics = 10 - $combatunit->move + ($skill - 4);
         $combatunit->morale = $skill + 3;
+        $combatunit->size = round($size / 4);
         $CI->combatunitmodel->update($combatunit_id, $combatunit);
     }
 }
@@ -169,6 +190,17 @@ if ( ! function_exists('generate_combatteam'))
         $formation = $CI->formationmodel->get_by_id($combatunit->formation_id);
         $command = $CI->commandmodel->get_by_id($formation->command_id);
         $faction = $CI->factionmodel->get_by_id($command->faction_id);
+        
+        // Make RAT table lookup corrections
+        if ($formation->type == 'Aero' || $formation->type == 'Vehicle')
+        {
+            $command->tech = 'B';
+        }
+        if ($formation->type == 'Infantry')
+        {
+            $command->tech = 'B';
+            $faction->name = 'General';
+        }
         
         // Skill lookup table
         $skillTable['Green'] = 5;
@@ -254,6 +286,8 @@ if ( ! function_exists('generate_combatteam'))
             $roll = roll_dice(1, 6) - 1;
             $weightTable = $elementWeights[$l->weight][$roll];
             $numElements = 4;
+            
+            // Aero wings only have 2 elements
             if ($l->type == 'Aero')
             {
                 $numElements = 2;
@@ -264,6 +298,15 @@ if ( ! function_exists('generate_combatteam'))
                 $unit->lance_id = $l->lance_id;
                 $unit->type = $l->type;
                 $unit->weight = $weightTable[$e];
+                
+                // Aerospace can't have Assault elements
+                if ($unit->type == 'Aero' && $unit->weight = 'Assault')
+                    $unit->weight = 'Heavy';
+                
+                // Infantry is always light
+                if ($unit->type == 'Infantry')
+                    $unit->weight = 'Light';
+                   
                 $CI->elementmodel->create($unit);
             }
             

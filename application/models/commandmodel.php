@@ -21,12 +21,12 @@ Class Commandmodel extends MY_Model {
     }
     
     /**
-     * Get all formations on a planet
+     * Get all commands on a planet
      */
     function get_by_planet($planet_id)
     {
-        return $this->db->query('SELECT planets.*, factions.name AS faction_name FROM combat_commands '
-                . 'JOIN factions on factions.faction_id=planets.faction_id'
+        return $this->db->query('SELECT combat_commands.*, factions.name AS faction_name FROM combat_commands '
+                . 'JOIN factions on factions.faction_id=combat_commands.faction_id '
                 . 'WHERE planet_id='.$planet_id)->result(); 
     }
     

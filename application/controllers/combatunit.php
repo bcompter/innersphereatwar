@@ -117,4 +117,14 @@ class Combatunit extends MY_Controller {
         }
     }
     
+    /**
+     * Calculate stats for a combatunit
+     */
+    function calculate($combatunit_id=0)
+    {
+        calculate_combatunit($combatunit_id);
+        $this->session->set_flashdata('notice', 'Calculated.');
+        redirect('combatunit/view/'.$combatunit_id, 'refresh');
+    }
+    
 }

@@ -1,5 +1,13 @@
 <div class="container">
-    <h1>Formation, <?php echo $formation->name ?></h1>
+    <h1>
+        Formation, <?php echo $formation->name ?>
+        <small>
+            (<?php echo anchor('formation/calculate/'.$formation->formation_id, 'calculate'); ?>)
+            <?php if (count($combatunits) == 0): ?>
+                (<?php echo anchor('formation/generate/'.$formation->formation_id, 'generate'); ?>)
+            <?php endif; ?>
+        </small>
+    </h1>
     <table class="table">
         <tr><th>Combat Command</th><td><?php echo anchor('command/view/'.$command->command_id, $command->name); ?></td></tr>
         <tr><th>Type</th><td><?php echo $formation->type; ?></td></tr>
@@ -9,10 +17,8 @@
     </table>
     
     <h2>Combat Units 
-        <small>
-            (<?php echo anchor('formation/calculate/'.$formation->formation_id, 'calculate'); ?>) 
+        <small>      
             (<?php echo anchor('formation/add_combatunit/'.$formation->formation_id, 'add'); ?>) 
-            (<?php echo anchor('formation/generate/'.$formation->formation_id, 'generate'); ?>)
         </small>
     </h2>
     <table class="table table-striped">
