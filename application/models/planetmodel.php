@@ -18,7 +18,7 @@ Class Planetmodel extends MY_Model {
     function get_detail_by_id($id)
     {
         return $this->db->query('SELECT planets.*, factions.name AS faction_name FROM planets '
-                . 'JOIN factions ON factions.faction_id=planets.faction_id '
+                . 'LEFT JOIN factions ON factions.faction_id=planets.faction_id '
                 . 'WHERE planet_id='.$id)->row();
     }
     

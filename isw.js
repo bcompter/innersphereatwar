@@ -37,7 +37,27 @@ $(document).ready(function()
 // Check back with the server for updates
 function update()
 {
-    
+    $.post( $updateurl, {}, function(xml)
+    {            
+        $tokens = $("tokens",xml).text();
+        $tokens = jQuery.parseJSON($tokens);
+        
+        for ($t in $tokens)
+        {
+            $theId = "#" + $tokens[$t].token_id;
+            $actual = $($theId);
+            $p = $actual.position();
+            if ($p.top != $tokens[$t].y || $p.left != $tokens[$t].x)
+            {
+                $actual.animate({
+                    left: $tokens[$t].x,
+                    top: $tokens[$t].y
+                    }, 1000, function() {
+                // Animation complete.
+                });
+            }
+        }
+    });
     
     setTimeout("update()", 5000);
 }

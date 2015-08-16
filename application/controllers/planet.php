@@ -169,9 +169,15 @@ class Planet extends MY_Controller {
     /**
      * Update this planet
      */
-    function update($planet_id=0)
+    function update($planet_id=0, $location=0)
     {
+        $page = $this->page;
         
+        $this->load->model('tokenmodel');
+        
+        $page['tokens'] = $this->tokenmodel->get_by_planet($planet_id, $location);
+
+        $this->load->view('planet_update', $page);
     }
     
 }

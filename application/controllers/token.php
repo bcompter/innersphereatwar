@@ -51,13 +51,16 @@ class Token extends MY_Controller {
         $game_id = $page['command']->game_id;
         $this->load->model('playermodel');
         $player = $this->playermodel->get_by_user_game($page['user']->id, $game_id);
-        $page['show'] = false;
         if (isset($player->faction_id) && $faction_id != $player->faction_id)
         {
-            $page['show'] = true;
+            $page['content'] = 'token_view_radar';
+        }
+        else
+        {
+            $page['content'] = 'token_view_detail';
         }
         
-        $page['content'] = 'token_view_detail';
+        
         $this->load->view('templatexml', $page);
     }
     

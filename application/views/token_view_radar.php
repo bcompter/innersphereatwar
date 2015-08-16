@@ -1,0 +1,1 @@
+<div class="inline"><img src="<?php echo base_url('images/radar.png'); ?>"></div>

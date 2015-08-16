@@ -1,6 +1,6 @@
 <script type="text/javascript">                                         
     // Set variables
-    <?php echo 'var $updateurl = \''.base_url('planet/update/'.$game->game_id).';'; ?>
+    <?php echo 'var $updateurl = "'.base_url('index.php/planet/update/'.$planet->planet_id.'/aero').'";'; ?>
      
 </script>
 
