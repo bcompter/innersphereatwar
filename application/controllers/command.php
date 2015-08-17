@@ -127,7 +127,6 @@ class Command extends MY_Controller {
             $formation->name = $this->input->post('name');
             $formation->type = $this->input->post('type');
             $formation->command_id = $command_id;
-            $formation->experience = $page['command']->experience;
             $this->formationmodel->create($formation);
             
             $this->session->set_flashdata('notice', 'Formation created.');

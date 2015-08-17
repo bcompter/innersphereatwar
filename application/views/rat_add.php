@@ -3,6 +3,7 @@
     <ul>
         <li>Faction: <?php echo $rat->faction; ?></li>
         <li>Type: <?php echo $rat->type; ?></li>
+        <li>Tech: <?php echo $rat->tech; ?></li>
         <li>Size: <?php echo $rat->size; ?></li>
     </ul>
     <table class="table table-striped">

@@ -8,6 +8,9 @@
             <th>Experience</th><td><?php echo $command->experience; ?></td>
         </tr>
         <tr>
+            <th>Tech Rating</th><td><?php echo $command->tech; ?></td>
+        </tr>
+        <tr>
             <th>Loyalty</th><td><?php echo $command->loyalty; ?></td>
         </tr>
         <tr>

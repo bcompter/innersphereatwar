@@ -17,7 +17,7 @@ Class Ratdatamodel extends MY_Model {
      */
     function get_by_rat($rat_id)
     {
-        return $this->db->query('SELECT rat_data.* FROM rat_data WHERE rat_id='.$rat_id)->result();
+        return $this->db->query('SELECT rat_data.* FROM rat_data WHERE rat_id='.$rat_id.' ORDER BY roll ASC')->result();
     }
     
     /**
@@ -28,7 +28,7 @@ Class Ratdatamodel extends MY_Model {
         return $this->db->query('SELECT rat_data.* FROM rat_data '
                 . 'JOIN units ON units.unit_id=rat_data.unit_id '
                 . ' WHERE rat_id='.$rat_id.' '
-                . 'AND size="'.$size.'"')->result();
+                . 'AND size="'.$size.'" ORDER BY unit_name ASC')->result();
     }
     
 }
