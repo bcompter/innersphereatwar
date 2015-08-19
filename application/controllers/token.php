@@ -46,6 +46,32 @@ class Token extends MY_Controller {
         $page['command'] = $this->commandmodel->get_by_id($page['formation']->command_id);
         $page['combatunits'] = $this->combatunitmodel->get_by_formation($page['formation']->formation_id);
         
+        // Determine to hit values for each combat unit
+        $skillTable['Green'] = 0;
+        $skillTable['Regular'] = 1;
+        $skillTable['Veteran'] = 2;
+        $skillTable['Elite'] = 3;
+        $loyaltyTable['Reliable'] = 0;
+        $loyaltyTable['Fanatical'] = -1;
+        $loyaltyTable['Questionable'] = +1;
+        $moraleTable['Normal'] = 0;
+        $moraleTable['Shaken'] = 1;
+        $moraleTable['Unsteady'] = 2;
+        $moraleTable['Broken'] = 3;
+        foreach($page['combatunits'] as $c)
+        {
+            $tohit = 3;
+            $tohit += $page['formation']->stance_mod;
+            $tohit += $loyaltyTable[$page['command']->loyalty];
+            $tohit += $moraleTable[$c->morale_state];
+            if ($page['formation']->role == 'Recon')
+                $tohit++;
+            $tohit -= $skillTable[$page['command']->experience];
+            if (!$page['command']->supply)
+                $tohit += 3;
+            $c->tohit = $tohit;
+        }
+        
         // Determine if this token may be viewed
         $faction_id = $page['command']->faction_id;
         $game_id = $page['command']->game_id;

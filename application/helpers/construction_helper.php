@@ -162,6 +162,7 @@ if ( ! function_exists('calculate_formation'))
         }
         $formation->tactics = 10 - $formation->move + ($skill - 4);
         $formation->morale = $skill + 3;
+        $formation->experience = $skill;
         $CI->formationmodel->update($formation_id, $formation);
     }
 }

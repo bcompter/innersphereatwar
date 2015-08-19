@@ -29,6 +29,7 @@
             <th>Move</th>
             <th>TMM</th>
             <th>ARM</th>
+            <th>Thresholds</th>
             <th>S</th>
             <th>M</th>
             <th>L</th>
@@ -44,6 +45,7 @@
             <td><?php echo $c->move; ?></td>
             <td><?php echo $c->tmm; ?></td>
             <td><?php echo $c->armor-$c->damage; ?> / <?php echo $c->armor; ?></td>
+            <td>(<?php echo round($c->armor / 4*3); ?> / <?php echo round($c->armor / 4*2); ?> / <?php echo round($c->armor / 4); ?>)</td>
             <td><?php echo $c->short_dmg; ?></td>
             <td><?php echo $c->med_dmg; ?></td>
             <td><?php echo $c->long_dmg; ?></td>
@@ -57,5 +59,12 @@
         </tr>
         <?php endforeach; ?>
     </table>
+    
+    <h3>
+        DANGER ZONE, 
+        <small>
+            (<?php echo anchor('formation/delete/'.$formation->formation_id, 'delete'); ?>)
+        </small>
+    </h3>
     
 </div>

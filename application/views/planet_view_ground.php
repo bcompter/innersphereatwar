@@ -31,18 +31,13 @@
                 </tr>
             </table>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-8">
             <h2>Token <small>Info</small></h2>
             <div id="token_info">
                 ...
             </div>
         </div>
-        <div class="col-md-2">
-            <h2>Chat?</h2>
-            <div id="chat">
-                ...
-            </div>
-        </div>
+        
     </div>
     <div class="row">
         <div class="col-md-10">

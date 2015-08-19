@@ -78,6 +78,18 @@ class Formation extends MY_Controller {
             // Create the new formation
             $combatunit = new stdClass();
             $combatunit->name = $this->input->post('name');
+            $combatunit->move = $this->input->post('move');
+            $combatunit->size = $this->input->post('size');
+            $combatunit->tmm = $this->input->post('tmm');
+            
+            $combatunit->armor = $this->input->post('arm');
+            $combatunit->short_dmg = $this->input->post('short_dmg');
+            $combatunit->med_dmg = $this->input->post('med_dmg');
+            $combatunit->long_dmg = $this->input->post('long_dmg');
+            
+            $combatunit->tactics = $this->input->post('tactics');
+            $combatunit->morale = $this->input->post('morale');
+            
             $combatunit->formation_id = $formation_id;
             $this->combatunitmodel->create($combatunit);
             

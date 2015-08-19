@@ -15,7 +15,7 @@
         
     </table>
     
-    <h2>Combat Teams <small>(<?php echo anchor('combatunit/add_combatteam/'.$combatunit->combatunit_id, 'add'); ?>)</small></h2>
+    <h2>Combat Teams</h2>
     <table class="table table-striped">
         <tr>
             <th>Name</th>
