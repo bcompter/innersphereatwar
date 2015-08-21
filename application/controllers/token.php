@@ -85,6 +85,10 @@ class Token extends MY_Controller {
         {
             $page['content'] = 'token_view_detail';
         }
+        if ($page['token']->detected)
+        {
+            $page['content'] = 'token_view_detail';
+        }
         
         
         $this->load->view('templatexml', $page);
