@@ -157,4 +157,36 @@ class Formation extends MY_Controller {
         $this->session->set_flashdata('notice', 'Formation stats calculated.');
         redirect('formation/view/'.$formation_id, 'refresh');
     }
+    
+    /**
+     * Edit this formations name
+     */
+    function edit_name($formation_id=0)
+    {
+        $page = $this->page;
+        
+        $this->load->library('form_validation');
+        $this->load->model('formationmodel');
+        
+        $page['formation'] = $this->formationmodel->get_by_id($formation_id);
+        
+        // Validate form input
+        $this->form_validation->set_rules('name', 'Name', 'required|max_length[200]');
+        if ($this->form_validation->run() == FALSE)
+        { 
+            // Show the form
+            $page['content'] = 'formation_form_name';
+            $this->load->view('template', $page);
+        }
+        else
+        {            
+            // Create the new formation
+            $formation = new stdClass();
+            $formation->name = $this->input->post('name');
+            $this->formationmodel->update($formation_id, $formation);
+            
+            $this->session->set_flashdata('notice', 'Formation name updated.');
+            redirect('formation/view/'.$formation_id, 'refresh');
+        }
+    }
 }
