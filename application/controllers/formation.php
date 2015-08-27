@@ -167,8 +167,9 @@ class Formation extends MY_Controller {
         
         $this->load->library('form_validation');
         $this->load->model('formationmodel');
-        
+        $this->load->model('commandmodel');
         $page['formation'] = $this->formationmodel->get_by_id($formation_id);
+        $command = $this->commandmodel->get_by_id($page['formation']->command_id);
         
         // Validate form input
         $this->form_validation->set_rules('name', 'Name', 'required|max_length[200]');
@@ -186,7 +187,7 @@ class Formation extends MY_Controller {
             $this->formationmodel->update($formation_id, $formation);
             
             $this->session->set_flashdata('notice', 'Formation name updated.');
-            redirect('formation/view/'.$formation_id, 'refresh');
+            redirect('command/view/'.$command->command_id, 'refresh');
         }
     }
 }
