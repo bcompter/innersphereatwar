@@ -23,8 +23,13 @@
             <td><div><h1><?php echo substr($token->formation_name, 0, 2); ?></h1></div></td>
             <?php else: ?>
             <td><div class="inline"><img src="<?php echo base_url('images/radar.png'); ?>"></div></td>
+            <td><h1><?php echo substr($token->token_id, -2); ?></h1></td>
             <?php endif; ?>
-        </tr>        
+        </tr>
+        <tr>
+            <td><?php echo ($token->moved ? 'X' : 'O') ?></td>
+            <td><?php echo substr($token->token_id, -2); ?></td>
+        </tr>
     </table>
     
 </div>

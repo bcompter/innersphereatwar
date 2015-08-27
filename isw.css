@@ -20,15 +20,16 @@ body {
 .token{
     position: absolute;
     height: 40px;
-    width: 60px;
+    width: 45px;
     border: solid 1px;
     border-radius: 5px;
+    color: white;
 }
 
 .token h1 {
-    font-size: 19px;
+    font-size: 18px;
     display: inline;
-    margin-left: -3px;
+    margin-left: -1px;
 }
 
 .token img {

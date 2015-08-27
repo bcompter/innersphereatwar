@@ -42,7 +42,8 @@
             <td><?php echo $f->tactics; ?></td>
             <td><?php echo $f->morale; ?></td>
             <td>
-                <?php echo anchor('formation/view/'.$f->formation_id, 'VIEW'); ?>
+                <?php echo anchor('formation/view/'.$f->formation_id, 'VIEW'); ?> |
+                <?php echo anchor('formation/edit_name/'.$f->formation_id, 'EDIT'); ?>
             </td>
             <td>
                 <?php echo anchor('formation/place_token/'.$f->formation_id.'/Aero', 'PLACE Aero'); ?> |
