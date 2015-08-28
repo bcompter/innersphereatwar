@@ -48,4 +48,11 @@
             </tr>
         </table>
     </div>
+    
+    <div class="col-md-10">
+        <h2>DANGER ZONE</h2>
+        <p>
+            (<?php echo anchor('planet/delete/'.$planet->planet_id, 'delete'); ?>)
+        </p>
+    </div>
 </div>

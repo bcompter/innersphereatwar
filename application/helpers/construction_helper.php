@@ -316,6 +316,7 @@ if ( ! function_exists('generate_combatteam'))
             foreach($elements as $e)
             {
                 $roll = roll_dice(2, 6);
+                if ($faction->name == 'Ronin') $faction->name = 'Kurita'; // HACK...
                 $ratresult = $CI->ratmodel->get_by_roll($faction->name, $command->tech, $e->type, $e->weight, $roll);
                 $e->name = $ratresult->name;
                 $e->move = $ratresult->move;            $l->move += $e->move;

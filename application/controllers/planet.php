@@ -57,9 +57,54 @@ class Planet extends MY_Controller {
     /**
      * Edit a planet
      */
-    function edit()
+    function edit($planet_id=0)
     {
+        $page = $this->page;
         
+        $this->load->library('form_validation');
+        $this->load->model('gamemodel');
+        $this->load->model('planetmodel');
+        $planet = $this->planetmodel->get_by_id($planet_id);
+        $game = $this->gamemodel->get_by_id($planet->game_id);
+        
+        // Validate form input
+        $this->form_validation->set_rules('name', 'Name', 'required|max_length[200]');
+        if ($this->form_validation->run() == FALSE)
+        { 
+            // Show the form
+            $page['planet'] = $planet;
+            $page['content'] = 'planet_form_edit';
+            $this->load->view('template', $page);
+        }
+        else
+        {
+            // Edit the planet
+            $planet->name = $this->input->post('name');
+            $planet->type = $this->input->post('type');
+            $planet->x = $this->input->post('x');
+            $planet->y = $this->input->post('y');
+            $this->planetmodel->update($planet_id, $planet);
+            
+            $this->session->set_flashdata('notice', 'Planet Updated.');
+            redirect('planet/view/'.$planet_id, 'refresh');
+        }
+        
+    }
+    
+    /**
+     * Delete a planet
+     */
+    function delete($planet_id=0)
+    {
+        $page = $this->page;
+        
+        $this->load->model('planetmodel');
+        $this->load->model('gamemodel');
+        $planet = $this->planetmodel->get_by_id($planet_id);
+        $game = $this->gamemodel->get_by_id($planet->game_id);
+        $this->planetmodel->delete($planet_id);
+        $this->session->set_flashdata('notice', 'Planet deleted.');
+        redirect('planet/view_game/'.$game->game_id, 'refresh');
     }
     
     /**

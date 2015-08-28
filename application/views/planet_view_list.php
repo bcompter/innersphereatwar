@@ -16,7 +16,10 @@
             <td><?php echo $p->type; ?></td>
             <td><?php echo $p->x; ?></td>
             <td><?php echo $p->y; ?></td>
-            <td><?php echo anchor('planet/view/'.$p->planet_id, 'VIEW'); ?></td>
+            <td>
+                <?php echo anchor('planet/view/'.$p->planet_id, 'VIEW'); ?> | 
+                <?php echo anchor('planet/edit/'.$p->planet_id, 'EDIT'); ?>
+            </td>
         </tr>    
     <?php endforeach; ?>
     </table>
