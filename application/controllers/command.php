@@ -135,6 +135,81 @@ class Command extends MY_Controller {
     }
     
     /**
+     * Add a typical mix of 1 Mech, 1 Vee, and 1 aero to this command
+     */
+    function add_formation_standard($command_id=0)
+    {
+        $page = $this->page;
+        
+        $this->load->model('commandmodel');
+        $this->load->model('formationmodel');
+        
+        $page['command'] = $this->commandmodel->get_by_id($command_id);
+        
+        $formation = new stdClass();
+        $formation->name = 'M1';
+        $formation->type = 'Mech';
+        $formation->command_id = $command_id;
+        $this->formationmodel->create($formation);
+        
+        $formation->name = 'A1';
+        $formation->type = 'Aero';
+        $formation->command_id = $command_id;
+        $this->formationmodel->create($formation);
+        
+        $formation->name = 'V1';
+        $formation->type = 'Vehicle';
+        $formation->command_id = $command_id;
+        $this->formationmodel->create($formation);
+        
+        $this->session->set_flashdata('notice', 'Formations created.');
+        redirect('command/view/'.$command_id, 'refresh');
+    }
+    
+    /**
+     * Add a dropship combat unit to this command
+     */
+    function add_dropship($command_id=0)
+    {
+        $page = $this->page;
+        
+        $this->load->model('commandmodel');
+        $this->load->model('formationmodel');
+        $this->load->model('combatunitmodel');
+        
+        $page['command'] = $this->commandmodel->get_by_id($command_id);
+        
+        $formation = new stdClass();
+        $formation->name = 'D1';
+        $formation->type = 'Aero';
+        $formation->command_id = $command_id;
+        $this->formationmodel->create($formation);
+        
+        $id = $this->db->insert_id();
+        unset($formation);
+        $formation = $this->formationmodel->get_by_id($id);
+        
+        $combatunit = new stdClass();
+        $combatunit->formation_id = $id;
+        $combatunit->name = 'Battalion 1';
+        $combatunit->size = 4;
+        $combatunit->move = 3;
+        $combatunit->tmm = 1;
+        $combatunit->armor = 39;
+        $combatunit->short_dmg = 9;
+        $combatunit->med_dmg = 9;
+        $combatunit->long_dmg = 4;
+        $combatunit->tactics = 7;
+        $combatunit->morale = 10;
+        $this->combatunitmodel->create($combatunit);
+        
+        calculate_formation($id);
+        
+        $this->session->set_flashdata('notice', 'Dropship Formation created.');
+        redirect('command/view/'.$command_id, 'refresh');
+    }
+    
+    /**
      * Move this command to a new planet
      */
     function move($command_id=0, $planet_id=0)

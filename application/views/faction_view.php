@@ -1,4 +1,5 @@
 <div class="container">
+    <?php echo anchor('game/view/'.$faction->game_id, '<< Game View'); ?>
     <h1><?php echo $faction->name; ?></h1>
     <h2>Faction Data</h2>
     <table class="table">
@@ -32,12 +33,22 @@
     <table class="table table-striped">
         <tr>
             <th>Name</th>
+            <th>Experience</th>
+            <th>Loyalty</th>
+            <th>Fatigue</th>
+            <th>In Supply</th>
+            <th>In Combat</th>
             <th>&nbsp;</th>
         </tr>
     <?php foreach($commands as $c): ?>
     
         <tr>
             <td><?php echo $c->name; ?></td>
+            <td><?php echo $c->experience; ?></td>
+            <td><?php echo $c->loyalty; ?></td>
+            <td><?php echo $c->fatigue; ?></td>
+            <td><?php echo ($c->supply ? 'YES' : 'NO'); ?></td>
+            <td><?php echo ($c->in_combat ? 'YES' : 'NO'); ?></td>
             <td><?php echo anchor('command/view/'.$c->command_id, 'VIEW'); ?></td>
         </tr>
         

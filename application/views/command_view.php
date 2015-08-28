@@ -23,7 +23,16 @@
 
     </table>
     
-    <h2>Formations <small>(<?php echo anchor('command/add_formation/'.$command->command_id, 'add'); ?>)</small></h2>
+    <h2>
+        Formations 
+        <small>
+            (<?php echo anchor('command/add_formation/'.$command->command_id, 'add'); ?>) |
+            (<?php echo anchor('command/add_dropship/'.$command->command_id, 'add dropship'); ?>)
+            <?php if (count($formations) == 0): ?>
+                (<?php echo anchor('command/add_formation_standard/'.$command->command_id, 'add standard mix'); ?>)
+            <?php endif; ?>
+        </small>
+    </h2>
     <table class="table table-striped">
         <tr>
             <th>Name</th>
@@ -44,6 +53,11 @@
             <td>
                 <?php echo anchor('formation/view/'.$f->formation_id, 'VIEW'); ?> |
                 <?php echo anchor('formation/edit_name/'.$f->formation_id, 'EDIT'); ?>
+                
+                <?php if ($f->move == 0): ?>
+                    | <?php echo anchor('formation/generate/'.$f->formation_id, 'GENERATE'); ?>
+                <?php endif; ?>
+                
             </td>
             <td>
                 <?php echo anchor('formation/place_token/'.$f->formation_id.'/Aero', 'PLACE Aero'); ?> |
