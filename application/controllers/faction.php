@@ -124,6 +124,12 @@ class Faction extends MY_Controller {
         $supply = $mech_supply+$vee_supply+$aero_supply+$inf_supply;
         $page['supply'] = $supply;
         
+        // Calculate order cost
+        $order_cost = $this->db->query('SELECT SUM(rp_cost) AS sum FROM orders '
+                . 'JOIN combat_commands ON combat_commands.command_id=orders.command_id '
+                . 'WHERE faction_id='.$faction_id)->row()->sum;
+        $page['order_rp_cost'] = $order_cost;
+        
         $page['content'] = 'faction_view';
         $this->load->view('template', $page);
     }

@@ -117,6 +117,7 @@ class Planet extends MY_Controller {
         $this->load->model('planetmodel');
         $this->load->model('commandmodel');
         $page['planet'] = $this->planetmodel->get_detail_by_id($planet_id);
+        $page['planets'] = $this->planetmodel->get_by_game($page['planet']->game_id);
         $page['commands'] = $this->commandmodel->get_by_planet($planet_id);
         $page['content'] = 'planet_view';
         $this->load->view('template', $page);
@@ -205,9 +206,13 @@ class Planet extends MY_Controller {
         $planet = $this->planetmodel->get_by_id($planet_id);
         $planet->phase += $adjustment;
         if ($planet->phase < 1)
+        {
             $planet->phase = 8;
+        }
         else if ($planet->phase > 8)
+        {
             $planet->phase = 1;
+        }
         $this->planetmodel->update($planet_id, $planet);        
     }
     
@@ -217,11 +222,8 @@ class Planet extends MY_Controller {
     function update($planet_id=0, $location=0)
     {
         $page = $this->page;
-        
         $this->load->model('tokenmodel');
-        
         $page['tokens'] = $this->tokenmodel->get_by_planet($planet_id, $location);
-
         $this->load->view('planet_update', $page);
     }
     
@@ -239,5 +241,16 @@ class Planet extends MY_Controller {
         redirect('planet/view/'.$planet_id, 'refresh');
     }
     
+    /**
+     * Fast Combat Resolution
+     */
+    function fast_combat($planet_id=0)
+    {
+        $page = $this->page;
+        $this->load->helper('combats');
+        fast_resolve($planet_id);
+        $this->session->set_flashdata('notice', 'Combat Rolled.  Please resolve Combat Unit deaths and Morale.');
+        redirect('planet/view/'.$planet_id, 'refresh');
+    }
 }
 

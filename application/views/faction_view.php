@@ -15,6 +15,10 @@
             <td>Supply Requirement: </td>
             <td><?php echo $supply; ?></td>
         </tr>
+        <tr>
+            <td>Order Requirement: </td>
+            <td><?php echo $order_rp_cost; ?></td>
+        </tr>
     </table>
     
     <h2>Player List <small>(<?php echo anchor('faction/join/'.$faction->faction_id, 'join'); ?>)</small></h2>

@@ -44,13 +44,21 @@
         <table class="table table-striped">
             <tr>
                 <th>Planet</th>
+                <th>Distance (light years)</th>
                 <th>&nbsp;</th>
             </tr>
             
+            <?php foreach ($planets as $p): ?>
+            <?php $rough_distance = abs($planet->x - $p->x) + abs($planet->y - $p->y); ?>
+            <?php if ($rough_distance < 45): ?>
             <tr>
-                <td>...</td>
-                <td>VIEW</td>
+                <td><?php echo $p->name; ?></td>
+                <td><?php echo sqrt(pow($planet->x - $p->x,2) + pow($planet->y - $p->y, 2)); ?></td>
+                <td><?php echo anchor('planet/view/'.$p->planet_id, 'VIEW'); ?></td>
             </tr>
+            <?php endif; ?>
+            <?php endforeach; ?>
+            
         </table>
     </div>
     
