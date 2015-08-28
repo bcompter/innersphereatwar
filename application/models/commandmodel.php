@@ -17,7 +17,10 @@ Class Commandmodel extends MY_Model {
      */
     function get_by_faction($faction_id)
     {
-        return $this->db->query('SELECT * FROM combat_commands WHERE faction_id='.$faction_id)->result();        
+        return $this->db->query('SELECT combat_commands.*, planets.name AS planet_name '
+                . 'FROM combat_commands '
+                . 'LEFT JOIN planets on planets.planet_id=combat_commands.planet_id '
+                . 'WHERE combat_commands.faction_id='.$faction_id)->result();        
     }
     
     /**

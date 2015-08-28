@@ -74,6 +74,56 @@ class Faction extends MY_Controller {
         $page['game'] = $this->gamemodel->get_by_id($page['faction']->game_id);
         $page['players'] = $this->playermodel->get_by_faction($faction_id);
         $page['commands'] = $this->commandmodel->get_by_faction($faction_id);
+        
+        // Calculate supply requirement
+        $mech_supply = $this->db->query('SELECT COUNT(*) AS num FROM formations 
+            JOIN combat_commands on combat_commands.command_id=formations.command_id
+            WHERE type="Mech" 
+            AND combat_commands.faction_id='.$faction_id.'
+            AND in_combat=0')->row()->num*2;
+        $mech_supply += $this->db->query('SELECT COUNT(*) AS num FROM formations 
+            JOIN combat_commands on combat_commands.command_id=formations.command_id
+            WHERE type="Mech" 
+            AND combat_commands.faction_id='.$faction_id.'
+            AND in_combat=1')->row()->num*8;
+        
+        $vee_supply = $this->db->query('SELECT COUNT(*) AS num FROM formations 
+            JOIN combat_commands on combat_commands.command_id=formations.command_id
+            WHERE type="Vehicle" 
+            AND combat_commands.faction_id='.$faction_id.'
+            AND in_combat=0')->row()->num;
+        $vee_supply += $this->db->query('SELECT COUNT(*) AS num FROM formations 
+            JOIN combat_commands on combat_commands.command_id=formations.command_id
+            WHERE type="Vehicle" 
+            AND combat_commands.faction_id='.$faction_id.'
+            AND in_combat=1')->row()->num*4;
+        
+        $aero_supply = $this->db->query('SELECT COUNT(*) AS num FROM formations 
+            JOIN combat_commands on combat_commands.command_id=formations.command_id
+            WHERE type="Aero" 
+            AND combat_commands.faction_id='.$faction_id.'
+            AND in_combat=0')->row()->num;
+        $aero_supply += $this->db->query('SELECT COUNT(*) AS num FROM formations 
+            JOIN combat_commands on combat_commands.command_id=formations.command_id
+            WHERE type="Aero" 
+            AND combat_commands.faction_id='.$faction_id.'
+            AND in_combat=1')->row()->num*4;
+        
+        $inf_supply = $this->db->query('SELECT COUNT(*) AS num FROM formations 
+            JOIN combat_commands on combat_commands.command_id=formations.command_id
+            WHERE type="Infantry" 
+            AND combat_commands.faction_id='.$faction_id.'
+            AND in_combat=0')->row()->num*0.5;
+        $inf_supply += $this->db->query('SELECT COUNT(*) AS num FROM formations 
+            JOIN combat_commands on combat_commands.command_id=formations.command_id
+            WHERE type="Infantry" 
+            AND combat_commands.faction_id='.$faction_id.'
+            AND in_combat=1')->row()->num*2;
+        $inf_supply = round($inf_supply);
+        
+        $supply = $mech_supply+$vee_supply+$aero_supply+$inf_supply;
+        $page['supply'] = $supply;
+        
         $page['content'] = 'faction_view';
         $this->load->view('template', $page);
     }

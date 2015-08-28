@@ -239,4 +239,58 @@ class Command extends MY_Controller {
             $this->load->view('template', $page);
         } 
     }
+    
+    /**
+     * Toggle the in combat flag
+     */
+    function toggle_in_combat($command_id=0)
+    {
+        $this->load->model('factionmodel');
+        $this->load->model('commandmodel');
+
+        $command = $this->commandmodel->get_by_id($command_id);
+        $faction = $this->factionmodel->get_by_id($command->faction_id);
+        
+        $command->in_combat = !$command->in_combat;
+        $this->commandmodel->update($command_id, $command);
+        
+        $this->session->set_flashdata('notice', 'Updated.');
+        redirect('faction/view/'.$faction->faction_id, 'refresh');
+    }
+    
+    /**
+     * Toggle the in suply flag
+     */
+    function toggle_in_supply($command_id=0)
+    {
+        $this->load->model('factionmodel');
+        $this->load->model('commandmodel');
+
+        $command = $this->commandmodel->get_by_id($command_id);
+        $faction = $this->factionmodel->get_by_id($command->faction_id);
+        
+        $command->supply = !$command->supply;
+        $this->commandmodel->update($command_id, $command);
+        
+        $this->session->set_flashdata('notice', 'Updated.');
+        redirect('faction/view/'.$faction->faction_id, 'refresh');
+    }
+    
+    /**
+     * Increment or decrement the fatigue
+     */
+    function modify_fatigue($command_id=0, $value=0)
+    {
+        $this->load->model('factionmodel');
+        $this->load->model('commandmodel');
+
+        $command = $this->commandmodel->get_by_id($command_id);
+        $faction = $this->factionmodel->get_by_id($command->faction_id);
+        
+        $command->fatigue += $value;
+        $this->commandmodel->update($command_id, $command);
+        
+        $this->session->set_flashdata('notice', 'Updated.');
+        redirect('faction/view/'.$faction->faction_id, 'refresh');
+    }
 }
