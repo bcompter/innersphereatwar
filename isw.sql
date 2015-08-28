@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost:8889
--- Generation Time: Aug 17, 2015 at 05:52 PM
+-- Generation Time: Aug 28, 2015 at 05:16 AM
 -- Server version: 5.5.38
 -- PHP Version: 5.5.18
 
@@ -45,7 +45,7 @@ CREATE TABLE `combatteams` (
   `short_dmg` int(11) NOT NULL DEFAULT '0',
   `med_dmg` int(11) NOT NULL DEFAULT '0',
   `long_dmg` int(11) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB AUTO_INCREMENT=118 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=397 DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -66,8 +66,9 @@ CREATE TABLE `combatunits` (
   `med_dmg` int(11) NOT NULL DEFAULT '0',
   `long_dmg` int(11) DEFAULT '0',
   `tactics` int(11) NOT NULL DEFAULT '0',
-  `morale` int(11) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=latin1;
+  `morale` int(11) NOT NULL DEFAULT '0',
+  `morale_state` enum('Normal','Shaken','Unsteady','Broken') NOT NULL DEFAULT 'Normal'
+) ENGINE=InnoDB AUTO_INCREMENT=144 DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -84,8 +85,10 @@ CREATE TABLE `combat_commands` (
   `experience` enum('Green','Regular','Veteran','Elite') NOT NULL,
   `loyalty` enum('Questionable','Reliable','Fanatical') NOT NULL,
   `tech` enum('A','B','C','Special') NOT NULL,
-  `fatigue` int(11) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+  `fatigue` int(11) NOT NULL DEFAULT '0',
+  `supply` int(11) NOT NULL DEFAULT '1',
+  `in_combat` int(11) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -108,7 +111,7 @@ CREATE TABLE `elements` (
   `armor` int(11) NOT NULL DEFAULT '0',
   `structure` int(11) NOT NULL DEFAULT '0',
   `special` varchar(200) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=1249 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4219 DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -122,7 +125,7 @@ CREATE TABLE `factions` (
   `name` varchar(200) NOT NULL,
   `color` varchar(12) NOT NULL,
   `rp` int(11) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -135,6 +138,7 @@ CREATE TABLE `formations` (
   `command_id` int(11) NOT NULL,
   `name` varchar(200) NOT NULL,
   `type` enum('Mech','Vehicle','Infantry','Aero') NOT NULL,
+  `experience` int(11) NOT NULL DEFAULT '4',
   `move` int(11) NOT NULL DEFAULT '0',
   `tmm` int(11) NOT NULL DEFAULT '0',
   `tactics` int(11) NOT NULL DEFAULT '0',
@@ -142,7 +146,7 @@ CREATE TABLE `formations` (
   `role` enum('Combat','Recon') NOT NULL DEFAULT 'Combat',
   `stance` enum('Standard','Offensive','Defensive') NOT NULL DEFAULT 'Standard',
   `stance_mod` int(11) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=59 DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -154,7 +158,7 @@ CREATE TABLE `games` (
 `game_id` int(11) NOT NULL,
   `name` varchar(200) NOT NULL,
   `turn` int(11) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -186,7 +190,7 @@ CREATE TABLE `lances` (
   `short_dmg` int(11) NOT NULL DEFAULT '0',
   `med_dmg` int(11) NOT NULL DEFAULT '0',
   `long_dmg` int(11) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB AUTO_INCREMENT=343 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=1180 DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -212,8 +216,9 @@ CREATE TABLE `orders` (
   `type` enum('Train','Rest','Repair','Move','Assault','Raid','Counter Insurgency','Guerilla Warfare','Shield','Commerce Raid','Fortify','Dig In','Defend','Go to Ground','Scatter','Patrol') NOT NULL,
   `points` int(11) NOT NULL DEFAULT '1',
   `fatigue` int(11) NOT NULL DEFAULT '0',
-  `rp_cost` int(11) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `rp_cost` int(11) NOT NULL DEFAULT '0',
+  `notes` varchar(256) NOT NULL DEFAULT ''
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -230,8 +235,9 @@ CREATE TABLE `planets` (
   `x` int(11) NOT NULL,
   `y` int(11) NOT NULL,
   `turn` int(11) NOT NULL,
-  `phase` enum('Initiative','Detect & Recon','Movement','Combat','End') NOT NULL DEFAULT 'Initiative'
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+  `phase` enum('Initiative','Detect & Recon','Movement','Combat','End') NOT NULL DEFAULT 'Initiative',
+  `salvage_pool` int(11) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -244,7 +250,7 @@ CREATE TABLE `players` (
   `game_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `faction_id` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -290,7 +296,7 @@ CREATE TABLE `tokens` (
   `y` int(11) NOT NULL DEFAULT '0',
   `detected` int(11) NOT NULL DEFAULT '0',
   `moved` int(11) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -334,7 +340,7 @@ CREATE TABLE `users` (
   `created_on` int(11) unsigned NOT NULL,
   `last_login` int(11) unsigned DEFAULT NULL,
   `active` tinyint(1) unsigned DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
 
 --
 -- Indexes for dumped tables
@@ -462,37 +468,37 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `combatteams`
 --
 ALTER TABLE `combatteams`
-MODIFY `combatteam_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=118;
+MODIFY `combatteam_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=397;
 --
 -- AUTO_INCREMENT for table `combatunits`
 --
 ALTER TABLE `combatunits`
-MODIFY `combatunit_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=43;
+MODIFY `combatunit_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=144;
 --
 -- AUTO_INCREMENT for table `combat_commands`
 --
 ALTER TABLE `combat_commands`
-MODIFY `command_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9;
+MODIFY `command_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=11;
 --
 -- AUTO_INCREMENT for table `elements`
 --
 ALTER TABLE `elements`
-MODIFY `element_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=1249;
+MODIFY `element_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4219;
 --
 -- AUTO_INCREMENT for table `factions`
 --
 ALTER TABLE `factions`
-MODIFY `faction_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
+MODIFY `faction_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT for table `formations`
 --
 ALTER TABLE `formations`
-MODIFY `formation_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=43;
+MODIFY `formation_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=59;
 --
 -- AUTO_INCREMENT for table `games`
 --
 ALTER TABLE `games`
-MODIFY `game_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+MODIFY `game_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `groups`
 --
@@ -502,7 +508,7 @@ MODIFY `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 -- AUTO_INCREMENT for table `lances`
 --
 ALTER TABLE `lances`
-MODIFY `lance_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=343;
+MODIFY `lance_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=1180;
 --
 -- AUTO_INCREMENT for table `meta`
 --
@@ -512,17 +518,17 @@ MODIFY `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT;
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT;
+MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `planets`
 --
 ALTER TABLE `planets`
-MODIFY `planet_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+MODIFY `planet_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `players`
 --
 ALTER TABLE `players`
-MODIFY `player_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+MODIFY `player_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `rat`
 --
@@ -537,7 +543,7 @@ MODIFY `data_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=705;
 -- AUTO_INCREMENT for table `tokens`
 --
 ALTER TABLE `tokens`
-MODIFY `token_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=14;
+MODIFY `token_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=43;
 --
 -- AUTO_INCREMENT for table `units`
 --
@@ -547,4 +553,4 @@ MODIFY `unit_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=296;
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-MODIFY `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
+MODIFY `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
