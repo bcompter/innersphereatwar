@@ -1,5 +1,32 @@
 <div class="container">
     <h1>Issue Order for <?php echo $command->name; ?></h1>
+    
+    <h2>Current Orders</h2>
+    <table class="table table-striped">
+        <tr>
+            <th>Type</th>
+            <th>Order Points</th>
+            <th>RP Cost</th>
+            <th>Notes</th>
+
+        </tr>
+        <?php foreach($orders as $o): ?>
+        <tr>
+            <td><?php echo $o->type; ?></td>
+            <td><?php echo $o->points; ?></td>
+            <td><?php echo $o->rp_cost; ?></td>
+            <td><?php echo $o->notes; ?></td>
+        </tr>
+        <?php endforeach; ?>
+    </table>
+    
+    <p>
+        <ul>
+            <li>If using Transport Orders, you may only use Defend Combat Orders afterwards.</li>
+            <li>If you use 3 or more Order points on Transport, you may not use any Combat Orders.</li>
+            <li>If you began the turn in Combat, you may only use 2 Transport Orders.</li>
+        </ul>
+    </p>
     <?php echo validation_errors(); ?>
     <form class="form-horizontal" action="<?php echo base_url('index.php/orders/create/'.$command->command_id); ?>" method="post">
 

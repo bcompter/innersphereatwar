@@ -35,6 +35,7 @@ class Orders extends MY_Controller {
         { 
             // Show the form
             $page['command'] = $command;
+            $page['orders'] = $this->ordermodel->get_by_command($command_id);
             $page['content'] = 'order_form';
             $this->load->view('template', $page);
         }
@@ -46,11 +47,28 @@ class Orders extends MY_Controller {
             $order->game_id   = $command->game_id;
             $order->command_id = $command_id;
             $order->notes = $this->input->post('note');
+            
+            // Order Points
             $order->points = 1;
             if ($order->type == 'Train')
+            {
                 $order->points = 3;
+            }
             else if ($order->type == 'Rest' || $order->type == 'Repair')
+            {
                 $order->points = 2;
+            }
+            
+            // RP Cost
+            if ($order->type == 'Move' || $order->type == 'Assault')
+            {
+                $order->rp_cost = 4;
+            }
+            if ($order->type == 'Fortify')
+            {
+                $order->rp_cost = 6;
+            }
+            
             $this->ordermodel->create($order);
             
             $this->session->set_flashdata('notice', 'Order created.');
