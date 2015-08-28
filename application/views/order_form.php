@@ -27,6 +27,13 @@
                 </select>
             </div>
         </div>
+        
+        <div class="form-group">
+            <label class="col-md-2 control-label">Note</label>
+            <div class="col-md-10">
+                <input type="text" class="form-control" name="note" placeholder="Notes...">
+            </div>
+        </div>
 
         <div class="form-group">
             <div class="col-md-offset-2 col-sm-10">

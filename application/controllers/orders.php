@@ -45,6 +45,7 @@ class Orders extends MY_Controller {
             $order->type = $this->input->post('type');
             $order->game_id   = $command->game_id;
             $order->command_id = $command_id;
+            $order->notes = $this->input->post('note');
             $order->points = 1;
             if ($order->type == 'Train')
                 $order->points = 3;

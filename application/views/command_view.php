@@ -73,6 +73,7 @@
         <tr>
             <th>Type</th>
             <th>Order Points</th>
+            <th>Notes</th>
             <th>&nbsp;</th>
 
         </tr>
@@ -80,6 +81,7 @@
         <tr>
             <td><?php echo $o->type; ?></td>
             <td><?php echo $o->points; ?></td>
+            <td><?php echo $o->notes; ?></td>
             <td>
                 <?php echo anchor('orders/delete/'.$command->command_id.'/'.$o->order_id, 'delete'); ?>
             </td>
