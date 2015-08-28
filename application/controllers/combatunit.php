@@ -92,8 +92,12 @@ class Combatunit extends MY_Controller {
         $page = $this->page;
         $this->load->model('combatunitmodel');
         $this->load->model('formationmodel');
+        $this->load->model('commandmodel');
+        $this->load->model('planetmodel');
         $combatunit = $this->combatunitmodel->get_by_id($combatunit_id);
         $formation = $this->formationmodel->get_by_id($combatunit->formation_id);
+        $command = $this->commandmodel->get_by_id($formation->command_id);
+        $planet = $this->planetmodel->get_by_id($command->planet_id);
         $this->load->library('form_validation');
         
         // Validate form input
@@ -110,8 +114,20 @@ class Combatunit extends MY_Controller {
         {
             // Damage the unit and return to the view
             $damage = $this->input->post('damage');
+            if ($damage > $combatunit->armor - $combatunit->damage)
+            {
+                $damage = $combatunit->armor - $combatunit->damage;
+            }
             $combatunit->damage += $damage;
             $this->combatunitmodel->update($combatunit_id, $combatunit);
+            
+            if ($damage > 0 && isset($planet->planet_id))
+            {
+                // Add this damage to the damage pool
+                $planet->salvage_pool += $damage;
+                $this->planetmodel->update($planet->planet_id, $planet);
+            }
+            
             $this->session->set_flashdata('notice', 'Damage applied!');
             redirect('formation/view/'.$formation->formation_id, 'refresh');
         }

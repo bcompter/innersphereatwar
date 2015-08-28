@@ -225,5 +225,19 @@ class Planet extends MY_Controller {
         $this->load->view('planet_update', $page);
     }
     
+    /**
+     * Clear the salvage pool
+     */
+    function clear_salvage($planet_id=0)
+    {
+        $page = $this->page;
+        $this->load->model('planetmodel');
+        $planet = $this->planetmodel->get_by_id($planet_id);
+        $planet->salvage_pool = 0;
+        $this->planetmodel->update($planet_id, $planet);
+        $this->session->set_flashdata('notice', 'Salvage Cleared.');
+        redirect('planet/view/'.$planet_id, 'refresh');
+    }
+    
 }
 

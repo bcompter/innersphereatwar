@@ -1,13 +1,18 @@
 <div class="container">
     <?php echo anchor('planet/view_game/'.$planet->game_id, '<< Planet List') ?>
     <h1><?php echo $planet->name; ?></h1>
+    <div class="col-md-7">
     <table class="table table-striped">
         <tr><td>Owner</td><td><?php $planet->faction_name; ?></td></tr>
         <tr>    <td>Type</td><td><?php echo $planet->type; ?></td></tr>
         <tr>    <td>X</td><td><?php echo $planet->x; ?></td></tr>
         <tr>    <td>Y</td><td><?php echo $planet->y; ?></td></tr>
+        <tr>    
+            <td>Salvage Pool (<?php echo anchor('planet/clear_salvage/'.$planet->planet_id, 'clear'); ?>)</td>
+            <td><?php echo $planet->salvage_pool; ?></td>
+        </tr>
     </table>
-    
+    </div>
     <div class="col-md-10">
         <h2> <?php echo anchor('planet/view_aero/'.$planet->planet_id,'AERO MAP'); ?> | <?php echo anchor('planet/view_ground/'.$planet->planet_id, 'GROUND MAP'); ?> </h2>
     </div>
