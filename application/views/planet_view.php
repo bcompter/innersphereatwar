@@ -22,6 +22,7 @@
         <table class="table table-striped">
             <tr>
                 <th>Combat Commands</th>
+                <th>Experience</th>
                 <th>Faction</th>
                 <th>&nbsp;</th>
             </tr>
@@ -29,7 +30,8 @@
             <?php foreach($commands as $c): ?>
             <tr>
                 <td><?php echo $c->name; ?></td>
-                <td><?php echo $c->faction_name; ?></td>
+                <td><?php echo $c->experience; ?></td>
+                <td><?php echo anchor('faction/view/'.$c->faction_id, $c->faction_name); ?></td>
                 <td>
                     <?php echo anchor('command/view/'.$c->command_id, 'VIEW'); ?>
                 </td>
@@ -50,7 +52,7 @@
             
             <?php foreach ($planets as $p): ?>
             <?php $rough_distance = abs($planet->x - $p->x) + abs($planet->y - $p->y); ?>
-            <?php if ($rough_distance < 45): ?>
+            <?php if ($rough_distance < 45 && $p->planet_id != $planet->planet_id): ?>
             <tr>
                 <td><?php echo $p->name; ?></td>
                 <td><?php echo sqrt(pow($planet->x - $p->x,2) + pow($planet->y - $p->y, 2)); ?></td>

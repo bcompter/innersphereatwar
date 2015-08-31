@@ -16,7 +16,7 @@
             <td><?php echo $supply; ?></td>
         </tr>
         <tr>
-            <td>Order Requirement: </td>
+            <td>Order RP Requirement: </td>
             <td><?php echo $order_rp_cost; ?></td>
         </tr>
     </table>
@@ -47,6 +47,7 @@
             <th>In Supply</th>
             <th>Location</th>
             <th>In Combat</th>
+            <th>Has Orders</th>
             <th>&nbsp;</th>
         </tr>
     <?php foreach($commands as $c): ?>
@@ -56,9 +57,10 @@
             <td><?php echo $c->experience; ?></td>
             <td><?php echo $c->loyalty; ?></td>
             <td><?php echo $c->fatigue.' ('.anchor('command/modify_fatigue/'.$c->command_id.'/-1', '-').' / '.anchor('command/modify_fatigue/'.$c->command_id.'/1', '+').')'; ?></td>
-            <td><?php echo anchor('command/toggle_in_supply/'.$c->command_id, ($c->supply ? 'YES' : 'NO')); ?></td>
+            <td><?php echo anchor('command/toggle_in_supply/'.$c->command_id, ($c->supply ? 'yes' : 'NO')); ?></td>
             <td><?php echo (isset($c->planet_name) ? anchor('planet/view/'.$c->planet_id, $c->planet_name) : 'No Where'); ?></td>
-            <td><?php echo anchor('command/toggle_in_combat/'.$c->command_id, ($c->in_combat ? 'YES' : 'NO')); ?></td>
+            <td><?php echo anchor('command/toggle_in_combat/'.$c->command_id, ($c->in_combat ? 'YES' : 'no')); ?></td>
+            <td><?php echo (isset($c->order_id) ? 'yes' : 'NO'); ?></td>
             <td><?php echo anchor('command/view/'.$c->command_id, 'VIEW'); ?></td>
         </tr>
         

@@ -17,10 +17,12 @@ Class Commandmodel extends MY_Model {
      */
     function get_by_faction($faction_id)
     {
-        return $this->db->query('SELECT combat_commands.*, planets.name AS planet_name '
+        return $this->db->query('SELECT combat_commands.*, planets.name AS planet_name, orders.order_id '
                 . 'FROM combat_commands '
                 . 'LEFT JOIN planets on planets.planet_id=combat_commands.planet_id '
-                . 'WHERE combat_commands.faction_id='.$faction_id)->result();        
+                . 'LEFT JOIN orders on orders.command_id=combat_commands.command_id '
+                . 'WHERE combat_commands.faction_id='.$faction_id.' '
+                . 'GROUP BY combat_commands.command_id')->result();        
     }
     
     /**
@@ -28,7 +30,7 @@ Class Commandmodel extends MY_Model {
      */
     function get_by_planet($planet_id)
     {
-        return $this->db->query('SELECT combat_commands.*, factions.name AS faction_name FROM combat_commands '
+        return $this->db->query('SELECT combat_commands.*, factions.name AS faction_name, factions.faction_id FROM combat_commands '
                 . 'JOIN factions on factions.faction_id=combat_commands.faction_id '
                 . 'WHERE planet_id='.$planet_id)->result(); 
     }
