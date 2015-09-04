@@ -25,6 +25,12 @@ class Home extends MY_Controller {
      */
     function dashboard()
     {
+        // Make sure the user is signed in
+        if ( !$this->ion_auth->logged_in() )
+        {
+            redirect('auth/login', 'refresh');
+        }
+        
         $page = $this->page;
         $page['content'] = 'dashboard';
         $this->load->view('template', $page);

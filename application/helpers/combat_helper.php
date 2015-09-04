@@ -68,8 +68,8 @@ if ( ! function_exists('fast_resolve'))
                 $factionArray[$f->faction_id]->num_recon++;
             }
         }
-        $rollA = roll_dice(2, 6) + $factionArray[$fs[0]->faction_id]->num_recon*2;
-        $rollB = roll_dice(2, 6) + $factionArray[$fs[1]->faction_id]->num_recon*2;
+        $rollA = roll_dice(2, 6) + $factionArray[$fs[0]->faction_id]->num_recon*2 + $factionArray[$fs[0]->faction_id]->initBonus;
+        $rollB = roll_dice(2, 6) + $factionArray[$fs[1]->faction_id]->num_recon*2 + $factionArray[$fs[1]->faction_id]->initBonus;
         if ($rollA > $rollB)
         {
             $factionArray[$fs[0]->faction_id]->damageBonus = 0.1;
@@ -79,10 +79,31 @@ if ( ! function_exists('fast_resolve'))
             $factionArray[$fs[1]->faction_id]->damageBonus = 0.1;
         }
         
-        // Engagement
-        foreach($formation as $f)
+        // Engagement, roll and store engagement roll
+        // Affected by LR, Loyalty, recon, skill, morale, fatigue, supply
+        $engageExp['Green'] = 1;
+        $engageExp['Regular'] = 0;
+        $engageExp['Veteran'] = -1;
+        $engageExp['Elite'] = -2;
+        $engageLoyalty['Questionable'] = 1;
+        $engageLoyalty['Reliable'] = 0;
+        $engageLoyalty['Fanatical'] = -1;
+        $engageMorale['Normal'] = 0;
+        $engageMorale['Shaken'] = 1;
+        $engageMorale['Unsteady'] = 2;
+        $engageMorale['Broken'] = 3;
+        foreach($formations as $f)
         {
-            
+            $target = $f->tactics;
+            $target += $engageExp[$f->experience];
+            if ($f->role == 'Recon')
+            {
+                $target += 2;
+            }
+            $target -= $factionArray[$f->faction_id]->lr;
+            $target += $engageLoyalty[$f->loyalty];
+            $target += (!$f->supply) * 3;
+            $target += $engageMorale[$f->morale];
         }
         
         // Combat
@@ -92,6 +113,10 @@ if ( ! function_exists('fast_resolve'))
         }
         
         // Damage resolution
-        
-    }
+        $combatunitarray = (array)$combatunits;
+        foreach($combatunits as $c)
+        {
+            
+        }
+    }  // end fast_resolve
 }
