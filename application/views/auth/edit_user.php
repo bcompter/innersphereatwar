@@ -1,4 +1,5 @@
-<h1>Succession Wars | Edit User</h1>
+<div class="container">
+<h1>Inner Sphere at War | Edit User</h1>
 
 <div class='mainInfo'>
 
@@ -38,4 +39,5 @@
       
     <?php echo form_close();?>
 
+</div>
 </div>

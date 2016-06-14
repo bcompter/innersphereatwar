@@ -1,7 +1,9 @@
-<div class="center">
+<div class="container">
 
-<h1>Succession Wars | Forgotten Password</h1>
-<br />
+<h1>Inner Sphere at War | Forgotten Password</h1>
+
+<div class='mainInfo'>
+
 <p>Please enter your email address so we can send you an email to reset your password.</p>
 
 <div id="infoMessage"><?php echo $message;?></div>
@@ -15,4 +17,5 @@
       <p><?php echo form_submit('submit', 'Submit');?></p>
       
 <?php echo form_close();?>
+</div>
 </div>

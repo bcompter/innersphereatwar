@@ -1,4 +1,7 @@
-<h1>Succession Wars | Change Password</h1>
+<div class="container">
+<h1>Inner Sphere at War | Change Password</h1>
+
+<div class='mainInfo'>
 
 <div id="infoMessage"><?php echo $message;?></div>
 
@@ -20,3 +23,5 @@
       <p><?php echo form_submit('submit', 'Change');?></p>
       
 <?php echo form_close();?>
+</div>
+</div>
