@@ -28,6 +28,7 @@ class Orders extends MY_Controller {
         $this->load->model('commandmodel');
         
         $command = $this->commandmodel->get_by_id($command_id);
+        validate_exists($command->command_id, 'No such command.', 'home/dashboard');
         
         // Validate form input
         $this->form_validation->set_rules('type', 'Type', 'required');
@@ -83,6 +84,22 @@ class Orders extends MY_Controller {
     {
         $page = $this->page;
         
+        // Command and orders must exist
+        $this->load->model('commandmodel');        
+        $command = $this->commandmodel->get_by_id($command_id);
+        validate_exists($command->command_id, 'No such command.', 'home/dashboard');
+        
+        $this->load->model('ordermodel');
+        $order = $this->ordermodel->get_by_id($order_id);
+        validate_exists($order->order_id, 'No such order.', 'command/view/'.$command_id);
+        
+        // Must be playing on the commands faction and have permission
+        $this->load->model('gamemodel');
+        $game = $this->gamemodel->get_by_id($command->game_id);
+        $this->load->model('playermodel');
+        $player = $this->playermodel->get_by_user_game($page['user']->id, $game->game_id);
+        validate_matches($command->faction_id, $player->faction_id, 'Not authorized.', 'game/view/'.$game->game_id);
+        
         $this->load->model('ordermodel');
         $this->ordermodel->delete($order_id);
         $this->session->set_flashdata('notice', 'Order deleted.');
@@ -94,8 +111,8 @@ class Orders extends MY_Controller {
      */
     function clear($game_id=0)
     {
-        $page = $this->page;
-        
+        $page = $this->page;        
+
         $this->load->model('ordermodel');
         $this->ordermodel->clear($game_id);
         $this->session->set_flashdata('notice', 'Orders cleared.');

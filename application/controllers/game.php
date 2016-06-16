@@ -58,12 +58,8 @@ class Game extends MY_Controller {
         $page['game'] = $this->gamemodel->get_by_id($game_id);
         $page['factions'] = $this->factionmodel->get_by_game($game_id);
         
-        $valid = validate_exists($page['game']->game_id, 'No such game.');
-        if (!$valid)
-        {
-            redirect('home/dashboard', 'refresh');
-            return;
-        }
+        // Game must exist
+        validate_exists($page['game']->game_id, 'No such game.', 'home/dashboard');
         
         $page['content'] = 'game_view';
         $this->load->view('template', $page);
@@ -103,13 +99,8 @@ class Game extends MY_Controller {
         $this->load->model('gamemodel');
         $page['game'] = $this->gamemodel->get_by_id($game_id);
         
-        $valid = validate_exists($page['game']->game_id, 'No such game.');
-        if (!$valid)
-        {
-            $this->load->view('templatexml', $page);
-            return;
-        }
-        
+        validate_exists($page['game']->game_id, 'No such game.', 0, 'templatexml');
+                
         // Away we go
         $page['game']->turn += $value;
         $this->gamemodel->update($game_id, $page['game']);

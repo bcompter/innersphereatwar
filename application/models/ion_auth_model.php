@@ -572,7 +572,6 @@ class Ion_auth_model extends CI_Model
 	{
 	    if (empty($identity) || empty($password) || !$this->identity_check($identity))
 	    {
-                log_message('error', '11');
 		return FALSE;
 	    }
 
