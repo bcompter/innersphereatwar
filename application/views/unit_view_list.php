@@ -1,8 +1,18 @@
+<script type="text/javascript" <?php echo 'src="'.$this->config->item('base_url').'tablesorter.js"'; ?>></script> 
+
+<script type="text/javascript">
+    $(document).ready(function() 
+        { 
+            $(".sortable").tablesorter(); 
+        } 
+    ); 
+</script>
+
 <div class="container">
     <h1>Unit List <small>(<?php echo anchor('unit/create/', 'add'); ?>)</small></h1>
     
-    <table class="table table-striped">
-        <tr>
+    <table class="table table-striped tablesorter">
+        <thead><tr>
             <th>Name</th>
             <th>Type</th>
             <th>Size</th>
@@ -16,7 +26,7 @@
             <th>Structure</th>
             <th>Special</th>
             <th>&nbsp;</th>
-        </tr>
+        </tr></thead>
     <?php foreach($units as $u): ?>
         <tr>
             <td><?php echo $u->name; ?></td>

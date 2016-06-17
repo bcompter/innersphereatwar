@@ -1,3 +1,13 @@
+<script type="text/javascript" <?php echo 'src="'.$this->config->item('base_url').'tablesorter.js"'; ?>></script> 
+
+<script type="text/javascript">
+    $(document).ready(function() 
+        { 
+            $(".sortable").tablesorter(); 
+        } 
+    ); 
+</script>
+
 <div class="container">
     <?php echo anchor('game/view/'.$faction->game_id, '<< Game View'); ?>
     <h1><?php echo $faction->name; ?></h1>
@@ -38,8 +48,8 @@
     </table>
     
     <h2>Combat Commands <small>(<?php echo anchor('command/create/'.$faction->faction_id, 'add'); ?>)</small></h2>
-    <table class="table table-striped">
-        <tr>
+    <table class="table table-striped tablesorter">
+        <thead><tr>
             <th>Name</th>
             <th>Experience</th>
             <th>Loyalty</th>
@@ -49,7 +59,7 @@
             <th>In Combat</th>
             <th>Has Orders</th>
             <th>&nbsp;</th>
-        </tr>
+            </tr></thead>
     <?php foreach($commands as $c): ?>
     
         <tr>
