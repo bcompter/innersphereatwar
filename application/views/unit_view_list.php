@@ -42,7 +42,7 @@
             <td><?php echo $u->structure; ?></td>
             <td><?php echo $u->special; ?></td>
 
-            <td>
+            <td style="min-width:100px">
                 <?php echo anchor('unit/view/'.$u->unit_id, 'VIEW'); ?> | 
                 <?php echo anchor('unit/edit/'.$u->unit_id, 'EDIT'); ?>
             </td>
