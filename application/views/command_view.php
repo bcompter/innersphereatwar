@@ -20,6 +20,9 @@
                 (<?php echo anchor('command/move/'.$command->command_id, 'MOVE'); ?>)
             </td>
         </tr>
+        <tr>
+            <th>Commanding Officer</th><td><?php echo anchor('player/view/'.$command->co_id, $command->player_name); ?></td>
+        </tr>
 
     </table>
     

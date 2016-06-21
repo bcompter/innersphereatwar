@@ -189,4 +189,13 @@ class Faction extends MY_Controller {
         }
     }
     
-}
+    /**
+     * Faction private chat system
+     * Each faction will have their own chat room to talk strategy
+     */
+    function chat($faction_id=0)
+    {        
+        /* todo */
+    }
+    
+}  // end Faction
