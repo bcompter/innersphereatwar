@@ -35,12 +35,14 @@
     <table class="table table-striped">
         <tr>
             <th>User</th>
+            <th>Rank</th>
             <th>&nbsp;</th>
         </tr>
     <?php foreach($players as $p): ?>
     
     <tr>
         <td><?php echo $p->username; ?></td>
+        <td><?php echo $p->rank; ?></td>
         <td><?php echo anchor('auth/view_user/'.$p->user_id, 'VIEW'); ?></td>
     </tr>
         

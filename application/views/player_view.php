@@ -1,14 +1,14 @@
 <div class="container">
-    <h1><?php echo $player->name ?></h1>
+    <h1><?php echo $player->name; ?></h1>
     <table class="table">
         <tr>
             <th>Played By</th><td><?php echo $player->username; ?></td>
         </tr>
         <tr>
-            <th>Faction</th><td><?php echo $command->experience; ?></td>
+            <th>Faction</th><td><?php echo anchor('faction/view/'.$faction->faction_id, $faction->name); ?></td>
         </tr>
         <tr>
-            <th>Rank</th><td><?php echo $command->tech; ?></td>
+            <th>Rank</th><td><?php echo $rank->text; ?></td>
         </tr>
     </table>
     

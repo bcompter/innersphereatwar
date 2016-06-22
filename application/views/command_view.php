@@ -21,7 +21,8 @@
             </td>
         </tr>
         <tr>
-            <th>Commanding Officer</th><td><?php echo anchor('player/view/'.$command->co_id, $command->player_name); ?></td>
+            <th>Commanding Officer</th>
+            <td><?php echo (isset($command->co_id) ? anchor('player/view/'.$command->co_id, $command->player_name) : 'NOT ASSIGNED'); ?></td>
         </tr>
 
     </table>
