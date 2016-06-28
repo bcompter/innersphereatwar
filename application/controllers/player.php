@@ -72,4 +72,61 @@ class Player extends MY_Controller {
         }      
     }
     
+    /**
+     * View all players in a game
+     */
+    function view_game($game_id=0)
+    {
+        $page = $this->page;
+        
+        $this->load->model('gamemodel');
+        $game = $this->gamemodel->get_by_id($game_id);
+        
+        $this->load->model('playermodel');
+        $players = $this->playermodel->get_by_game($game_id);
+        
+        $page['game'] = $game;
+        $page['players'] = $players;
+        $page['content'] = 'player_view_list';
+        $this->load->view('template', $page);
+    }
+    
+    /**
+     * View all players in a faction
+     */
+    function view_faction($faction_id=0)
+    {
+        $page = $this->page;
+        
+        $this->load->model('factionmodel');
+        $faction = $this->factionmodel->get_by_id($faction_id);
+        
+        $this->load->model('gamemodel');
+        $game = $this->gamemodel->get_by_id($faction->game_id);
+        
+        $this->load->model('playermodel');
+        $players = $this->playermodel->get_by_faction($faction_id);
+        
+        $page['faction'] = $faction;
+        $page['game'] = $game;
+        $page['players'] = $players;
+        $page['content'] = 'player_view_list';
+        $this->load->view('template', $page);
+    }
+    
+    /**
+     * Delete a player
+     */
+    function delete($player_id=0)
+    {
+        $page = $this->page;
+        
+        $this->load->model('playermodel');
+        $player = $this->playermodel->get_by_id($player_id);
+        $this->playermodel->delete($player_id);
+        
+        $this->session->set_flashdata('notice', 'Player deleted.');
+        redirect('player/view_game/'.$player->game_id, 'refresh');
+    }
+    
 }  // end Player

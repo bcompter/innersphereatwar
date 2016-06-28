@@ -1,6 +1,11 @@
 <div class="container">
-    <?php echo anchor('planet/view_game/'.$planet->game_id, '<< Planet List') ?>
+    
+    <ol class="breadcrumb">
+        <li><?php echo anchor('planet/view_game/'.$planet->game_id, 'Planets'); ?></li>
+    </ol>     
+    
     <h1><?php echo $planet->name; ?></h1>
+    
     <div class="col-md-7">
     <table class="table table-striped">
         <tr><td>Owner</td><td><?php $planet->faction_name; ?></td></tr>
