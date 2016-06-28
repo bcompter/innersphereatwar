@@ -43,6 +43,7 @@
     <table class="table table-striped">
         <tr>
             <th>User</th>
+            <th>Rank</th>
             <th>&nbsp;</th>
         </tr>
     <?php foreach($players as $p): ?>
