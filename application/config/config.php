@@ -17,7 +17,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | environments.
 |
 */
-$config['base_url']	= 'http://96.230.9.107:8888/innersphereatwar';
+$config['base_url']	= 'http://71.184.110.48:8888/innersphereatwar';
 //$config['base_url'] = 'http://localhost:8888/innersphereatwar';
 
 /*

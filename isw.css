@@ -35,3 +35,23 @@ body {
 .token img {
     margin-top: 1px;
 }
+
+.sortable th.header{
+    background-image: url(images/sort.png); 
+    cursor: pointer; 
+    font-weight: bold; 
+    background-repeat: no-repeat; 
+    background-position: center right; 
+    padding-left: 20px; 
+    margin-left: -1px; 
+    padding-right: 20px; 
+    margin-right: -1px; 
+}
+
+.sortable th.headerSortUp{
+    background-image: url(images/sort_up.png); 
+}
+
+.sortable th.headerSortDown{
+    background-image: url(images/sort_down.png); 
+}

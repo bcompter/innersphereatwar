@@ -190,6 +190,25 @@ class Faction extends MY_Controller {
     }
     
     /**
+     * View ranks
+     */
+    function view_ranks($faction_id=0)
+    {
+        $page = $this->page;
+        
+        $this->load->model('factionmodel');        
+        $faction = $this->factionmodel->get_by_id($faction_id);
+        
+        $this->load->model('rankmodel');
+        $ranks = $this->rankmodel->get_by_faction($faction_id);
+        
+        $page['faction'] = $faction;
+        $page['ranks'] = $ranks;
+        $page['content'] = 'ranks_view';
+        $this->load->view('template', $page);
+    }
+    
+    /**
      * Faction private chat system
      * Each faction will have their own chat room to talk strategy
      */

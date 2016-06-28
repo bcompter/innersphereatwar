@@ -9,7 +9,11 @@
 </script>
 
 <div class="container">
-    <?php echo anchor('game/view/'.$faction->game_id, '<< Game View'); ?>
+    
+    <ol class="breadcrumb">
+        <li><?php echo anchor('game/view/'.$faction->game_id, 'Game View'); ?></li>
+    </ol> 
+    
     <h1><?php echo $faction->name; ?></h1>
     <h2>Faction Data</h2>
     <table class="table">
@@ -29,6 +33,10 @@
             <td>Order RP Requirement: </td>
             <td><?php echo $order_rp_cost; ?></td>
         </tr>
+        <tr>
+            <td>Ranks: </td>
+            <td>(<?php echo anchor('faction/view_ranks/'.$faction->faction_id, 'VIEW'); ?>)</td>
+        </tr>
     </table>
     
     <h2>Player List <small>(<?php echo anchor('faction/join/'.$faction->faction_id, 'join'); ?>)</small></h2>
@@ -40,8 +48,8 @@
     <?php foreach($players as $p): ?>
     
     <tr>
-        <td><?php echo $p->username; ?></td>
-        <td><?php echo anchor('auth/view_user/'.$p->user_id, 'VIEW'); ?></td>
+        <td><?php echo $p->name; ?></td>
+        <td><?php echo anchor('player/view/'.$p->user_id, 'VIEW'); ?></td>
     </tr>
         
     <?php endforeach; ?>

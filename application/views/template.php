@@ -13,7 +13,15 @@
     <link href="<?php echo base_url('bootstrap/css/bootstrap-theme.min.css'); ?>" rel="stylesheet">
     <!-- ISW theme -->
     <link href="<?php echo base_url('isw.css'); ?>" rel="stylesheet">
-
+    
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="<?php echo base_url('jquery-ui/jquery-ui.js'); ?>"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="<?php echo base_url('bootstrap/js/bootstrap.min.js'); ?>"></script>
+    <script src="<?php echo base_url('isw.js'); ?>"></script>
+    <script type="text/javascript" <?php echo 'src="'.$this->config->item('base_url').'/tablesorter.js"'; ?>></script> 
+    
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -50,11 +58,5 @@
       
       <?php $this->load->view($content); ?>
 
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="<?php echo base_url('jquery-ui/jquery-ui.js'); ?>"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="<?php echo base_url('bootstrap/js/bootstrap.min.js'); ?>"></script>
-    <script src="<?php echo base_url('isw.js'); ?>"></script>
   </body>
 </html>

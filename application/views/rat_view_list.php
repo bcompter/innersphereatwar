@@ -1,5 +1,3 @@
-<script type="text/javascript" <?php echo 'src="'.$this->config->item('base_url').'tablesorter.js"'; ?>></script> 
-
 <script type="text/javascript">
     $(document).ready(function() 
         { 
@@ -11,7 +9,7 @@
 <div class="container">
     <h1>RAT List <small>(<?php echo anchor('rat/create/', 'add'); ?>)</small></h1>
     
-    <table class="table table-striped tablesorter">
+    <table class="table table-striped tablesorter sortable">
         <thead><tr>
             <th>Name</th>
             <th>Faction</th>
@@ -20,6 +18,7 @@
             <th>Tech</th>
             <th>&nbsp;</th>
         </tr></thead>
+        <tbody>
     <?php foreach($rats as $r): ?>
         <tr>
             <td><?php echo $r->name; ?></td>
@@ -30,5 +29,6 @@
             <td><?php echo anchor('rat/view/'.$r->rat_id, 'VIEW'); ?></td>
         </tr>    
     <?php endforeach; ?>
+        </tbody>
     </table>
 </div>
