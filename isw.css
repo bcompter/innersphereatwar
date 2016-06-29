@@ -55,3 +55,9 @@ body {
 .sortable th.headerSortDown{
     background-image: url(images/sort_down.png); 
 }
+
+#chat_window {
+    height: 350;
+    overflow-y: scroll;
+    border: solid 1px;
+}

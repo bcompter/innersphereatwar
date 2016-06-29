@@ -154,7 +154,7 @@ class Faction extends MY_Controller {
         $player->game_id = $page['game']->game_id;
         $this->playermodel->create($player);
         
-        $this->session->set_flashdata('notice', 'Faction Joined.');
+        $this->session->set_flashdata('notice', 'Faction Joined. Welcome to '.$page['faction']->name);
         redirect('faction/view/'.$faction_id, 'refresh');
     }
     
@@ -214,7 +214,98 @@ class Faction extends MY_Controller {
      */
     function chat($faction_id=0)
     {        
-        /* todo */
+        $page = $this->page;
+        
+        $this->load->model('factionmodel');        
+        $faction = $this->factionmodel->get_by_id($faction_id);
+        validate_exists($faction->faction_id, 'No such faction.', 'home/dashboard');
+        
+        // Must be part of this faction to join chat
+        $this->load->model('playermodel');
+        $player = $this->playermodel->get_by_user_game($page['user']->id, $faction->game_id);
+        validate_exists($player->player_id, 'Access Denied...', 'faction/view/'.$faction_id);
+        
+        $this->load->model('gamemodel');
+        $game = $this->gamemodel->get_by_id($faction->game_id);
+        
+        $page['game'] = $game;
+        $page['faction'] = $faction;
+        $page['content'] = 'faction_chat';
+        $this->load->view('template', $page);
+    }
+    
+    /**
+     * Add a chat to the current faction chat
+     */
+    function chat_new($faction_id=0)
+    {        
+        $page = $this->page;
+        
+        $this->load->model('factionmodel');        
+        $faction = $this->factionmodel->get_by_id($faction_id);
+        validate_exists($faction->faction_id, 'No such faction.', 'home/dashboard');
+        
+        // Must be part of this faction to join chat
+        $this->load->model('playermodel');
+        $player = $this->playermodel->get_by_user_game($page['user']->id, $faction->game_id);
+        validate_exists($player->player_id, 'Access Denied...', 'faction/view/'.$faction_id);
+        
+        // Save this message
+        $this->load->model('chatmodel');
+        $chatMsg = $this->input->post('msg');
+        $chatMsg = strip_tags($chatMsg);
+        $newMsg = new stdClass();
+        $newMsg->msg = $chatMsg;
+        $newMsg->player_id = $player->player_id;
+        $this->chatmodel->create($newMsg);
+        
+        $this->load->view('templatexml', $page);
+    }
+    
+    /**
+     * Load chat messages
+     */
+    function chat_load($faction_id=0)
+    {        
+        $page = $this->page;
+        
+        $this->load->model('factionmodel');        
+        $faction = $this->factionmodel->get_by_id($faction_id);
+        validate_exists($faction->faction_id, 'No such faction.', 'home/dashboard');
+        
+        // Must be part of this faction to join chat
+        $this->load->model('playermodel');
+        $player = $this->playermodel->get_by_user_game($page['user']->id, $faction->game_id);
+        validate_exists($player->player_id, 'Access Denied...', 'faction/view/'.$faction_id);
+        
+        $this->load->model('chatmodel');
+        $page['chats'] = $this->chatmodel->get_last($faction_id);
+        
+        $this->load->view('chat_load', $page);
+    }
+    
+    /**
+     * Update chat
+     */
+    function chat_update($faction_id=0)
+    {        
+        $page = $this->page;
+        
+        $this->load->model('factionmodel');        
+        $faction = $this->factionmodel->get_by_id($faction_id);
+        validate_exists($faction->faction_id, 'No such faction.', 'home/dashboard');
+        
+        // Must be part of this faction to join chat
+        $this->load->model('playermodel');
+        $player = $this->playermodel->get_by_user_game($page['user']->id, $faction->game_id);
+        validate_exists($player->player_id, 'Access Denied...', 'faction/view/'.$faction_id);
+        
+        $time = $this->input->post('chattime');
+        
+        $this->load->model('chatmodel');
+        $page['chats'] = $this->chatmodel->get_new($faction_id, $time);
+        
+        $this->load->view('chatupdate', $page);
     }
     
 }  // end Faction
