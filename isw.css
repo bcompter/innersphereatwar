@@ -61,3 +61,7 @@ body {
     overflow-y: scroll;
     border: solid 1px;
 }
+
+.circle {
+    border-radius: 50%;
+}
