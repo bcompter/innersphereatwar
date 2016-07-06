@@ -18,13 +18,13 @@
                 </tr>
             </table>
         </div>
-        <div class="col-md-3 local_map">
+        <div class="col-md-5 local_map">
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h3 class="panel-title">Local Star Map</h3>
                 </div>
                 <div class="panel-body">
-                    <?php echo $this->load->view('planet_star_map'); ?>
+                    <?php $this->load->view('planet_star_map'); ?>
                 </div>
           </div>
         </div>

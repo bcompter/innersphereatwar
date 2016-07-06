@@ -63,5 +63,19 @@ body {
 }
 
 .circle {
+    border: solid 2px;
     border-radius: 50%;
+    height: 15px;
+    width: 15px;
+}
+
+.circle30 {
+    border: dashed 1px;
+    border-radius: 50%;
+    height: 240px;
+    width: 240px;
+}
+
+.star_map {
+    height: 300px;
 }

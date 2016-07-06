@@ -166,6 +166,27 @@ class Planet extends MY_Controller {
     }
     
     /**
+     * View this planets planetary combat map
+     */
+    function view_pcm($planet_id=0)
+    {
+        $page = $this->page;
+        
+        $this->load->model('planetmodel');
+        $this->load->model('tokenmodel');
+        $this->load->model('factionmodel');
+        $this->load->model('gamemodel');
+        $this->load->model('playermodel');
+        $page['planet'] = $this->planetmodel->get_by_id($planet_id);
+        $page['tokens'] = $this->tokenmodel->get_by_planet($planet_id, 'Ground');
+        $page['faction'] = $this->factionmodel->get_by_game_user($page['planet']->game_id, $this->page['user']->id);
+        $page['game'] = $this->gamemodel->get_by_id($page['planet']->game_id);
+        $page['player'] = $this->playermodel->get_by_user_game($page['user']->id, $page['game']->game_id);
+        $page['content'] = 'planet_view_pcm';
+        $this->load->view('template', $page);
+    }
+    
+    /**
      * View all planets in a game
      */
     function view_game($game_id=0)
