@@ -11,7 +11,7 @@
                 <div class="panel-heading">
                     <h3 class="panel-title">Game Alerts</h3>
                 </div>
-                <div class="panel-body">
+                <div class="panel-body" id="game_info">
                     Panel content
                 </div>
             </div>   
@@ -24,7 +24,7 @@
                 <div class="panel-heading">
                     <h3 class="panel-title">Hex Info</h3>
                 </div>
-                <div class="panel-body">
+                <div class="panel-body" id="hex_info">
                     Panel content
                 </div>
             </div>
@@ -36,7 +36,9 @@
                     <h3 class="panel-title">Map View</h3>
                 </div>
                 <div class="panel-body">
-                    Panel content
+                    <div class="map_container">
+                        <?php $this->load->view('planet_view_pcm_hexes'); ?>
+                    </div>
                 </div>
             </div>
         </div>
@@ -45,7 +47,7 @@
                 <div class="panel-heading">
                     <h3 class="panel-title">Unit Info</h3>
                 </div>
-                <div class="panel-body">
+                <div class="panel-body" id="unit_info">
                     Panel content
                 </div>
             </div>

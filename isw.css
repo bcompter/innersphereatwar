@@ -79,3 +79,8 @@ body {
 .star_map {
     height: 300px;
 }
+.hex {
+    border: solid 1px;
+    width: 173px;
+    height: 200px;
+}
