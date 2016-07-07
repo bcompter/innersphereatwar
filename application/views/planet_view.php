@@ -1,7 +1,8 @@
 <div class="container">
     
     <ol class="breadcrumb">
-        <li><?php echo anchor('planet/view_game/'.$planet->game_id, 'Planets'); ?></li>
+        <li><?php echo anchor('game/view/'.$planet->game_id, 'Game'); ?></li>
+        <li><?php echo anchor('planet/view_game/'.$planet->game_id, 'Planets'); ?></li>       
     </ol>     
     
     <h1><?php echo $planet->name; ?></h1>

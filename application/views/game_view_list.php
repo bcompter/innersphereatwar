@@ -9,6 +9,11 @@
 </script>
 
 <div class="container">
+    
+    <ol class="breadcrumb">
+        <li><?php echo anchor('home/dashboard', 'Dashboard'); ?></li>
+    </ol>
+    
     <h1>Game List <small>(<?php echo anchor('game/create', 'new'); ?>)</small></h1>
     
     <table class="table table-striped tablesorter sortable">

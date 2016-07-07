@@ -90,6 +90,25 @@ class Game extends MY_Controller {
     }
     
     /**
+     * View a game resolution dashboard
+     */
+    function resolution($game_id=0)
+    {
+        $page = $this->page;
+        
+        $this->load->model('gamemodel');
+        $this->load->model('factionmodel');
+        $page['game'] = $this->gamemodel->get_by_id($game_id);
+        $page['factions'] = $this->factionmodel->get_by_game($game_id);
+        
+        // Game must exist
+        validate_exists($page['game']->game_id, 'No such game.', 'home/dashboard');
+        
+        $page['content'] = 'game_resolution';
+        $this->load->view('template', $page);
+    }
+    
+    /**
      * Update the game turn
      */
     function update_turn($game_id=0, $value=0)
