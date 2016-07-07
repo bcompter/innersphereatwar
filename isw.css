@@ -80,7 +80,19 @@ body {
     height: 300px;
 }
 .hex {
+    position: absolute;
     border: solid 1px;
-    width: 173px;
-    height: 200px;
+    width: 87px;
+    height: 100px;
+}
+
+.map_container {
+    position: relative;
+    height: 600px;
+    overflow: hidden;
+}
+
+.map_drag {
+    position: relative;
+    resize: none;
 }

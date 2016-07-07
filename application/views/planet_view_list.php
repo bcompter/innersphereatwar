@@ -9,7 +9,13 @@
 </script>
 
 <div class="container">
-    <?php echo anchor('game/view/'.$game->game_id, '<< Game View'); ?>
+    
+    <ol class="breadcrumb">
+        <li><?php echo anchor('game/view/'.$game->game_id, 'Game View'); ?></li>
+    </ol> 
+    
+    
+    
     <h1>Planet List <small>(<?php echo anchor('planet/create/'.$game->game_id, 'add'); ?>)</small></h1>
     
     <table class="table table-striped tablesorter">
