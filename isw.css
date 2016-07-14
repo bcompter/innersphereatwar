@@ -84,6 +84,14 @@ body {
     border: solid 1px;
     width: 87px;
     height: 100px;
+    
+    background: repeating-linear-gradient(
+        45deg,
+        #606dbc,
+        #606dbc 10px,
+        #465298 10px,
+        #465298 20px
+);
 }
 
 .map_container {

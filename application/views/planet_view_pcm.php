@@ -39,7 +39,7 @@
                 <div class="panel-body">
                     <div class="map_container">
                         <div class =" map_drag ui-draggable">
-                        <?php $this->load->view('planet_view_pcm_hexes'); ?>
+                            <?php $this->load->view('planet_view_pcm_hexes', $hex); ?>
                         </div>
                     </div>
                 </div>
