@@ -33,7 +33,7 @@
             </h4>
         </div>
         <div class="col-md-3">
-            <button type="button" class="btn btn-default btn-md" disabled="disabled">
+            <button type="button submit" class="btn btn-default btn-md" formaction="<?php echo base_url('index.php/game/calc_rp/'.$game->game_id); ?>">
                 <span class="glyphicon glyphicon-play" aria-hidden="true"></span> Waiting
             </button>
         </div>
@@ -71,7 +71,7 @@
             </h4>
         </div>
         <div class="col-md-3">
-            <button type="button" class="btn btn-default btn-md" disabled="disabled">
+            <button type="button submit" class="btn btn-default btn-md" formaction="<?php echo base_url('index.php/game/infrastructure/'.$game->game_id); ?>">
                 <span class="glyphicon glyphicon-play" aria-hidden="true"></span> Waiting
             </button>
         </div>
@@ -86,7 +86,7 @@
             </h4>
         </div>
         <div class="col-md-3">
-            <button type="button" class="btn btn-default btn-md" disabled="disabled">
+            <button type="button submit" class="btn btn-default btn-md" formaction="<?php echo base_url('index.php/game/merc_supply/'.$game->game_id); ?>">
                 <span class="glyphicon glyphicon-play" aria-hidden="true"></span> Waiting
             </button>
         </div>
@@ -101,7 +101,7 @@
             </h4>
         </div>
         <div class="col-md-3">
-            <button type="button" class="btn btn-default btn-md" disabled="disabled">
+            <button type="button submit" class="btn btn-default btn-md" formaction="<?php echo base_url('index.php/game/merc_hiring/'.$game->game_id); ?>">
                 <span class="glyphicon glyphicon-play" aria-hidden="true"></span> Waiting
             </button>
         </div>
@@ -116,7 +116,7 @@
             </h4>
         </div>
         <div class="col-md-3">
-            <button type="button" class="btn btn-default btn-md" disabled="disabled">
+            <button type="button submit" class="btn btn-default btn-md" formaction="<?php echo base_url('index.php/game/fortifications/'.$game->game_id); ?>">
                 <span class="glyphicon glyphicon-play" aria-hidden="true"></span> Waiting
             </button>
         </div>
@@ -131,7 +131,7 @@
             </h4>
         </div>
         <div class="col-md-3">
-            <button type="button" class="btn btn-default btn-md" disabled="disabled">
+            <button type="button submit" class="btn btn-default btn-md" formaction="<?php echo base_url('index.php/game/diplomacy/'.$game->game_id); ?>">
                 <span class="glyphicon glyphicon-play" aria-hidden="true"></span> Waiting
             </button>
         </div>

@@ -101,9 +101,23 @@ class Game extends MY_Controller {
         
         validate_exists($page['game']->game_id, 'No such game.', 0, 'templatexml');
         
-        // Calculate new RP
-        // ...
+        // Get interest rate from game settings
+        // ... todo ...
+        $interest_rate = 0.05;
         
+        // Calculate new RP for each faction
+        $this->load->model('factionmodel');
+        $factions = $this->factionmodel->get_by_game($game_id);
+        foreach($factions as $f)
+        {
+            $interest = $f->rp * $interest_rate;
+            log_message('error', $faction->name.' earned '.$interest.' RP in interest.');
+            $fup = new stdClass();
+            $fup->rp = $f->rp + $interest;
+            $this->factionmodel->update($f->faction_id, $fup);
+        }
+        
+        $this->session->set_flashdata('notice', 'Resource Points Banked');
         redirect ('game/resolution/'.$game_id, 'refresh');
     }
     
