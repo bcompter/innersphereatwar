@@ -24,9 +24,8 @@
         while ($c < $colsperrow[$r])
         {
             $x = $startX + $deltaXperrow[$r]*$width + $c*$width;
-            //log_message('error', 'pcm hexes: r='.$r.', c='.$c.', x='.$x.', y='.$y);
-            echo '<div class="hex" style="top:'.$y.'px; left:'.$x.'px;">';
-            echo 'Testing...';
+            echo '<div class="hex" style="top:'.$y.'px; left:'.$x.'px;" url="'.base_url('planet/view/view_hex/'.$planet->planet_id.'/'.$r.'/'.$c).'">';
+            echo sprintf('%02d%02d', $r, $c);
             echo '</div>';
             $c++;
         }

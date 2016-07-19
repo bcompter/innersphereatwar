@@ -202,6 +202,27 @@ class Planet extends MY_Controller {
     }
     
     /**
+     * View information on a hex
+     */
+    function view_hex($planet_id=0, $hex_row=0, $hex_column=0)
+    {
+        $page = $this->page;
+        $this->load->model('planetmodel');
+        $planet = $this->planetmodel->get_by_id($planet_id);
+        
+        // Get formations at this hex
+        $this->load->model('formationmodel');
+        $formations = $this->formationmodel->get_by_planet_hex($planet_id, $hex_row, $hex_column);
+        
+        $page['planet'] = $planet;
+        $page['formations'] = $formations;
+        $page['row'] = $hex_row;
+        $page['col'] = $hex_column;
+        $page['content'] = 'planet_view_hex';
+        $this->load->view('templatexml', $page);
+    }
+    
+    /**
      * Update the planetary ACS turn
      */
     function update_turn($planet_id=0, $adjustment=0)
