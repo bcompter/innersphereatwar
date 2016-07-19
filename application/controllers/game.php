@@ -90,10 +90,29 @@ class Game extends MY_Controller {
     }
     
     /**
+     * Bank RP points
+     */
+    function bank_rp($game_id=0)
+    {
+        $page = $this->page;
+        
+        $this->load->model('gamemodel');
+        $page['game'] = $this->gamemodel->get_by_id($game_id);
+        
+        validate_exists($page['game']->game_id, 'No such game.', 0, 'templatexml');
+        
+        // Calculate new RP
+        // ...
+        
+        redirect ('game/resolution/'.$game_id, 'refresh');
+    }
+    
+    /**
      * View a game resolution dashboard
      */
     function resolution($game_id=0)
     {
+        log_message('error', 'resolution of '.$game_id);
         $page = $this->page;
         
         $this->load->model('gamemodel');
