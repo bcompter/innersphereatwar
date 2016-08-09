@@ -5,21 +5,25 @@
     </ol> 
     
     <h1><?php echo $game->name; ?></h1>
-    <h2>Game Resolution Dashboard</h2>
+    <h2>Game Resolution Dashboard <small>(<?php echo $game->phase; ?>)</small></h2>
     
     <form action="<?php echo base_url('index.php/game/resolution/'.$game->game_id); ?>" method="post">
     
     <!-- Banking resource points -->
     <div class="row">
         <div class="col-md-9">
-            <h4>
-                <span class="glyphicon glyphicon-unchecked" aria-hidden="true"></span> 
+            <h4> 
                 Bank Resource Points
             </h4>
         </div>
         <div class="col-md-3">
-            <button type="button submit" class="btn btn-default btn-md" formaction="<?php echo base_url('index.php/game/bank_rp/'.$game->game_id); ?>">
-                <span class="glyphicon glyphicon-play" aria-hidden="true"></span> Execute
+            <button type="button submit" class="btn btn-default btn-md" <?php echo ($game->phase == 'bank_rp' ? '' : 'disabled="disabled"') ?> formaction="<?php echo base_url('index.php/game/bank_rp/'.$game->game_id); ?>">
+                <?php if ($game->phase == 'bank_rp'): ?>
+                    <span class="glyphicon glyphicon-play" aria-hidden="true"></span> Execute
+                <?php else: ?>
+                    <span class="glyphicon glyphicon-check" aria-hidden="true"></span> Done
+                <?php endif; ?>
+                
             </button>
         </div>
     </div>
@@ -28,13 +32,18 @@
     <div class="row">
         <div class="col-md-9">
             <h4>
-                <span class="glyphicon glyphicon-unchecked" aria-hidden="true"></span> 
                 Calculate Resource Points
             </h4>
         </div>
         <div class="col-md-3">
-            <button type="button submit" class="btn btn-default btn-md" formaction="<?php echo base_url('index.php/game/calc_rp/'.$game->game_id); ?>">
-                <span class="glyphicon glyphicon-play" aria-hidden="true"></span> Waiting
+            <button type="button submit" class="btn btn-default btn-md" <?php echo ($game->phase == 'calc_rp' ? '' : 'disabled="disabled"') ?> formaction="<?php echo base_url('index.php/game/calc_rp/'.$game->game_id); ?>">
+                <?php if ($game->phase == 'calc_rp'): ?>
+                    <span class="glyphicon glyphicon-play" aria-hidden="true"></span> Execute
+                <?php elseif ($game->phase > 'calc_rp'): ?>
+                    <span class="glyphicon glyphicon-check" aria-hidden="true"></span> Done
+                <?php else: ?>
+                    <span class="glyphicon glyphicon-play" aria-hidden="true"></span> Waiting
+                <?php endif; ?>
             </button>
         </div>
     </div>
@@ -43,7 +52,6 @@
     <div class="row">
         <div class="col-md-9">
             <h4>
-                <span class="glyphicon glyphicon-unchecked" aria-hidden="true"></span> 
                 Order Writing
             </h4>
         </div>
@@ -66,12 +74,11 @@
     <div class="row top17">
         <div class="col-md-9">
             <h4>
-                <span class="glyphicon glyphicon-unchecked" aria-hidden="true"></span> 
                 Infrastructure
             </h4>
         </div>
         <div class="col-md-3">
-            <button type="button submit" class="btn btn-default btn-md" formaction="<?php echo base_url('index.php/game/infrastructure/'.$game->game_id); ?>">
+            <button type="button submit" class="btn btn-default btn-md" disabled="disabled" formaction="<?php echo base_url('index.php/game/infrastructure/'.$game->game_id); ?>">
                 <span class="glyphicon glyphicon-play" aria-hidden="true"></span> Waiting
             </button>
         </div>
@@ -81,12 +88,11 @@
     <div class="row">
         <div class="col-md-9">
             <h4>
-                <span class="glyphicon glyphicon-unchecked" aria-hidden="true"></span> 
                 Mercenary Supply
             </h4>
         </div>
         <div class="col-md-3">
-            <button type="button submit" class="btn btn-default btn-md" formaction="<?php echo base_url('index.php/game/merc_supply/'.$game->game_id); ?>">
+            <button type="button submit" class="btn btn-default btn-md" disabled="disabled" formaction="<?php echo base_url('index.php/game/merc_supply/'.$game->game_id); ?>">
                 <span class="glyphicon glyphicon-play" aria-hidden="true"></span> Waiting
             </button>
         </div>
@@ -96,12 +102,11 @@
     <div class="row">
         <div class="col-md-9">
             <h4>
-                <span class="glyphicon glyphicon-unchecked" aria-hidden="true"></span> 
                 Mercenary Hiring
             </h4>
         </div>
         <div class="col-md-3">
-            <button type="button submit" class="btn btn-default btn-md" formaction="<?php echo base_url('index.php/game/merc_hiring/'.$game->game_id); ?>">
+            <button type="button submit" class="btn btn-default btn-md" disabled="disabled" formaction="<?php echo base_url('index.php/game/merc_hiring/'.$game->game_id); ?>">
                 <span class="glyphicon glyphicon-play" aria-hidden="true"></span> Waiting
             </button>
         </div>
@@ -111,12 +116,11 @@
     <div class="row">
         <div class="col-md-9">
             <h4>
-                <span class="glyphicon glyphicon-unchecked" aria-hidden="true"></span> 
                 Fortifications
             </h4>
         </div>
         <div class="col-md-3">
-            <button type="button submit" class="btn btn-default btn-md" formaction="<?php echo base_url('index.php/game/fortifications/'.$game->game_id); ?>">
+            <button type="button submit" class="btn btn-default btn-md" disabled="disabled" formaction="<?php echo base_url('index.php/game/fortifications/'.$game->game_id); ?>">
                 <span class="glyphicon glyphicon-play" aria-hidden="true"></span> Waiting
             </button>
         </div>
@@ -126,12 +130,11 @@
     <div class="row">
         <div class="col-md-9">
             <h4>
-                <span class="glyphicon glyphicon-unchecked" aria-hidden="true"></span> 
                 Diplomacy
             </h4>
         </div>
         <div class="col-md-3">
-            <button type="button submit" class="btn btn-default btn-md" formaction="<?php echo base_url('index.php/game/diplomacy/'.$game->game_id); ?>">
+            <button type="button submit" class="btn btn-default btn-md" disabled="disabled" formaction="<?php echo base_url('index.php/game/diplomacy/'.$game->game_id); ?>">
                 <span class="glyphicon glyphicon-play" aria-hidden="true"></span> Waiting
             </button>
         </div>
@@ -149,7 +152,6 @@
     <div class="row">
         <div class="col-md-9">
             <h4>
-                <span class="glyphicon glyphicon-unchecked" aria-hidden="true"></span> 
                 Raids
             </h4>
         </div>
@@ -164,7 +166,6 @@
     <div class="row">
         <div class="col-md-9">
             <h4>
-                <span class="glyphicon glyphicon-unchecked" aria-hidden="true"></span> 
                 Sub-phase 1
             </h4>
         </div>
@@ -207,7 +208,6 @@
     <div class="row">
         <div class="col-md-9">
             <h4>
-                <span class="glyphicon glyphicon-unchecked" aria-hidden="true"></span> 
                 Sub-phase 2
             </h4>
         </div>
@@ -248,7 +248,6 @@
     <div class="row">
         <div class="col-md-9">
             <h4>
-                <span class="glyphicon glyphicon-unchecked" aria-hidden="true"></span> 
                 Sub-phase 3
             </h4>
         </div>
@@ -289,7 +288,6 @@
     <div class="row">
         <div class="col-md-9">
             <h4>
-                <span class="glyphicon glyphicon-unchecked" aria-hidden="true"></span> 
                 Sub-phase 4
             </h4>
         </div>
@@ -330,7 +328,6 @@
     <div class="row">
         <div class="col-md-9">
             <h4>
-                <span class="glyphicon glyphicon-unchecked" aria-hidden="true"></span> 
                 End Phase
             </h4>
         </div>

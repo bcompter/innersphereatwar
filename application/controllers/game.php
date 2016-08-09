@@ -111,13 +111,51 @@ class Game extends MY_Controller {
         foreach($factions as $f)
         {
             $interest = $f->rp * $interest_rate;
-            log_message('error', $faction->name.' earned '.$interest.' RP in interest.');
+            log_message('error', $f->name.' earned '.$interest.' RP in interest.');
             $fup = new stdClass();
             $fup->rp = $f->rp + $interest;
             $this->factionmodel->update($f->faction_id, $fup);
         }
         
+        // Update game phase
+        $gameupdate = new stdClass();
+        $gameupdate->phase = 'calc_rp';
+        $this->gamemodel->update($game_id, $gameupdate);
+        
         $this->session->set_flashdata('notice', 'Resource Points Banked');
+        redirect ('game/resolution/'.$game_id, 'refresh');
+    }
+    
+    /**
+     * Calculate RP points
+     */
+    function calc_rp($game_id=0)
+    {
+        $page = $this->page;
+        
+        $this->load->model('gamemodel');
+        $page['game'] = $this->gamemodel->get_by_id($game_id);
+        
+        validate_exists($page['game']->game_id, 'No such game.', 0, 'templatexml');
+   
+        // Calculate RP for each faction
+        $this->load->model('factionmodel');
+        $factions = $this->factionmodel->get_by_game($game_id);
+        foreach($factions as $f)
+        {
+            $rp = 0;
+            log_message('error', $f->name.' earned '.$rp.' RP');
+            $fup = new stdClass();
+            $fup->rp = $f->rp + $rp;
+            $this->factionmodel->update($f->faction_id, $fup);
+        }
+        
+        // Update game phase
+        $gameupdate = new stdClass();
+        $gameupdate->phase = 'order_writing';
+        $this->gamemodel->update($game_id, $gameupdate);
+        
+        $this->session->set_flashdata('notice', 'Resource Points Calculated');
         redirect ('game/resolution/'.$game_id, 'refresh');
     }
     
