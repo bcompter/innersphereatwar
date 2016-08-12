@@ -140,11 +140,27 @@ class Game extends MY_Controller {
    
         // Calculate RP for each faction
         $this->load->model('factionmodel');
+        $this->load->model('planetmodel');
         $factions = $this->factionmodel->get_by_game($game_id);
         foreach($factions as $f)
         {
             $rp = 0;
+            
+            $planets = $this->planetmodel->get_by_faction_other($f->faction_id);
+            $rp += count($planets) * 2;
+            $planets = $this->planetmodel->get_by_faction_minor($f->faction_id);
+            $rp += count($planets) * 24;
+            $planets = $this->planetmodel->get_by_faction_major($f->faction_id);
+            $rp += count($planets) * 40;
+            $planets = $this->planetmodel->get_by_faction_hyper($f->faction_id);
+            $rp += count($planets) * 64;
+            $planets = $this->planetmodel->get_by_faction_regional($f->faction_id);
+            $rp += count($planets) * 40;
+            $planets = $this->planetmodel->get_by_faction_national($f->faction_id);
+            $rp += count($planets) * 80;
+            
             log_message('error', $f->name.' earned '.$rp.' RP');
+            
             $fup = new stdClass();
             $fup->rp = $f->rp + $rp;
             $this->factionmodel->update($f->faction_id, $fup);
