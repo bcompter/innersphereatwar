@@ -116,10 +116,12 @@ class Planet extends MY_Controller {
         
         $this->load->model('planetmodel');
         $this->load->model('commandmodel');
-        $page['planet'] = $this->planetmodel->get_detail_by_id($planet_id);
-        $page['planets'] = $this->planetmodel->get_by_game($page['planet']->game_id);
-        $page['commands'] = $this->commandmodel->get_by_planet($planet_id);
-        $page['content'] = 'planet_view';
+        $this->load->model('infrastructuremodel');
+        $page['planet']     = $this->planetmodel->get_detail_by_id($planet_id);
+        $page['planets']    = $this->planetmodel->get_by_game($page['planet']->game_id);
+        $page['commands']   = $this->commandmodel->get_by_planet($planet_id);
+        $page['upgrade']    = $this->infrastructuremodel->get_by_planet($planet_id);
+        $page['content']    = 'planet_view';
         $this->load->view('template', $page);
     }
     
@@ -267,6 +269,73 @@ class Planet extends MY_Controller {
         $this->load->model('tokenmodel');
         $page['tokens'] = $this->tokenmodel->get_by_planet($planet_id, $location);
         $this->load->view('planet_update', $page);
+    }
+    
+    /**
+     * Create a infrastructure upgrade order
+     */
+    function infrastructure_upgrade($planet_id = 0)
+    {
+        $page = $this->page;
+        
+        $this->load->model('planetmodel');
+        $planet = $this->planetmodel->get_by_id($planet_id);
+        
+        // Can't be a National Capital or Hyper Industrial world
+        if ($planet->type == 'National' || $planet->type == 'Hyper')
+        {
+            $this->session->set_flashdata('error', 'Error!');
+            redirect('planet/view/'.$planet_id, 'refresh');
+        }
+        
+        // Verify that there is no existing upgrade order
+        $this->load->model('infrastructuremodel');
+        $order = $this->infrastructuremodel->get_by_planet($planet_id);
+        if (isset($order->upgrade_id))
+        {
+            $this->session->set_flashdata('error', 'Error!');
+            redirect('planet/view/'.$planet_id, 'refresh');
+        }
+        
+        // Away we go!
+        $upgrade = new stdClass();
+        $upgrade->planet_id = $planet_id;
+        if ($planet->type == 'Other')
+            $upgrade->cost = 576;
+        else if ($planet->type == 'Minor' || $planet->type == 'Major')
+            $upgrade->cost = 960;
+        else if ($planet->type == 'Regional')
+            $upgrade->cost = 1920;
+        
+        $this->infrastructuremodel->create($upgrade);
+        $this->session->set_flashdata('notice', 'Upgrade Ordered!');
+        redirect('planet/view/'.$planet_id, 'refresh');
+    }
+    
+    
+    /**
+     * Create a infrastructure upgrade order
+     */
+    function infrastructure_upgrade_cancel($planet_id = 0)
+    {
+        $page = $this->page;
+        
+        $this->load->model('planetmodel');
+        $planet = $this->planetmodel->get_by_id($planet_id);
+        
+        
+        // Verify that there is an existing upgrade order to cancel
+        $this->load->model('infrastructuremodel');
+        $order = $this->infrastructuremodel->get_by_planet($planet_id);
+        if (!isset($order->upgrade_id))
+        {
+            $this->session->set_flashdata('error', 'Error!');
+            redirect('planet/view/'.$planet_id, 'refresh');
+        }
+
+        $this->infrastructuremodel->delete($order->upgrade_id);
+        $this->session->set_flashdata('notice', 'Upgrade Canceled!');
+        redirect('planet/view/'.$planet_id, 'refresh');
     }
     
     /**

@@ -8,6 +8,7 @@
     <h1><?php echo $game->name; ?></h1>
     <ul>
         <li>Turn: <?php echo $game->turn; ?> (<?php echo anchor('game/update_turn/'.$game->game_id.'/-1', '-'); ?> / <?php echo anchor('game/update_turn/'.$game->game_id.'/1', '+'); ?>)</li>
+        <li><?php echo anchor('game/resolution/'.$game->game_id, 'Resolution'); ?></li>
     </ul>
     <h2>List of Factions <small>(<?php echo anchor('faction/create/'.$game->game_id, 'add'); ?>)</small></h2>
     <table class="table table-striped">

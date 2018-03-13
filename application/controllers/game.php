@@ -180,7 +180,6 @@ class Game extends MY_Controller {
      */
     function resolution($game_id=0)
     {
-        log_message('error', 'resolution of '.$game_id);
         $page = $this->page;
         
         $this->load->model('gamemodel');
@@ -213,6 +212,60 @@ class Game extends MY_Controller {
         
         $this->session->set_flashdata('notice', 'Game updated.');
         redirect('game/view/'.$game_id, 'refresh');
+    }
+    
+    
+    /**
+     * Execute all infrastucture improvement orders
+     */
+    function infrastructure($game_id=0)
+    {
+        $page = $this->page;
+        $this->load->model('factionmodel');
+        $this->load->model('planetmodel');
+        
+        $this->load->model('gamemodel');
+        $page['game'] = $this->gamemodel->get_by_id($game_id);
+        
+        // Game must exist
+        validate_exists($page['game']->game_id, 'No such game.', 'home/dashboard');
+        
+        // Grab all infrastructure orders from the database
+        $this->load->model('infrastructuremodel');
+        $orders = $this->infrastructuremodel->get_by_game($game_id);
+                
+        // Execute all orders, then delete
+        foreach ($orders as $o)
+        {
+            // Pay the cost
+            $planet = $this->planetmodel->get_by_id($o->planet_id);
+            $faction = $this->factionmodel->get_by_id($planet->faction_id);
+            $faction->rp -= $o->cost;
+            $this->factionmodel->update($faction->faction_id, $faction);
+            
+            // Upgrade the world
+            if ($planet->type == 'Other')
+                $planet->type = 'Minor';
+            else if ($planet->type == 'Minor')
+                $planet->type = 'Major';
+            else if ($planet->type == 'Major')
+                $planet->type = 'Regional';
+            else if ($planet->type == 'Regional')
+                $planet->type = 'Capital';
+            $this->planetmodel->update($planet->planet_id, $planet);
+            
+            // Delete the order
+            $this->infrastructuremodel->delete($o->upgrade_id);
+        }
+        
+        // Update game phase
+        $gameupdate = new stdClass();
+        //$gameupdate->phase = 'merc_supply';
+        //$this->gamemodel->update($game_id, $gameupdate);
+        
+        $this->session->set_flashdata('notice', 'Infrastructure Upgrades Complete');
+        redirect ('game/resolution/'.$game_id, 'refresh');
+        
     }
     
 }

@@ -46,7 +46,7 @@
           <ul class="nav navbar-nav">
             <li class="active"><?php echo anchor('home/dashboard', 'Dashboard'); ?></li>
           </ul>
-        </div><!--/.nav-collapse -->
+        </div><!--/.nav-collapse -->        
       </div>
     </nav>
       

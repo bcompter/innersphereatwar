@@ -26,6 +26,6 @@ Class Ordermodel extends MY_Model {
     function get_by_command($command_id)
     {
         return $this->db->query('SELECT * FROM orders WHERE command_id='.$command_id)->result();
-    }    
+    }  
     
 }

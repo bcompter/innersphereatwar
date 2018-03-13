@@ -10,7 +10,7 @@
         <div class="col-md-7">
             <table class="table table-striped">
                 <tr><td>Owner</td><td><?php $planet->faction_name; ?></td></tr>
-                <tr>    <td>Type</td><td><?php echo $planet->type; ?></td></tr>
+                <?php $this->load->view('planet_view__type'); ?>
                 <tr>    <td>X</td><td><?php echo $planet->x; ?></td></tr>
                 <tr>    <td>Y</td><td><?php echo $planet->y; ?></td></tr>
                 <tr>    

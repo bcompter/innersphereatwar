@@ -78,8 +78,14 @@
             </h4>
         </div>
         <div class="col-md-3">
-            <button type="button submit" class="btn btn-default btn-md" disabled="disabled" formaction="<?php echo base_url('index.php/game/infrastructure/'.$game->game_id); ?>">
-                <span class="glyphicon glyphicon-play" aria-hidden="true"></span> Waiting
+            <button type="button submit" class="btn btn-default btn-md" <?php echo ($game->phase == 'infrastructure' ? '' : 'disabled="disabled"') ?> formaction="<?php echo base_url('index.php/game/infrastructure/'.$game->game_id); ?>">
+                <?php if ($game->phase == 'infrastructure'): ?>
+                    <span class="glyphicon glyphicon-play" aria-hidden="true"></span> Execute
+                <?php elseif ($game->phase > 'infrastructure'): ?>
+                    <span class="glyphicon glyphicon-check" aria-hidden="true"></span> Done
+                <?php else: ?>
+                    <span class="glyphicon glyphicon-play" aria-hidden="true"></span> Waiting
+                <?php endif; ?>
             </button>
         </div>
     </div>
@@ -92,8 +98,14 @@
             </h4>
         </div>
         <div class="col-md-3">
-            <button type="button submit" class="btn btn-default btn-md" disabled="disabled" formaction="<?php echo base_url('index.php/game/merc_supply/'.$game->game_id); ?>">
-                <span class="glyphicon glyphicon-play" aria-hidden="true"></span> Waiting
+            <button type="button submit" class="btn btn-default btn-md" <?php echo ($game->phase == 'merc_supply' ? '' : 'disabled="disabled"') ?> formaction="<?php echo base_url('index.php/game/merc_supply/'.$game->game_id); ?>">
+                <?php if ($game->phase == 'merc_supply'): ?>
+                    <span class="glyphicon glyphicon-play" aria-hidden="true"></span> Execute
+                <?php elseif ($game->phase > 'merc_supply'): ?>
+                    <span class="glyphicon glyphicon-check" aria-hidden="true"></span> Done
+                <?php else: ?>
+                    <span class="glyphicon glyphicon-play" aria-hidden="true"></span> Waiting
+                <?php endif; ?>
             </button>
         </div>
     </div>
@@ -106,8 +118,14 @@
             </h4>
         </div>
         <div class="col-md-3">
-            <button type="button submit" class="btn btn-default btn-md" disabled="disabled" formaction="<?php echo base_url('index.php/game/merc_hiring/'.$game->game_id); ?>">
-                <span class="glyphicon glyphicon-play" aria-hidden="true"></span> Waiting
+            <button type="button submit" class="btn btn-default btn-md" <?php echo ($game->phase == 'merc_hiring' ? '' : 'disabled="disabled"') ?> formaction="<?php echo base_url('index.php/game/merc_hiring/'.$game->game_id); ?>">
+                <?php if ($game->phase == 'merc_hiring'): ?>
+                    <span class="glyphicon glyphicon-play" aria-hidden="true"></span> Execute
+                <?php elseif ($game->phase > 'merc_hiring'): ?>
+                    <span class="glyphicon glyphicon-check" aria-hidden="true"></span> Done
+                <?php else: ?>
+                    <span class="glyphicon glyphicon-play" aria-hidden="true"></span> Waiting
+                <?php endif; ?>
             </button>
         </div>
     </div>
@@ -120,8 +138,14 @@
             </h4>
         </div>
         <div class="col-md-3">
-            <button type="button submit" class="btn btn-default btn-md" disabled="disabled" formaction="<?php echo base_url('index.php/game/fortifications/'.$game->game_id); ?>">
-                <span class="glyphicon glyphicon-play" aria-hidden="true"></span> Waiting
+            <button type="button submit" class="btn btn-default btn-md" <?php echo ($game->phase == 'fortifications' ? '' : 'disabled="disabled"') ?> formaction="<?php echo base_url('index.php/game/fortifications/'.$game->game_id); ?>">
+                <?php if ($game->phase == 'fortifications'): ?>
+                    <span class="glyphicon glyphicon-play" aria-hidden="true"></span> Execute
+                <?php elseif ($game->phase > 'fortifications'): ?>
+                    <span class="glyphicon glyphicon-check" aria-hidden="true"></span> Done
+                <?php else: ?>
+                    <span class="glyphicon glyphicon-play" aria-hidden="true"></span> Waiting
+                <?php endif; ?>
             </button>
         </div>
     </div>
@@ -134,8 +158,14 @@
             </h4>
         </div>
         <div class="col-md-3">
-            <button type="button submit" class="btn btn-default btn-md" disabled="disabled" formaction="<?php echo base_url('index.php/game/diplomacy/'.$game->game_id); ?>">
-                <span class="glyphicon glyphicon-play" aria-hidden="true"></span> Waiting
+            <button type="button submit" class="btn btn-default btn-md" <?php echo ($game->phase == 'diplomacy' ? '' : 'disabled="disabled"') ?> formaction="<?php echo base_url('index.php/game/diplomacy/'.$game->game_id); ?>">
+                <?php if ($game->phase == 'diplomacy'): ?>
+                    <span class="glyphicon glyphicon-play" aria-hidden="true"></span> Execute
+                <?php elseif ($game->phase > 'diplomacy'): ?>
+                    <span class="glyphicon glyphicon-check" aria-hidden="true"></span> Done
+                <?php else: ?>
+                    <span class="glyphicon glyphicon-play" aria-hidden="true"></span> Waiting
+                <?php endif; ?>
             </button>
         </div>
     </div>

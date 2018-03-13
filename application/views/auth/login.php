@@ -1,36 +1,41 @@
 <div class="container">
-<h1>Login</h1>
+    <div class="row">
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
+    <h1>Login</h1>
 
-<div class='mainInfo'>
-<br />
+    <div class='mainInfo'>
+        <br />
 
-    <div class="pageTitleBorder"></div>
-	<p>Please login with your email address and password below.</p>
-	
-	<div id="infoMessage"><?php echo (isset($message) ? $message : '') ;?></div>
-	
-    <?php echo form_open("auth/login");?>
-    	
-      <p>
-      	<label for="email">Email:</label>
-      	<?php echo form_input($email);?>
-      </p>
-      
-      <p>
-      	<label for="password">Password:</label>
-      	<?php echo form_input($password);?>
-      </p>
-      
-      <p>
-	      <label for="remember">Remember Me:</label>
-	      <?php echo form_checkbox('remember', '1', FALSE);?>
-	  </p>
-      
-      
-      <p><?php echo form_submit('submit', 'Login');?></p>
+        <div class="pageTitleBorder"></div>
+        <p>Please login with your email address and password below.</p>
 
-      
-    <?php echo form_close();?>
+        <div id="infoMessage"><?php echo (isset($message) ? $message : '') ;?></div>
 
-</div>
+        <?php echo form_open("auth/login");?>
+
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="text" name="email" id="email" class="form-control">
+        </div>
+
+        <div class="form-group">
+            <label for="password">Password:</label>
+            <input type="password" name="password" id="email" class="form-control">
+        </div>
+        
+        <div class="checkbox">
+            <label>
+                <input type="checkbox"> Remember Me
+            </label>
+        </div>
+        <?php echo form_submit('submit', 'Login');?>
+
+
+        </form>
+
+    </div>
+    <div class="col-md-4"></div>
+    </div>
+    </div>
 </div>
