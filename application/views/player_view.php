@@ -23,10 +23,11 @@
                 <th>In Supply</th>
                 <th>Location</th>
                 <th>In Combat</th>
-                <th>Has Orders</th>
+                <th>Has Orders?</th>
                 <th>&nbsp;</th>
             </tr>
         </thead>
+    <?php if (isset($commands)): ?>
     <?php foreach($commands as $c): ?>
         <tbody>
             <tr>
@@ -43,6 +44,7 @@
         </tbody>
         
     <?php endforeach; ?>
+    <?php endif; ?>
     </table>
     
 </div>

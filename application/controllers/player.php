@@ -26,12 +26,14 @@ class Player extends MY_Controller {
         $faction = $this->factionmodel->get_by_id($player->faction_id);
         
         $this->load->model('rankmodel');
-        $rank = $this->rankmodel->get_by_player($player->player_id);
+        $rank = $this->rankmodel->get_by_id($player->rank);
         
-        $page['rank'] = $rank;
-        $page['faction'] = $faction;
-        $page['player'] = $player;
-        $page['content'] = 'player_view';
+        
+        $page['commmands']  = null;
+        $page['rank']       = $rank;
+        $page['faction']    = $faction;
+        $page['player']     = $player;
+        $page['content']    = 'player_view';
         $this->load->view('template', $page);
     }
     

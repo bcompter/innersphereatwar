@@ -20,4 +20,12 @@ Class Rankmodel extends MY_Model {
         return $this->db->query('SELECT * FROM ranks WHERE faction_id='.$faction_id.' ORDER BY order_num asc')->result();
     }
     
+    /**
+     * Get rank by player
+     */
+    function get_by_player($player_id)
+    {
+        return $this->db->query('SELECT * FROM ranks WHERE player_id='.$player_id)->row();
+    }
+    
 }

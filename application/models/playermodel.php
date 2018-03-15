@@ -13,6 +13,16 @@ Class Playermodel extends MY_Model {
     }
     
     /**
+     * Get by id, join user data
+     */
+    function get_by_id($player_id)
+    {
+        return $this->db->query('SELECT players.*, users.username AS username FROM players '
+                . 'JOIN users ON users.id=players.user_id '
+                . 'WHERE player_id='.$player_id)->row();
+    }
+    
+    /**
      * Get all players associated with a faction
      */
     function get_by_faction($faction_id)
