@@ -50,7 +50,7 @@
     
     <tr>
         <td><?php echo $p->name; ?></td>
-        <td></td>
+        <td><?php echo $p->rank; ?></td>
         <td><?php echo anchor('player/view/'.$p->user_id, 'VIEW'); ?></td>
     </tr>
         

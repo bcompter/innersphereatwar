@@ -8,7 +8,7 @@
             <th>Faction</th><td><?php echo anchor('faction/view/'.$faction->faction_id, $faction->name); ?></td>
         </tr>
         <tr>
-            <th>Rank</th><td><?php echo $rank->text; ?></td>
+            <th>Rank</th><td><?php echo $rank->text; ?> (<?php echo anchor('ranks/modify/'.$player->player_id, 'MODIFY'); ?>)</td>
         </tr>
     </table>
     
